@@ -1,3 +1,4 @@
+using Gifter.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,7 @@ namespace Tabloid
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
