@@ -30,5 +30,33 @@ namespace Tabloid.Controllers
             }
             return Ok(tag);
         }
+
+        [HttpPost]
+
+        public IActionResult Post(Tag tag)
+        {
+            _tagRepository.AddTag(tag);
+            return CreatedAtAction("Get", new { id = tag.Id }, tag);
+        }
+
+        [HttpPut("{Id}")]
+
+        public IActionResult Put(int Id, Tag tag)
+        {
+            if (tag.Id != Id)
+            {
+                return BadRequest();
+            }
+
+            _tagRepository.UpdateTag(tag);
+            return NoContent();
+        }
+
+        [HttpDelete("{Id}")]
+        public IActionResult Delete(int Id)
+        {
+            _tagRepository.Delete(Id);
+            return NoContent();
+        }
     }
 }

@@ -97,5 +97,41 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void UpdateTag(Tag tag)
+        {
+            using( var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        UPDATE Tag
+                                        SET Name = @name
+                                        WHERE Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", tag.Id);
+                    DbUtils.AddParameter(cmd, "@name", tag.Name);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void Delete(int Id)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using( var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        DELETE FROM PostTag
+                                        WHERE TagId = @Id
+                                        DELETE FROM Tag
+                                        WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
