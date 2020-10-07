@@ -35,24 +35,24 @@ namespace Tabloid.Repositories
                     {
                         posts.Add(new Post()
                         {
-                            Id = DbUtils.GetInt(reader, "p.Id"),
-                            Title = DbUtils.GetString(reader, "p.Title"),
-                            Content = DbUtils.GetString(reader, "p.Content"),
-                            ImageLocation = DbUtils.GetString(reader, "p.ImageLocation"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "p.CreateDateTime"),
-                            PublishDateTime = DbUtils.GetDateTime(reader, "p.PublishDateTime"),
-                            IsApproved = DbUtils.GetInt(reader, "p.IsApproved"),
-                            CategoryId = DbUtils.GetInt(reader, "p.CategoryId"),
-                            UserProfileId = DbUtils.GetInt(reader, "p.UserProfileId"),
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            //IsApproved = DbUtils.GetInt(reader, "IsApproved"),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {
-                                Id = DbUtils.GetInt(reader, "p.UserProfileId"),
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
                                 FirstName = DbUtils.GetString(reader, "PosterFirstName"),
                                 LastName = DbUtils.GetString(reader, "PosterLastName")
                             },
                             Category = new Category()
                             {
-                                Id = DbUtils.GetInt(reader, "p.CategoryId"),
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
                                 Name = DbUtils.GetString(reader, "CategoryName")
 
                             }
@@ -93,24 +93,24 @@ namespace Tabloid.Repositories
                     {
                         post = new Post()
                         {
-                            Id = DbUtils.GetInt(reader, "p.Id"),
-                            Title = DbUtils.GetString(reader, "p.Title"),
-                            Content = DbUtils.GetString(reader, "p.Content"),
-                            ImageLocation = DbUtils.GetString(reader, "p.ImageLocation"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "p.CreateDateTime"),
-                            PublishDateTime = DbUtils.GetDateTime(reader, "p.PublishDateTime"),
-                            IsApproved = DbUtils.GetInt(reader, "p.IsApproved"),
-                            CategoryId = DbUtils.GetInt(reader, "p.CategoryId"),
-                            UserProfileId = DbUtils.GetInt(reader, "p.UserProfileId"),
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = DbUtils.GetInt(reader, "IsApproved"),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {
-                                Id = DbUtils.GetInt(reader, "p.UserProfileId"),
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
                                 FirstName = DbUtils.GetString(reader, "PosterFirstName"),
                                 LastName = DbUtils.GetString(reader, "PosterLastName")
                             },
                             Category = new Category()
                             {
-                                Id = DbUtils.GetInt(reader, "p.CategoryId"),
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
                                 Name = DbUtils.GetString(reader, "CategoryName")
 
                             }
