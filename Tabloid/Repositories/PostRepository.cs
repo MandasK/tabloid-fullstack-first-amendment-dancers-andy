@@ -81,7 +81,7 @@ namespace Tabloid.Repositories
                                          c.Name AS CategoryName
                                          FROM Post p
                                          LEFT JOIN UserProfile up on p.UserProfileId = up.Id
-                                         LEFT JOIN Category c on p.CategoryId = c.Id;
+                                         LEFT JOIN Category c on p.CategoryId = c.Id
                                          WHERE p.Id = @Id;";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
@@ -99,7 +99,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
-                            IsApproved = DbUtils.GetInt(reader, "IsApproved"),
+                            //IsApproved = DbUtils.GetInt(reader, "IsApproved"),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
@@ -173,9 +173,9 @@ namespace Tabloid.Repositories
                                Content = @Content,
                                ImageLocation = @ImageLocation,
                                CreateDateTime = @CreateDateTime,
-                               PublishDateTime = @PublishDateTime
-                               IsApproved = @IsApproved
-                               CategoryId = @CategoryId
+                               PublishDateTime = @PublishDateTime,
+                               IsApproved = @IsApproved,
+                               CategoryId = @CategoryId,
                                UserProfileId = @UserProfileId
                          WHERE Id = @Id";
 
