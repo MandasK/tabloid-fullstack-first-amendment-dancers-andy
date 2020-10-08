@@ -23,6 +23,7 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                             SELECT Id, Name
                             FROM Category
+                            WHERE Id != 10
                             ORDER BY Name
                                        ";
                     var reader = cmd.ExecuteReader();
@@ -45,6 +46,37 @@ namespace Tabloid.Repositories
             }
         }
 
+        public Category GetCategoryById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Id, Name
+                        FROM Category
+                        WHERE Id= @id
+                                       ";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Category category = null;
+                    if(reader.Read())
+                    {
+                        category = new Category()
+                        {
+                            Id = id,
+                            Name = DbUtils.GetString(reader, "Name")
+                        };
+                    }
+                    reader.Close();
+                    return category;
+                }
+            }
+        }
+
         public void AddCategory(Category category)
         {
             using (var conn = Connection)
@@ -60,6 +92,55 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@name", category.Name);
 
                     category.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void DeleteCategory(int categoryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Post
+                        SET CategoryId = 10
+                        WHERE CategoryId = @id
+                                       ";
+                    DbUtils.AddParameter(cmd, "@id", categoryId);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE FROM Category
+                        WHERE Id = @id
+                                       ";
+                    DbUtils.AddParameter(cmd, "@id", categoryId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateCategory(Category category)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Category
+                        SET Name = @name
+                        WHERE Id = @id
+                                       ";
+                    DbUtils.AddParameter(cmd, "@name", category.Name);
+                    DbUtils.AddParameter(cmd, "@id", category.Id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

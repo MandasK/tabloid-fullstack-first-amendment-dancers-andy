@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import { CategoryContext } from '../../providers/CategoryProvider';
 import Category from './Category';
-import { ListGroup, Row } from 'reactstrap';
+import { Button, ListGroup, Row } from 'reactstrap';
 import { Link } from "react-router-dom";
 
-const CategoryList = () => {
-    const { categories, getAllCategories } = useContext(CategoryContext);
+const CategoryList = (props) => {
+    const { categories, getAllCategories, getById, deleteCategory } = useContext(CategoryContext);
 
     useEffect(() => {
         getAllCategories();
@@ -22,7 +23,10 @@ const CategoryList = () => {
                 <Row>
                     <ListGroup>
                         {categories.map((category) => (
-                            <Category key={category.id} category={category} />
+                            <>
+                                <Category key={category.id} category={category} />
+
+                            </>
                         ))}
                     </ListGroup>
                 </Row>

@@ -6,6 +6,9 @@ import Register from "./Register";
 import Hello from "./Hello";
 import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
+import CategoryDelete from "./Category/CategoryDelete";
+import CategoryEdit from "./Category/CategoryEdit";
+import { useParams } from "react-router-dom";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -29,6 +32,12 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/category/add">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/category/:id/delete">
+          {isLoggedIn ? <CategoryDelete /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/category/:id/edit">
+          {isLoggedIn ? <CategoryEdit /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
     </main>
