@@ -20,7 +20,7 @@ export function CategoryProvider(props) {
 
     const addCategory = (category) =>
         getToken().then((token) =>
-            fetch('api/category', {
+            fetch("/api/category", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
