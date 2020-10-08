@@ -1,22 +1,43 @@
-.tag_Button {    
-    margin: 1%;
-    min-width: 8rem;
+.tag_Button {
+  margin: 1%;
+  min-width: 8rem;
 }
 
 .tag_Container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .tag_Headline {
-    display: flex;
-    justify-content: space-between;
-    background-color: cornflowerblue;
-    color:white;
+  display: flex;
+  justify-content: space-between;
+  background-color: cornflowerblue;
+  color: white;
 }
 
 .tag_Spacer {
-    margin: 10px;
+  margin: 10px;
+}
+
+.edit_Fields {
+  border: 1px solid slategray;
+
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  margin-bottom: 3%;
+  margin-top: 3%;
+}
+
+.edit_Tag_Input_Field {
+  background: transparent;
+  border: none;
+  color: white;
+  text-align: center;
+}
+
+.edit_Row1 {
+  display: flex;
+  justify-content: space-between;
 }

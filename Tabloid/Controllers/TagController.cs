@@ -49,7 +49,7 @@ namespace Tabloid.Controllers
             }
 
             _tagRepository.UpdateTag(tag);
-            return NoContent();
+            return CreatedAtAction("Get", new { id = tag.Id }, tag);
         }
 
         [HttpDelete("{Id}")]

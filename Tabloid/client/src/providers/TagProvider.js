@@ -34,8 +34,38 @@ export const TagProvider = (props) => {
     );
   };
 
+  const UpdateTag = (tag) => {
+    getToken().then((token) => 
+    fetch(`/api/tag/${tag.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tag),
+    }))
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Unauthorized");
+    });
+  }
+
+  const DeleteTag = (id) => {
+    getToken().then((token) =>
+    fetch(`api/tag/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }))
+  }
+
   return (
-    <TagContext.Provider value={{ tags, tagToEdit, GetAllTags, GetTagById }}>
+    <TagContext.Provider
+      value={{ tags, tagToEdit, setTagToEdit, GetAllTags, GetTagById, UpdateTag, DeleteTag }}
+    >
       {props.children}
     </TagContext.Provider>
   );
