@@ -41,7 +41,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
-                            //IsApproved = DbUtils.GetInt(reader, "IsApproved"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
@@ -99,7 +99,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
-                            //IsApproved = DbUtils.GetInt(reader, "IsApproved"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
