@@ -22,7 +22,7 @@ namespace Tabloid.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_postRepository.GetAllPosts());
+            return Ok(_postRepository.GetAllApprovedPosts());
         }
 
 

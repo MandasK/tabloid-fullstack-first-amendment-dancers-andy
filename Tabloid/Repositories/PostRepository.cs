@@ -12,7 +12,7 @@ namespace Tabloid.Repositories
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Post> GetAllPosts()
+        public List<Post> GetAllApprovedPosts()
         {
             using (var conn = Connection)
             {
@@ -26,7 +26,9 @@ namespace Tabloid.Repositories
                                          c.Name AS CategoryName
                                          FROM Post p
                                          LEFT JOIN UserProfile up on p.UserProfileId = up.Id
-                                         LEFT JOIN Category c on p.CategoryId = c.Id;";
+                                         LEFT JOIN Category c on p.CategoryId = c.Id
+                                         WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
+                                         ORDER BY PublishDateTime DESC;";
 
                     var reader = cmd.ExecuteReader();
 
