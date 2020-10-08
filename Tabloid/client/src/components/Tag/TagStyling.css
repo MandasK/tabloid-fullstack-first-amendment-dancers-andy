@@ -1,0 +1,22 @@
+.tag_Button {    
+    margin: 1%;
+    min-width: 8rem;
+}
+
+.tag_Container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.tag_Headline {
+    display: flex;
+    justify-content: space-between;
+    background-color: cornflowerblue;
+    color:white;
+}
+
+.tag_Spacer {
+    margin: 10px;
+}

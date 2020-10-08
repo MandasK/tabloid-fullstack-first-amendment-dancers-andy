@@ -2,10 +2,10 @@ import React from 'react'
 import { Button } from 'reactstrap'
 
 const Tag = (props) => {
-console.log(props)
+
     return (
         <>
-        <Button>
+        <Button className="tag_Button" color="primary" onClick={() => props.editTag(props.tag.id)}>
             {props.tag.name}
         </Button>
         </>
