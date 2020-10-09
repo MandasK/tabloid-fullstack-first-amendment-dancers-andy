@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
+  const { id } = useParams();
 
   return (
     <main>

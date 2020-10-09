@@ -31,7 +31,7 @@ namespace Tabloid.Controllers
         public IActionResult Get(int id)
         {
             var category = _categoryRepo.GetCategoryById(id);
-            if(category == null)
+            if(category == null || category.Id == 10)
             {
                 return NotFound();
             }
@@ -48,6 +48,11 @@ namespace Tabloid.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            var category = _categoryRepo.GetCategoryById(id);
+            if (id == 10 || id != category.Id)
+            {
+                return BadRequest();
+            }
             _categoryRepo.DeleteCategory(id);
             return NoContent();
         }
@@ -55,7 +60,7 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Category category)
         {
-            if(id != category.Id)
+            if (id == 10 || id != category.Id)
             {
                 return BadRequest();
             }

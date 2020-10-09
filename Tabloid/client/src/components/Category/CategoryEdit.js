@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { useParams, useHistory } from 'react-router-dom';
-import { Button, Form, FormGroup } from 'reactstrap';
+import { Button, Form, FormGroup, Row } from 'reactstrap';
+import "./Category.css"
 
 const CategoryEdit = () => {
     const [category, setCategory] = useState();
@@ -21,7 +22,7 @@ const CategoryEdit = () => {
     }
 
     const editCategory = () => {
-        if (updatedCategory.id !== 0) {
+        if (updatedCategory.id !== 0 || updatedCategory.id !== 10) {
             updateCategory({
                 id: parseInt(category.id),
                 name: updatedCategory.name
@@ -37,24 +38,44 @@ const CategoryEdit = () => {
 
     return (
         <>
-            <Form>
-                <FormGroup>
-                    <label htmlFor="name">Name</label>
-                    <input type="text"
-                        name="name"
-                        required
-                        className="form-control"
-                        defaultValue={category.name}
-                        onChange={handleEdit} />
-                </FormGroup>
-                <FormGroup>
-                    <Button type="button"
-                        onClick={e => {
-                            e.preventDefault()
-                            editCategory()
-                        }}>Save Changes</Button>
-                </FormGroup>
-            </Form>
+            <div className="container">
+                <div className="justify-content-center">
+                    <Row>
+                        <h4>Edit Category</h4>
+                    </Row>
+                    <br></br>
+                    <Form>
+                        <Row>
+                            <FormGroup>
+                                <label htmlFor="name">Name</label>
+                                <input type="text"
+                                    name="name"
+                                    required
+                                    className="form-control"
+                                    defaultValue={category.name}
+                                    onChange={handleEdit} />
+                            </FormGroup>
+                        </Row>
+                        <Row>
+                            <FormGroup>
+                                <Button type="button"
+                                    color="success"
+                                    onClick={e => {
+                                        e.preventDefault()
+                                        editCategory()
+                                    }}>Save Changes</Button>
+                            </FormGroup>
+                            <FormGroup>
+                                <Button type="button"
+                                    className="goBackEditCategory"
+                                    onClick={e => {
+                                        history.push("/category")
+                                    }}>Go Back</Button>
+                            </FormGroup>
+                        </Row>
+                    </Form>
+                </div>
+            </div>
         </>
     )
 }

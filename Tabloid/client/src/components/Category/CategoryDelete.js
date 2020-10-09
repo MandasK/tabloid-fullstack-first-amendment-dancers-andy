@@ -2,7 +2,8 @@ import React, { useEffect, useContext, useState } from "react";
 import { CategoryContext } from '../../providers/CategoryProvider';
 import { useParams, useHistory } from 'react-router-dom';
 import Category from './Category';
-import { Button } from 'reactstrap';
+import { Button, Row } from 'reactstrap';
+import "./Category.css"
 
 const CategoryDelete = () => {
     const [category, setCategory] = useState();
@@ -27,10 +28,21 @@ const CategoryDelete = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-sm-12 col-lg-6">
-                    <h3>Are you sure you want to delete {category.name}?</h3>
-                    <Button onClick={handleDelete}>Delete</Button>
-
+                <div className="col">
+                    <h3>Are you sure you want to delete Category: "{category.name}"?</h3>
+                    <br></br>
+                    <Row >
+                        <Button
+                            className="deleteCategoryButton"
+                            color="danger"
+                            onClick={handleDelete}>
+                            Delete</Button>
+                        <Button type="button"
+                            className="goBackCategoryButton"
+                            onClick={e => {
+                                history.push("/category")
+                            }}>Go Back</Button>
+                    </Row>
                 </div>
             </div>
         </div>

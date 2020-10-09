@@ -4,6 +4,7 @@ import { CategoryContext } from '../../providers/CategoryProvider';
 import Category from './Category';
 import { Button, ListGroup, Row } from 'reactstrap';
 import { Link } from "react-router-dom";
+import "./Category.css"
 
 const CategoryList = (props) => {
     const { categories, getAllCategories, getById, deleteCategory } = useContext(CategoryContext);
@@ -20,15 +21,16 @@ const CategoryList = (props) => {
                     <p><Link to={`/category/add`}>Add New Category</Link></p>
 
                 </Row>
+                <br></br>
                 <Row>
-                    <ListGroup>
-                        {categories.map((category) => (
-                            <>
-                                <Category key={category.id} category={category} />
 
-                            </>
-                        ))}
-                    </ListGroup>
+                    {categories.map((category) => (
+                        <>
+                            <Category key={category.id} category={category} />
+
+                        </>
+                    ))}
+
                 </Row>
             </div>
         </div>
