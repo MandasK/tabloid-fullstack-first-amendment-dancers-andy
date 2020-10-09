@@ -8,7 +8,7 @@ const Category = ({ category }) => {
         <>
 
             <Card className="categoryCard">
-                <div ClassName="row">
+                <div className="row">
                     <CardBody className="text-center">
                         <CardText className="CardText">{category.name}</CardText>
 
