@@ -4,6 +4,8 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import TagList from "./Tag/TagList"
+import { TagProvider } from "../providers/TagProvider";
 import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
@@ -19,6 +21,14 @@ export default function ApplicationViews() {
       <Switch>
         <Route path="/" exact>
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/tagmanagement">
+
+          {isLoggedIn ? 
+          <TagProvider>
+            <TagList /> 
+          </TagProvider>
+          : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
