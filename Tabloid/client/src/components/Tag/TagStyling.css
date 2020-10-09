@@ -1,0 +1,121 @@
+@media screen and (min-width: 480px) {
+  .tag_View_Container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .edit_Fields {
+    max-width: fit-content;
+    min-width: 28rem;
+    min-height: 15vh;
+    border: 1px solid slategray;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    margin-bottom: 3%;
+  }
+  .tag_Action_Button {
+    margin: 1%;
+    min-width: 8rem;
+  }
+  .delete_Tag_Headline {
+    margin: 5%;
+  }
+
+  .delete_Box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: fit-content;
+    min-width: 28rem;
+    min-height: 15vh;
+    border: 1px solid slategray;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    margin-bottom: 3%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tag_View_Container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .edit_Fields {
+    min-height: 20vh;
+    border: 1px solid slategray;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
+    margin-bottom: 3%;
+  }
+  .delete_Tag_Headline {
+    margin: 5%;
+  }
+  .delete_Box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 20vh;
+    border: 1px solid slategray;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
+    margin-bottom: 3%;
+  }
+  .tag_Action_Button {
+    margin: 1% 5% 5% 0;
+    min-width: 5rem;
+  }
+}
+
+.tag_Button {
+  margin: 1%;
+  min-width: 8rem;
+}
+
+.left_side_buttons {
+  margin-left: 0.2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.tag_Container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border: black 1px solid;
+}
+
+.tag_Headline {
+  display: flex;
+  justify-content: space-between;
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.tag_Spacer {
+  margin: 10px;
+}
+
+.edit_Tag_Input_Field {
+  background: transparent;
+  border: none;
+  color: white;
+  text-align: center;
+}
+
+.edit_Row1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit_Row2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tag_Delete_Button {
+  margin-right: 0.4rem;
+}
