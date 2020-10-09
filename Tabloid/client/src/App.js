@@ -8,20 +8,24 @@ import { CommentProvider } from './providers/CommentProvider';
 import CommentForm from './components/Comment/CommentForm'
 import CommentDelete from './components/Comment/CommentDelete';
 
+import { PostProvider } from './providers/PostProvider';
 import { CategoryProvider } from "./providers/CategoryProvider"
 
 function App() {
   return (
     <Router>
       <UserProfileProvider>
-        <Header />
-        <ApplicationViews />
         <CommentProvider>
         <CommentForm />
-
         </CommentProvider>
         <CategoryProvider>
         </CategoryProvider>
+        <PostProvider>
+          <CategoryProvider>
+            <Header />
+            <ApplicationViews />
+          </CategoryProvider>
+        </PostProvider>
       </UserProfileProvider>
     </Router>
   );
