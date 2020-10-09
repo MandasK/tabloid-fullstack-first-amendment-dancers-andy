@@ -4,12 +4,10 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-<<<<<<< HEAD
 import PostList from "./posts/PostList";
 import UserPostList from "./posts/UserPostList";
 import PostDetail from "./posts/PostDetaill";
 import PostForm from "./posts/PostForm";
-=======
 import TagList from "./Tag/TagList"
 import { TagProvider } from "../providers/TagProvider";
 import CategoryList from "./Category/CategoryList";
@@ -17,7 +15,6 @@ import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
 import { useParams } from "react-router-dom";
->>>>>>> master
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -31,11 +28,11 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/tagmanagement">
 
-          {isLoggedIn ? 
-          <TagProvider>
-            <TagList /> 
-          </TagProvider>
-          : <Redirect to="/login" />}
+          {isLoggedIn ?
+            <TagProvider>
+              <TagList />
+            </TagProvider>
+            : <Redirect to="/login" />}
         </Route>
 
         <Route path="/posts" exact>
