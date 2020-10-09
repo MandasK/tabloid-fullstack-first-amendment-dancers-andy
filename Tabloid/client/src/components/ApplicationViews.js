@@ -51,10 +51,6 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostDetail /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/posts/:postId(\d+)" render={
-          props => <PostDetail {...props} />
-        } />
-
         <Route path="/login">
           <Login />
         </Route>
