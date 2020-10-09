@@ -23,7 +23,6 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
         <Route path="/tagmanagement">
-
           {isLoggedIn ? 
           <TagProvider>
             <TagList /> 

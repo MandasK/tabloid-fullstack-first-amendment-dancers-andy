@@ -16,6 +16,7 @@ const TagList = (props) => {
   } = useContext(TagContext);
   const [save, setSave] = useState(false);
   const [confirmView, setConfirmView] = useState(false);
+  const [addTagWindow, setAddTagWindow] = useState(false)
 
   const editTag = (id) => {
     GetTagById(id);
@@ -24,7 +25,12 @@ const TagList = (props) => {
   useEffect(() => {
     GetAllTags();
   }, []);
-
+const openNew = ()=>{
+    setTagToEdit({name:""});
+    setSave(false);
+    setConfirmView(false);
+    setAddTagWindow(true)
+}
   const handleFieldChange = (event) => {
     const stateToChange = { ...tagToEdit };
     stateToChange[event.target.id] = event.target.value;
@@ -44,6 +50,7 @@ const TagList = (props) => {
   };
 
   const DiscardTagChanges = () => {
+    setAddTagWindow(false);
     setSave(false);
     setTagToEdit(undefined);
   };
@@ -62,13 +69,14 @@ const TagList = (props) => {
     GetAllTags();
   };
 
+
   const editDeleteView = () => {
 
     if (tagToEdit !== undefined && !confirmView) {
       return (
         <>        
           <div className="edit_Fields">
-            <h5 className="tag_Spacer">Edit tag '{tagToEdit.name}'</h5>
+            <h5 className="tag_Spacer">Create a new tag</h5>
             <div className="edit_Row1">
               <Button className="tag_Button" color="primary">
                 <fieldset>
@@ -150,13 +158,61 @@ const TagList = (props) => {
         </div>
       )
     }
+    else if (addTagWindow) {
+      return (
+        <>
+            <h5 className="tag_Spacer">Edit tag '{tagToEdit.name}'</h5>
+        <div className="edit_Fields">
+            <div className="edit_Row1">
+              <Button className="tag_Button" color="primary">
+                <fieldset>
+                  <input
+                    type="text"
+                    size={tagToEdit.name.length}
+                    required
+                    onChange={(e) => handleFieldChange(e)}
+                    id="name"
+                    value={tagToEdit.name}
+                    placeholder={tagToEdit.name}
+                    className="edit_Tag_Input_Field"
+                  />
+                </fieldset>
+              </Button>
+              
+            </div>
+            <div className="edit_Row2">
+              <div className="left_side_buttons">
+              <Button
+                size="sm"
+                color="secondary"
+                className="tag_Action_Button"
+                onClick={DiscardTagChanges}
+              >
+                Discard
+              </Button>
+  
+              <Button
+              size="sm"
+                color="danger"
+                className="tag_Action_Button"
+                hidden={!save}
+                onClick={SaveTagChanges}
+              >
+                Save
+              </Button>
+              </div>
+              </div>
+              </div>
+        </>
+      )
+    }
   }
 
   return (
     <>
       <div className="tag_Headline">
         <h2 className="tag_Spacer">Available tags</h2>
-        <Button color="primary" className="new_Tag_Button">
+        <Button color="primary" className="new_Tag_Button" onClick={(() => openNew())}>
           Add New
         </Button>
       </div>
