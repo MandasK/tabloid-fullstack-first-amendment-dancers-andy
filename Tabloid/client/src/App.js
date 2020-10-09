@@ -17,12 +17,10 @@ function App() {
         <Header />
         <ApplicationViews />
         <CommentProvider>
-          <CommentForm />
-          
+        <CommentForm />
+
         </CommentProvider>
         <CategoryProvider>
-          <Header />
-          <ApplicationViews />
         </CategoryProvider>
       </UserProfileProvider>
     </Router>

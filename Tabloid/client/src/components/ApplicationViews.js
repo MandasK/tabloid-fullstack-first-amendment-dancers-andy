@@ -13,7 +13,6 @@ import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
-import { useParams } from "react-router-dom";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
