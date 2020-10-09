@@ -8,7 +8,7 @@ import {
     Input,
     Button,
 } from "reactstrap";
-import { PostContext } from "../providers/PostProvider";
+import { PostContext } from "../../providers/PostProvider";
 import { useHistory } from "react-router-dom";
 
 const PostForm = () => {
@@ -18,8 +18,6 @@ const PostForm = () => {
     const [content, setContent] = useState("");
     const [imageLocation, setImageLocation] = useState("");
     const [createDateTime, setCreateDateTime] = useState("");
-    const [publishDateTime, setPublishDateTime] = useState("");
-    const [isApproved, setIsApproved] = useState("");
     const [categoryId, setCategoryId] = useState("");
     const history = useHistory();
     //Title, Content, ImageLocation, CreateDateTime, 
@@ -29,19 +27,11 @@ const PostForm = () => {
             title,
             content,
             imageLocation,
-            createDateTime,
-            publishDateTime,
-            isApproved,
             categoryId,
             userProfileId
         };
 
         setUserProfileId(1);
-        setCreateDateTime(Date.now());
-        setPublishDateTime();
-        setIsApproved();
-        //for now...
-        setCategoryId(1);
 
         addPost(post).then((p) => {
             // Navigate the user back to the home route
@@ -59,7 +49,7 @@ const PostForm = () => {
                                 <Label for="title">Title</Label>
                                 <Input
                                     id="title"
-                                    onChange={(e) => setImageUrl(e.target.value)}
+                                    onChange={(e) => setTitle(e.target.value)}
                                 />
                             </FormGroup>
                             <FormGroup>
@@ -71,6 +61,13 @@ const PostForm = () => {
                                 <Input
                                     id="imageLocation"
                                     onChange={(e) => setImageLocation(e.target.value)}
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="categoryId">categoryId</Label>
+                                <Input
+                                    id="categoryId"
+                                    onChange={(e) => setCategoryId(e.target.value)}
                                 />
                             </FormGroup>
                         </Form>
