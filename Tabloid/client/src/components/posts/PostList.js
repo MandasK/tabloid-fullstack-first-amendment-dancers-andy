@@ -17,6 +17,10 @@ const PostList = () => {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="cards-column">
+                    <button type="button"
+                        onClick={() => { history.push(`/postForm/`) }}>
+                        add post
+                    </button>
                     {posts.map((post) => (
                         <div key={post.id}>
                             <Link to={`/posts/${post.id}`}>

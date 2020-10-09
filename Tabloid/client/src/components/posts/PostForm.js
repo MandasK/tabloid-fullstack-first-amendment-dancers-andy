@@ -27,15 +27,14 @@ const PostForm = () => {
             title,
             content,
             imageLocation,
-            categoryId,
-            userProfileId
+            categoryId: 1,
+            userProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id
         };
 
-        setUserProfileId(1);
 
         addPost(post).then((p) => {
             // Navigate the user back to the home route
-            history.push("/");
+            history.push("/my_posts");
         });
     };
 
@@ -63,13 +62,13 @@ const PostForm = () => {
                                     onChange={(e) => setImageLocation(e.target.value)}
                                 />
                             </FormGroup>
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="categoryId">categoryId</Label>
                                 <Input
                                     id="categoryId"
                                     onChange={(e) => setCategoryId(e.target.value)}
                                 />
-                            </FormGroup>
+                            </FormGroup> */}
                         </Form>
                         <Button color="info" onClick={submit}>
                             SUBMIT
