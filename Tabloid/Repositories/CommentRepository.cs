@@ -15,19 +15,20 @@ namespace Tabloid.Repositories
 
 
 
-        public List<Comment> GetCommentsByPostId(int commentId)
+        public List<Comment> GetCommentsByPostId(int postId)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
+                    Console.WriteLine(postId);
                     cmd.CommandText = @"
                         SELECT Id, PostId, UserProfileId, Subject, Content, CreateDateTime
                         FROM Comment
-                        WHERE PostId = @id
+                        WHERE PostId = @PostId
                         ORDER BY CreateDateTime DESC;";
-                    cmd.Parameters.AddWithValue("@id", commentId);
+                    cmd.Parameters.AddWithValue("@PostId", postId);
 
                     var reader = cmd.ExecuteReader();
 

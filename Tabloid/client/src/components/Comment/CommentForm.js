@@ -62,14 +62,14 @@ const CommentForm = () => {
                                     onChange={(e) => setContent(e.target.value)}
                                 />
                             </FormGroup>
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="createDateTime">CreateDateTime</Label>
                                 <Input
                                     id="createDateTime"
                                     type="date"
                                     onChange={(e) => setCreateDateTime(e.target.value)}
                                 />
-                            </FormGroup>
+                            </FormGroup> */}
                         </Form>
                         <Button color="info" onClick={submit}>
                             SUBMIT

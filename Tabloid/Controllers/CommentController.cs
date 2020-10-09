@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Repositories;
 using Tabloid.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Tabloid.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
@@ -20,6 +22,7 @@ namespace Tabloid.Controllers
             _commentRepository = commentRepository;
         }
         // GET: api/<CommentController>
+    
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -33,7 +36,11 @@ namespace Tabloid.Controllers
             return Ok(_commentRepository.GetCommentById(id));
         }
 
-        [HttpGet("/GetCommentsByPostId/{id}")]
+        [HttpGet("GetCommentsByPostId/{id}")]
+        public IActionResult GetCommentsByPostId(int id)
+        {
+            return Ok(_commentRepository.GetCommentsByPostId(id));
+        }
 
 
         // POST api/<CommentController>

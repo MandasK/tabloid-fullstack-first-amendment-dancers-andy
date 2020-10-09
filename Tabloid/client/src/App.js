@@ -6,6 +6,7 @@ import ApplicationViews from "./components/ApplicationViews";
 import CommentList from './components/Comment/CommentList';
 import { CommentProvider } from './providers/CommentProvider';
 import CommentForm from './components/Comment/CommentForm'
+import CommentDelete from './components/Comment/CommentDelete';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
         <ApplicationViews />
         <CommentProvider>
           <CommentForm />
-          <CommentList />
+          
         </CommentProvider>
       </UserProfileProvider>
     </Router>

@@ -1,7 +1,7 @@
 import { Button, Card, CardBody } from "reactstrap";
 import { CommentContext } from "../../providers/CommentProvider";
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 
 const Comment = ({ comment }) => {
@@ -18,7 +18,18 @@ const Comment = ({ comment }) => {
         <Card>
             <CardBody>
                 <div>{comment.subject}</div>
-                <div><Button onClick={submit}>Delete</Button></div>
+                <div>{comment.userProfileId}</div>
+                <div>
+                    <Link to={`/comment/${comment.id}/delete`}>
+                        <Button>Delete</Button>
+                    </Link>
+                </div>
+
+                <div>
+                    <Link to={`/comment/${comment.id}/edit`}>
+                        <Button>Edit</Button>
+                    </Link>
+                </div>
             </CardBody>
         </Card>
     )

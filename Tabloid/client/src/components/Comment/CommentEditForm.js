@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
-import { useHistory } from "react-router-dom"
+
 import { CommentContext } from "../../providers/CommentProvider";
+import { useParams, useHistory } from 'react-router-dom';
 
 const CommentEditForm = () => {
 
@@ -14,6 +15,7 @@ const CommentEditForm = () => {
     const history = useHistory();
 
     const submit = (evt) => {
+        evt.preventDefault()
         const comment = {
             userProfileId,
             postId,
@@ -23,7 +25,7 @@ const CommentEditForm = () => {
         };
         const user = JSON.parse(sessionStorage.getItem("userProfile")).id
         comment.userProfileId = user
-        
+
         comment.createDateTime = new Date()
 
         addComment(comment).then((evt) => {
@@ -62,18 +64,18 @@ const CommentEditForm = () => {
                                     onChange={(e) => setContent(e.target.value)}
                                 />
                             </FormGroup>
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="createDateTime">CreateDateTime</Label>
                                 <Input
                                     id="createDateTime"
                                     type="date"
                                     onChange={(e) => setCreateDateTime(e.target.value)}
                                 />
-                            </FormGroup>
+                            </FormGroup> */}
                         </Form>
                         <Button color="info" onClick={submit}>
                             SUBMIT
-              </Button>
+                        </Button>
                     </CardBody>
                 </Card>
             </div>
