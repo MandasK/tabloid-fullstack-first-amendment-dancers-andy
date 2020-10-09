@@ -24,11 +24,8 @@ const CategoryList = (props) => {
                 <br></br>
                 <Row>
 
-                    {categories.map((category) => (
-                        <>
-                            <Category key={category.id} category={category} />
-
-                        </>
+                    {categories.map((category) => (       
+                            <Category key={category.id} category={category} />                       
                     ))}
 
                 </Row>
