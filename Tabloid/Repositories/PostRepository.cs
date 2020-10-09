@@ -79,7 +79,7 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                                          SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
                                          p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
-                                         up.FirstName AS PosterFirstName, up.LastName AS PosterLastName,
+                                         up.FirstName AS PosterFirstName, up.LastName AS PosterLastName, up.displayName,
                                          c.Name AS CategoryName
                                          FROM Post p
                                          LEFT JOIN UserProfile up on p.UserProfileId = up.Id
@@ -108,7 +108,8 @@ namespace Tabloid.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
                                 FirstName = DbUtils.GetString(reader, "PosterFirstName"),
-                                LastName = DbUtils.GetString(reader, "PosterLastName")
+                                LastName = DbUtils.GetString(reader, "PosterLastName"),
+                                DisplayName = DbUtils.GetString(reader, "displayName")
                             },
                             Category = new Category()
                             {
