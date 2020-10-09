@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import PostList from "./PostList";
+import UserPostList from "./UserPostList";
 import PostDetail from "./PostDetaill";
 
 export default function ApplicationViews() {
@@ -19,6 +20,10 @@ export default function ApplicationViews() {
 
         <Route path="/posts" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/my_posts" exact>
+          {isLoggedIn ? <UserPostList /> : <Redirect to="/login" />}
         </Route>
 
 

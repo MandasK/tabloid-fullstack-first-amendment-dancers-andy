@@ -3,17 +3,16 @@ import { PostContext } from "../providers/PostProvider";
 import PostCard from "./PostCard";
 import { useHistory, Link } from "react-router-dom";
 
-const PostList = () => {
-    const { posts, getAllPosts } = useContext(PostContext);
+const UserPostList = () => {
+    const { posts, getAllUserPosts } = useContext(PostContext);
     const history = useHistory();
 
+    console.log("hello!!!")
+    console.log(JSON.parse(sessionStorage.getItem("userProfile")).id)
 
     useEffect(() => {
-        getAllPosts();
+        getAllUserPosts(JSON.parse(sessionStorage.getItem("userProfile")).id);
     }, []);
-
-    // console.log("hello!!!")
-    // console.log(JSON.parse(sessionStorage.getItem("userProfile")).id)
 
     return (
         <div className="container">
@@ -35,4 +34,4 @@ const PostList = () => {
     );
 };
 
-export default PostList;
+export default UserPostList;
