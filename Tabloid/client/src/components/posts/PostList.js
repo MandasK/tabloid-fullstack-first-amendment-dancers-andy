@@ -7,7 +7,6 @@ const PostList = () => {
     const { posts, getAllPosts } = useContext(PostContext);
     const history = useHistory();
 
-
     useEffect(() => {
         getAllPosts();
     }, []);

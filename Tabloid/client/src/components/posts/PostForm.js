@@ -36,7 +36,12 @@ const PostForm = () => {
             userProfileId
         };
 
-        setUserProfileId();
+        setUserProfileId(1);
+        setCreateDateTime(Date.now());
+        setPublishDateTime();
+        setIsApproved();
+        //for now...
+        setCategoryId(1);
 
         addPost(post).then((p) => {
             // Navigate the user back to the home route
@@ -62,10 +67,10 @@ const PostForm = () => {
                                 <Input id="content" onChange={(e) => setContent(e.target.value)} />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="caption">Caption</Label>
+                                <Label for="imageLocation">Image</Label>
                                 <Input
-                                    id="caption"
-                                    onChange={(e) => setCaption(e.target.value)}
+                                    id="imageLocation"
+                                    onChange={(e) => setImageLocation(e.target.value)}
                                 />
                             </FormGroup>
                         </Form>

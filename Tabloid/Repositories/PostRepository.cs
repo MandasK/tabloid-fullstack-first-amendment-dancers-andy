@@ -204,15 +204,15 @@ namespace Tabloid.Repositories
                         INSERT INTO Post (Title, Content, ImageLocation, CreateDateTime, 
                                           PublishDateTime, IsApproved, CategoryId, UserProfileId)
                         OUTPUT INSERTED.ID
-                        VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
-                                @IsApproved, @CategoryId, @UserProfileId)";
+                        VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, GETDATE(),
+                                1, @CategoryId, @UserProfileId)";
 
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
                     DbUtils.AddParameter(cmd, "@CreateDateTime", post.CreateDateTime);
-                    DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
-                    DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
+                    //DbUtils.AddParameter(cmd, "@PublishDateTime", DateTime.Now);
+                    //DbUtils.AddParameter(cmd, "@IsApproved", true);
                     DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
                     DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
 
