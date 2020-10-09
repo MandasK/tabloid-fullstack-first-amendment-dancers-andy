@@ -68,6 +68,64 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<Post> GetAllUserPosts(int UPID)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                         SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
+                                         p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
+                                         up.FirstName AS PosterFirstName, up.LastName AS PosterLastName,
+                                         c.Name AS CategoryName
+                                         FROM Post p
+                                         LEFT JOIN UserProfile up on p.UserProfileId = up.Id
+                                         LEFT JOIN Category c on p.CategoryId = c.Id
+                                         WHERE p.UserProfileId = @UPID
+                                         ORDER BY PublishDateTime DESC;";
+
+                    DbUtils.AddParameter(cmd, "@UPID", UPID);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                FirstName = DbUtils.GetString(reader, "PosterFirstName"),
+                                LastName = DbUtils.GetString(reader, "PosterLastName")
+                            },
+                            Category = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
+                                Name = DbUtils.GetString(reader, "CategoryName")
+
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+
 
         public Post GetPostById(int id)
         {
