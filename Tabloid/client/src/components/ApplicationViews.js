@@ -22,6 +22,8 @@ export default function ApplicationViews() {
         <Route path="/register">
           <Register />
         </Route>
+
+        <Route path=``
       </Switch>
     </main>
   );
