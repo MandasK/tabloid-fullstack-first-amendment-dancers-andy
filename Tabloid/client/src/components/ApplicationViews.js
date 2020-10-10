@@ -14,6 +14,7 @@ import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
+import UserProfileList from "./UserProfile/UserProfileList";
 import { useParams } from "react-router-dom";
 
 export default function ApplicationViews() {
@@ -69,6 +70,9 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/category/:id/edit">
           {isLoggedIn ? <CategoryEdit /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/userProfile" exact>
+          {isLoggedIn ? <UserProfileList /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
     </main>
