@@ -25,14 +25,19 @@ const CommentDelete = () => {
         return null;
     }
 
+    const publishDate = new Date(comment.createDateTime)
+        console.log(publishDate);
+        const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
+
     return (
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-lg-6">
                     <h3>Are you sure you want to delete this comment?</h3>
+                    <div>Author: {comment.userProfile.firstName} {comment.userProfile.lastName}</div>
                     <div>Subject: {comment.subject}</div>
                     <div>Content: {comment.content}</div>
-                    <div>Created on: {comment.createDateTime}</div>
+                    <div>Created on: {HumanPublishDate}</div>
                     <Button onClick={handleDelete} color="danger" className="commentButton">Delete</Button>
 
                     <Link to={`/posts/${postId}/comments`}>

@@ -99,11 +99,11 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT c.Id, PostId, UserProfileId, Subject, Content, c.CreateDateTime, FirstName, LastName
+                        SELECT c.Id, c.PostId, c.UserProfileId, c.Subject, c.Content, c.CreateDateTime, up.FirstName, up.LastName
                         FROM Comment c
                         LEFT JOIN UserProfile up on c.UserProfileId = up.Id
-                        WHERE Id = @id
-                        ORDER BY CreateDateTime DESC;";
+                        WHERE c.Id = @id
+                        ORDER BY c.CreateDateTime DESC;";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     var reader = cmd.ExecuteReader();
