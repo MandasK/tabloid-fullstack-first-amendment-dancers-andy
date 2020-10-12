@@ -19,7 +19,8 @@ const TagList = () => {
   } = useContext(TagContext);
   const [saveButton, setSaveButton] = useState(false);
   const [confirmView, setConfirmView] = useState(false);
-  const [addTagWindow, setAddTagWindow] = useState(false)
+  const [addTagWindow, setAddTagWindow] = useState(false);
+  const [update, setUpdate] = useState(false)
 
   const editTag = (id) => {
     GetTagById(id);
@@ -27,7 +28,7 @@ const TagList = () => {
 
   useEffect(() => {
     GetAllTags();
-  }, []);
+  }, [update]);
 //Opens the Add New Tag Window
   const openNew = () => {
     setTagToEdit({name:""});
@@ -56,7 +57,7 @@ const TagList = () => {
       name: tagToEdit.name,
     };
     UpdateTag(updatedTag);
-    GetAllTags();
+    setUpdate(!update);
     setTagToEdit(undefined);
     setSaveButton(false);
   };
@@ -78,7 +79,7 @@ const TagList = () => {
     setTagToEdit(undefined);
     setConfirmView(false);
     setSaveButton(false);
-    GetAllTags();
+    setUpdate(!update);
   };
 
 //Resets the window after an 'Add Tag' action
@@ -88,7 +89,7 @@ const TagList = () => {
     setConfirmView(false);
     setSaveButton(false);
     setTagToEdit(undefined);
-    GetAllTags();
+    setUpdate(!update);
   }
 
 
@@ -102,8 +103,8 @@ const TagList = () => {
       </div>
       <h5 className="tag_Spacer">Click to edit</h5>
       <div className="tag_View_Container">
-        <div className="tag_Sizer">
-          <div className="tag_Container">
+        <div className="tag_Container">
+          <div className="tag_Sizer">
             {tags.map((tag) => (
               <Tag 
                   key={tag.id} 
