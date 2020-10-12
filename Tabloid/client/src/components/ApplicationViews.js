@@ -20,7 +20,6 @@ import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
 import UserProfileList from "./UserProfile/UserProfileList";
-import { useParams } from "react-router-dom";
 import UserProfileDetails from './UserProfile/UserProfileDetails';
 import CommentList from "./Comment/CommentList";
 
