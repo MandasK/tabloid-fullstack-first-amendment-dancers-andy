@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ListGroup, ListGroupItem, Card, CardImg, CardBody } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 
 
 const PostDetail = () => {
@@ -23,7 +23,6 @@ const PostDetail = () => {
     //convert publication date to MM / DD / YYYY
 
     const publishDate = new Date(post.publishDateTime)
-    console.log(publishDate);
     const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
 
 
@@ -46,8 +45,15 @@ const PostDetail = () => {
                     Back to list
                 </button>
 
-            </CardBody>
-        </Card>
+                {/* <button type="button" */}
+                <Link to={`/posts/delete/${postId}`}>
+
+                    Delete
+                    </Link>
+                {/* </button > */}
+
+            </CardBody >
+        </Card >
     );
 };
 

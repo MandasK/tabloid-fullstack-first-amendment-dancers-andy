@@ -1,19 +1,19 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ListGroup, ListGroupItem, Card, CardImg, CardBody } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 
 
-const PostDetail = () => {
+const ConfirmDelete = () => {
     const [post, setPost] = useState();
     const { getSinglePost } = useContext(PostContext);
     const { postId } = useParams();
     const history = useHistory();
+    console.log("is this the confirmation page???");
 
-
-    useEffect(() => {
-        getSinglePost(postId).then(setPost);
-    }, []);
+    // useEffect(() => {
+    //     getSinglePost(postId).then(setPost);
+    // }, []);
 
     if (!post) {
         return null;
@@ -23,33 +23,28 @@ const PostDetail = () => {
     //convert publication date to MM / DD / YYYY
 
     const publishDate = new Date(post.publishDateTime)
-    console.log(publishDate);
+    console.log("is this the confirmation page???");
     const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
 
 
     return (
-        <Card className="m-4">
-            <button type="button"
-                onClick={() => { history.push(`/posts/`) }}>
-                Back to list
-            </button>
-            <strong>{post.title}</strong>
-            <p className="text-left px-2">By {post.userProfile.displayName}</p>
-            {/* <p className="text-left px-2">Posted by: {post.userProfile.firstName}</p> */}
-            <CardImg top src={post.imageLocation} alt={post.title} />
-            <CardBody>
-
-                <p>{post.content}</p>
-                <p>{HumanPublishDate}</p>
-                <button type="button"
-                    onClick={() => { history.push(`/posts/`) }}>
-                    Back to list
-                </button>
-
-            </CardBody>
-        </Card>
+        // <Card className="m-4">
+        //     <button type="button"
+        //         onClick={() => { history.push(`/posts/`) }}>
+        //         Back to list
+        //     </button>
+        //     <h1>Careful now</h1>
+        //     <h2> Are you sure you want to delete {post.title}</h2>
+        //     <CardBody>
+        //         <button type="button"
+        //             onClick={() => { history.push(`/posts/`) }}>
+        //             No, But thanks for asking
+        //         </button>
+        //     </CardBody>
+        // </Card>
+        <h1>hi there? hello?</h1>
     );
 };
 
 
-export default PostDetail;
+export default ConfirmDelete;
