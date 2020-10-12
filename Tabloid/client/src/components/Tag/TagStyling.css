@@ -2,25 +2,26 @@
   .tag_View_Container {
     display: flex;
     justify-content: space-between;
-
   }
 
   .right_Side {
     width: 38vw;
   }
 
+
   .tag_Container {
-    display: flex;
+    background-color: rgba(70, 131, 180, 0.226);   
+    height: 100vh;
     width: 48vw;
+    display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    border: black 1px solid;
+    border:rgba(70, 131, 180, 0.541) 1px solid;
   }
 
   .edit_Fields {
     max-width: fit-content;
-    min-width: 200px;
-    width: 35vw;
+    min-width: 35vw;
     min-height: 15vh;
     border: 1px solid slategray;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -94,6 +95,7 @@
 
 .tag_Button {
   margin: 1%;
+  max-height: 2.5rem;
   min-width: 8rem;
 }
 
@@ -103,8 +105,6 @@
   align-items: flex-start;
   justify-content: space-between;
 }
-
-
 
 .tag_Headline {
   display: flex;
@@ -136,4 +136,11 @@
 
 .tag_Delete_Button {
   margin-right: 0.4rem;
+}
+
+.tag_Sizer {
+  /* max-height: 4vh; */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }

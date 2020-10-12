@@ -102,7 +102,7 @@ const TagList = () => {
       </div>
       <h5 className="tag_Spacer">Click to edit</h5>
       <div className="tag_View_Container">
-        <div>
+        <div className="tag_Sizer">
           <div className="tag_Container">
             {tags.map((tag) => (
               <Tag 
