@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Tabloid.Repositories;
 using Tabloid.Models;
 using Tabloid.Utils;
+using Microsoft.Data.SqlClient;
 
 namespace Tabloid.Repositories
 {
@@ -255,18 +256,27 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Delete(int id)
+        
+
+        public void DeletePost(int id)
         {
-            //using (var conn = Connection)
-            //{
-            //    conn.Open();
-            //    using (var cmd = conn.CreateCommand())
-            //    {
-            //        cmd.CommandText = "DELETE FROM Post WHERE Id = @Id";
-            //        DbUtils.AddParameter(cmd, "@id", id);
-            //        cmd.ExecuteNonQuery();
-            //    }
-            //}
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        DELETE FROM Comment
+                                        WHERE PostId = @id;
+                                        DELETE FROM PostTag 
+                                        WHERE PostId = @id;
+                                        DELETE FROM Post
+                                        WHERE Id = @id;";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
