@@ -1,7 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem, Card, CardImg, CardBody } from "reactstrap";
+import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 
 const PostDetail = () => {
@@ -41,6 +43,8 @@ const PostDetail = () => {
 
                 <p>{post.content}</p>
                 <p>{HumanPublishDate}</p>
+                <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" color="danger">Comments</Button></Link>
+                
                 <button type="button"
                     onClick={() => { history.push(`/posts/`) }}>
                     Back to list
