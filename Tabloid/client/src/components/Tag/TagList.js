@@ -23,6 +23,7 @@ const TagList = () => {
   const [update, setUpdate] = useState(false)
 
   const editTag = (id) => {
+    setAddTagWindow(false);
     GetTagById(id);
   };
 
