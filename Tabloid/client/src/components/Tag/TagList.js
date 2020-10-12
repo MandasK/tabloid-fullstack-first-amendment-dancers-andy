@@ -2,9 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { TagContext } from "../../providers/TagProvider";
 import { Button } from "reactstrap";
 import Tag from "./Tag";
+import AddTag from "./AddTag";
+import EditTag from "./EditTag";
+import TagDeleteConfirm from "./TagDeleteConfirm";
 import "./TagStyling.css";
 
-const TagList = (props) => {
+const TagList = () => {
   const {
     tags,
     tagToEdit,
@@ -14,23 +17,41 @@ const TagList = (props) => {
     UpdateTag,
     DeleteTag,
   } = useContext(TagContext);
-  const [save, setSave] = useState(false);
+  const [saveButton, setSaveButton] = useState(false);
   const [confirmView, setConfirmView] = useState(false);
+  const [addTagWindow, setAddTagWindow] = useState(false);
+  const [update, setUpdate] = useState(false)
 
   const editTag = (id) => {
+    setAddTagWindow(false);
     GetTagById(id);
   };
 
   useEffect(() => {
     GetAllTags();
-  }, []);
-
+  }, [update]);
+  
+//Opens the Add New Tag Window
+  const openNew = () => {
+    setTagToEdit({name:""});
+    setSaveButton(false);
+    setConfirmView(false);
+    setAddTagWindow(true)
+}
+//Handles all the fields in Edit and Add new
   const handleFieldChange = (event) => {
     const stateToChange = { ...tagToEdit };
     stateToChange[event.target.id] = event.target.value;
     setTagToEdit(stateToChange);
-    setSave(true);
+    setSaveButton(true);
   };
+
+  const AddNewTag = () => {
+    let tag = {
+      name: tagToEdit.name
+    };
+    AddTag(tag)    
+}
 
   const SaveTagChanges = () => {
     let updatedTag = {
@@ -38,13 +59,14 @@ const TagList = (props) => {
       name: tagToEdit.name,
     };
     UpdateTag(updatedTag);
+    setUpdate(!update);
     setTagToEdit(undefined);
-    setSave(false);
-    GetAllTags();
+    setSaveButton(false);
   };
 
   const DiscardTagChanges = () => {
-    setSave(false);
+    setAddTagWindow(false);
+    setSaveButton(false);
     setTagToEdit(undefined);
   };
   const RemoveTagConfirm = () => {
@@ -58,123 +80,69 @@ const TagList = (props) => {
     DeleteTag(id);
     setTagToEdit(undefined);
     setConfirmView(false);
-    setSave(false);
-    GetAllTags();
+    setSaveButton(false);
+    setUpdate(!update);
   };
 
-  const editDeleteView = () => {
+//Resets the window after an 'Add Tag' action
 
-    if (tagToEdit !== undefined && !confirmView) {
-      return (
-        <>        
-          <div className="edit_Fields">
-            <h5 className="tag_Spacer">Edit tag '{tagToEdit.name}'</h5>
-            <div className="edit_Row1">
-              <Button className="tag_Button" color="primary">
-                <fieldset>
-                  <input
-                    type="text"
-                    size={tagToEdit.name.length}
-                    required
-                    onChange={(e) => handleFieldChange(e)}
-                    id="name"
-                    value={tagToEdit.name}
-                    placeholder={tagToEdit.name}
-                    className="edit_Tag_Input_Field"
-                  />
-                </fieldset>
-              </Button>
-              
-            </div>
-            <div className="edit_Row2">
-              <div className="left_side_buttons">
-              <Button
-                size="sm"
-                color="secondary"
-                className="tag_Action_Button"
-                onClick={DiscardTagChanges}
-              >
-                Discard
-              </Button>
-  
-              <Button
-              size="sm"
-                color="danger"
-                className="tag_Action_Button"
-                hidden={!save}
-                onClick={SaveTagChanges}
-              >
-                Save
-              </Button>
-              </div>
-              <div className="tag_Delete_Button">
-              
-                <Button
-                size="sm"
-                  color="danger"
-                  className="tag_Action_Button"
-                  onClick={() => RemoveTagConfirm(tagToEdit.id)}
-                >
-                  Delete
-                </Button>              
-              </div>
-            </div>
-          </div>         
-        </>
-      )
-    }
-
-    else if (tagToEdit !== undefined && confirmView) {
-      return (
-        
-        <div className="delete_Box">
-            <h5 className="delete_Tag_Headline">Are you sure you want to delete '{tagToEdit.name}'?</h5>
-          <div className="edit_Row1">
-            <Button
-              size="sm"
-              color="secondary"
-              className="tag_Action_Button"
-              onClick={CancelDelete}
-            >
-              Cancel
-            </Button>
-            <Button
-              size="sm"
-              color="danger"
-              className="tag_Action_Button"
-              onClick={() => RemoveTag(tagToEdit.id)}
-            >
-              Delete
-            </Button>
-          </div>                  
-        </div>
-      )
-    }
+  const CompleteAdd = () => {
+    setAddTagWindow(false);
+    setConfirmView(false);
+    setSaveButton(false);
+    setTagToEdit(undefined);
+    setUpdate(!update);
   }
+
 
   return (
     <>
       <div className="tag_Headline">
         <h2 className="tag_Spacer">Available tags</h2>
-        <Button color="primary" className="new_Tag_Button">
+        <Button color="primary" className="new_Tag_Button" onClick={(() => openNew())}>
           Add New
         </Button>
       </div>
       <h5 className="tag_Spacer">Click to edit</h5>
       <div className="tag_View_Container">
-        <div>
-          <div className="tag_Container">
+        <div className="tag_Container">
+          <div className="tag_Sizer">
             {tags.map((tag) => (
-          <Tag key={tag.id} tag={tag} editTag={editTag} />
-          ))}
+              <Tag 
+                  key={tag.id} 
+                  tag={tag} 
+                  editTag={editTag} 
+              />
+              ))}
           </div>
         </div>
-              
-       
-      {editDeleteView()} 
-      
-          </div>
-        <div>
+        {/*These are the conditional components for the screen right (or top in mobile) section of Tag Management
+        The Edit view contians the button to delete a tag */}
+        <div className="right_Side">
+          {(addTagWindow && !confirmView) && 
+          <AddTag
+                saveButton={saveButton}
+                DiscardTagChanges={DiscardTagChanges}
+                AddNewTag={AddNewTag}
+                handleFieldChange={handleFieldChange}
+                setSaveButton={setSaveButton}
+                setAddTagWindow={setAddTagWindow}
+                CompleteAdd={CompleteAdd} />
+          }
+          {(tagToEdit !== undefined && !confirmView && !addTagWindow) && 
+          <EditTag
+                saveButton={saveButton}
+                DiscardTagChanges={DiscardTagChanges}
+                SaveTagChanges={SaveTagChanges}
+                handleFieldChange={handleFieldChange}
+                RemoveTagConfirm={RemoveTagConfirm} />
+          }
+          {(tagToEdit !== undefined && confirmView && !addTagWindow) && 
+          <TagDeleteConfirm
+                CancelDelete={CancelDelete}
+                RemoveTag={RemoveTag} />
+          } 
+        </div>    
       </div>
     </>
   );

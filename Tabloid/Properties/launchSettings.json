@@ -11,7 +11,6 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": false,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local"
@@ -19,8 +18,7 @@
     },
     "Tabloid": {
       "commandName": "Project",
-      "launchBrowser": false,
-      "launchUrl": "api/hello",
+      "launchUrl": "https://localhost:3000/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local"
       },

@@ -3,9 +3,25 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .right_Side {
+    width: 38vw;
+  }
+
+
+  .tag_Container {
+    background-color: rgba(70, 131, 180, 0.226);   
+    border:rgba(70, 131, 180, 0.541) 1px solid;
+    min-height: 80vh;
+    width: 48vw;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
   .edit_Fields {
     max-width: fit-content;
-    min-width: 28rem;
+    min-width: 35vw;
     min-height: 15vh;
     border: 1px solid slategray;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -14,8 +30,8 @@
     margin-bottom: 3%;
   }
   .tag_Action_Button {
-    margin: 1%;
-    min-width: 8rem;
+    margin: 1vw;
+    min-width: 6vw;
   }
   .delete_Tag_Headline {
     margin: 5%;
@@ -26,7 +42,8 @@
     flex-direction: column;
     justify-content: space-between;
     max-width: fit-content;
-    min-width: 28rem;
+    min-width: 35vw;
+    /* min-width: 28rem; */
     min-height: 15vh;
     border: 1px solid slategray;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -41,6 +58,16 @@
     display: flex;
     flex-direction: column-reverse;
   }
+
+  .tag_Container {
+    display: flex;
+    min-height: 55vh;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: rgba(70, 131, 180, 0.226);   
+    border:rgba(70, 131, 180, 0.541) 1px solid;
+  }
+
   .edit_Fields {
     min-height: 20vh;
     border: 1px solid slategray;
@@ -64,13 +91,14 @@
     margin-bottom: 3%;
   }
   .tag_Action_Button {
-    margin: 1% 5% 5% 0;
-    min-width: 5rem;
+    margin: 1vw;
+    min-width: 20vw;
   }
 }
 
 .tag_Button {
   margin: 1%;
+  max-height: 2.5rem;
   min-width: 8rem;
 }
 
@@ -79,13 +107,6 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-}
-
-.tag_Container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  border: black 1px solid;
 }
 
 .tag_Headline {
@@ -118,4 +139,11 @@
 
 .tag_Delete_Button {
   margin-right: 0.4rem;
+}
+
+.tag_Sizer {
+  max-height: 4vh;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }

@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useParams } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import CommentEditForm from "./Comment/CommentEditForm";
+import CommentDelete from "./Comment/CommentDelete";
+import CommentForm from "./Comment/CommentForm";
+import { CommentProvider } from "../providers/CommentProvider";
+
 import PostList from "./posts/PostList";
 import UserPostList from "./posts/UserPostList";
 import PostDetail from "./posts/PostDetaill";
@@ -14,11 +19,14 @@ import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
-import { useParams } from "react-router-dom";
+import UserProfileList from "./UserProfile/UserProfileList";
+import UserProfileDetails from './UserProfile/UserProfileDetails';
+import CommentList from "./Comment/CommentList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
   const { id } = useParams();
+
 
   return (
     <main>
@@ -58,6 +66,29 @@ export default function ApplicationViews() {
         <Route path="/register">
           <Register />
         </Route>
+
+        {/* Comment Routes */}
+        <Route path="/posts/:postId/comments/:commentId/delete">
+          {isLoggedIn ? <CommentProvider><CommentDelete /></CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+
+        <Route path="/posts/:postId/comments/:commentId(\d+)/edit">
+          {isLoggedIn ? <CommentProvider><CommentEditForm /></CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+
+        <Route path="/comment/:id/edit">
+          {isLoggedIn ? <CommentProvider><CommentEditForm /> </CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+
+        <Route path="/posts/:postId/comments" exact>
+          {isLoggedIn ? <CommentProvider> <CommentList /> </CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+
+        <Route path="/posts/:postId/comments/new">
+          {isLoggedIn ? <CommentProvider> <CommentForm /> </CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+        {/* End of Comment Routes */}
+
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login/" />}
         </Route>
@@ -69,6 +100,12 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/category/:id/edit">
           {isLoggedIn ? <CategoryEdit /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/user" exact>
+          {isLoggedIn ? <UserProfileList /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/user/:id(\d+)/details" exact>
+          {isLoggedIn ? <UserProfileDetails /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
     </main>
