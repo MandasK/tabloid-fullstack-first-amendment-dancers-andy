@@ -16,6 +16,7 @@ import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
 import UserProfileList from "./UserProfile/UserProfileList";
 import { useParams } from "react-router-dom";
+import UserProfileDetails from './UserProfile/UserProfileDetails';
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -71,8 +72,11 @@ export default function ApplicationViews() {
         <Route path="/category/:id/edit">
           {isLoggedIn ? <CategoryEdit /> : <Redirect to="/login/" />}
         </Route>
-        <Route path="/userProfile" exact>
+        <Route path="/user" exact>
           {isLoggedIn ? <UserProfileList /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/user/:id(\d+)/details" exact>
+          {isLoggedIn ? <UserProfileDetails /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
     </main>
