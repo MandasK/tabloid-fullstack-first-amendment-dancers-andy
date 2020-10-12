@@ -70,7 +70,7 @@ export default function ApplicationViews() {
           {isLoggedIn ? <CommentProvider><CommentDelete /></CommentProvider> : <Redirect to="/login/" />}
         </Route>
 
-        <Route path="/posts/:postId/comments/:commentId/edit">
+        <Route path="/posts/:postId/comments/:commentId(\d+)/edit">
           {isLoggedIn ? <CommentProvider><CommentEditForm /></CommentProvider> : <Redirect to="/login/" />}
         </Route>
 

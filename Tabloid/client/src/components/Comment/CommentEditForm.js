@@ -14,17 +14,17 @@ const CommentEditForm = () => {
     const history = useHistory();
     const [comment, setComment] = useState({ userProfileId: "", postId: "", subject: "", content: "", createDateTime: "" });
     const [updatedComment, setUpdatedComment] = useState();
-
+    const currentUser = JSON.parse(sessionStorage.getItem('userProfile')).id;
     useEffect(() => {
         getCommentById(commentId).then(setComment);
     }, []);
-    
 
- 
-     const submit = (evt) => {
-         evt.preventDefault();
-         const updatedComment =
-         {
+
+
+    const submit = (evt) => {
+        evt.preventDefault();
+        const updatedComment =
+        {
             id: comment.id,
             userProfileId: comment.userProfileId,
             postId: comment.postId,
@@ -32,11 +32,11 @@ const CommentEditForm = () => {
             content: comment.content,
             createDateTime: comment.createDateTime
         }
-        
-        
-        editComment(updatedComment).then(() => 
+
+
+        editComment(updatedComment).then(() =>
             history.push(`/posts/${comment.postId}/comments`))
-        
+
     }
 
     const handleFieldChange = evt => {
@@ -49,6 +49,9 @@ const CommentEditForm = () => {
     }
 
     if (!comment) {
+        return null;
+    }
+    if (currentUser === comment.userProfileId) {
         return null;
     }
 
@@ -94,12 +97,12 @@ const CommentEditForm = () => {
                                 />
                             </FormGroup>
                         </Form>
-                        <Button color="info" onClick={submit} className="commentButton">
+                        {(currentUser === comment.userProfileId) ? <Button color="info" onClick={submit} className="commentButton">
                             Submit
-                        </Button>
+                                </Button> : <div></div>}
                         <Link to={`/posts/${postId}/comments`}>
-                        <Button color="secondary" className="commentButton">Back</Button>
-                    </Link>
+                            <Button color="secondary" className="commentButton">Back</Button>
+                        </Link>
                     </CardBody>
                 </Card>
             </div>

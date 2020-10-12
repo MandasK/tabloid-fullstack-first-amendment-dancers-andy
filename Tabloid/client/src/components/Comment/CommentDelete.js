@@ -15,6 +15,7 @@ const CommentDelete = () => {
     useEffect(() => {
         getCommentById(commentId).then(setComment);
     }, []);
+    const currentUser = JSON.parse(sessionStorage.getItem('userProfile')).id;
 
     const handleDelete = (id) => {
         deleteComment(commentId)
@@ -24,6 +25,12 @@ const CommentDelete = () => {
     if (!comment) {
         return null;
     }
+
+    if (currentUser === comment.userProfileId) {
+        return null;
+    }
+
+
 
     const publishDate = new Date(comment.createDateTime)
         console.log(publishDate);
@@ -38,7 +45,8 @@ const CommentDelete = () => {
                     <div>Subject: {comment.subject}</div>
                     <div>Content: {comment.content}</div>
                     <div>Created on: {HumanPublishDate}</div>
-                    <Button onClick={handleDelete} color="danger" className="commentButton">Delete</Button>
+                    
+                    {(currentUser === comment.userProfileId) ? <Button onClick={handleDelete} color="danger" className="commentButton">Delete</Button> : <div>a</div>}
 
                     <Link to={`/posts/${postId}/comments`}>
                         <Button color="secondary" className="commentButton">Back</Button>

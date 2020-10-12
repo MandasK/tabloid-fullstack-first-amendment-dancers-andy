@@ -8,18 +8,19 @@ import "./Comment.css"
 const Comment = ({ comment }) => {
     const { deleteComment } = useContext(CommentContext)
     const history = useHistory();
-    const { postId, commentId} = useParams();
+    const { postId, commentId } = useParams();
+    const currentUser = JSON.parse(sessionStorage.getItem('userProfile')).id;
     const submit = () => {
 
         deleteComment(comment.id).then(() => {
             history.push("/");
-            
+
         })
-        
-        }
-        const publishDate = new Date(comment.createDateTime)
-        console.log(publishDate);
-        const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
+
+    }
+    const publishDate = new Date(comment.createDateTime)
+    
+    const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
 
 
     return (
@@ -29,16 +30,18 @@ const Comment = ({ comment }) => {
                 <div>{HumanPublishDate}</div>
                 <strong>{comment.subject}</strong>
                 <div>{comment.content}</div>
-                
-                
                 <div>
-                    <Link to={`/posts/${postId}/comments/${comment.id}/delete`}>
-                        <Button color="danger" className="commentButton">Delete</Button>
-                    </Link>
-                
-                    <Link to={`/posts/${postId}/comments/${comment.id}/edit`}>
-                        <Button className="commentButton">Edit</Button>
-                    </Link>
+                    {(currentUser === comment.userProfileId) ?
+                        <Link to={`/posts/${postId}/comments/${comment.id}/delete`}>
+                            <Button color="danger" className="commentButton">Delete</Button>
+                        </Link>
+                        : <div></div>}
+
+                    {(currentUser === comment.userProfileId) ?
+                        <Link to={`/posts/${postId}/comments/${comment.id}/edit`}>
+                            <Button className="commentButton">Edit</Button>
+                        </Link> 
+                        : <div></div>}
                 </div>
             </CardBody>
         </Card>
