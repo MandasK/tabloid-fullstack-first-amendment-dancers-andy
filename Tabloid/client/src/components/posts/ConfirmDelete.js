@@ -11,30 +11,30 @@ const ConfirmDelete = () => {
     const history = useHistory();
     console.log("is this the confirmation page???");
 
-    // useEffect(() => {
-    //     getSinglePost(postId).then(setPost);
-    // }, []);
+    useEffect(() => {
+        getSinglePost(postId).then(setPost);
+    }, []);
 
-    // if (!post) {
-    //     return null;
-    // }
+    if (!post) {
+        return null;
+    }
 
     return (
-        // <Card className="m-4">
-        //     <button type="button"
-        //         onClick={() => { history.push(`/posts/`) }}>
-        //         Back to list
-        //     </button>
-        //     <h1>Careful now</h1>
-        //     <h2> Are you sure you want to delete {post.title}</h2>
-        //     <CardBody>
-        //         <button type="button"
-        //             onClick={() => { history.push(`/posts/`) }}>
-        //             No, But thanks for asking
-        //         </button>
-        //     </CardBody>
-        // </Card>
-        <h1>Hello? hello? world? hello?</h1>
+        <Card className="m-4">
+            <button type="button"
+                onClick={() => { history.push(`/posts/`) }}>
+                Back to list
+            </button>
+            <h1>Careful now</h1>
+            <h2> Are you sure you want to delete "{post.title}"</h2>
+            <CardBody>
+                <button type="button"
+                    onClick={() => { history.push(`/posts/`) }}>
+                    No, But thanks for asking
+                </button>
+            </CardBody>
+        </Card>
+        // <h1>Hello? hello? world? hello?</h1>
     );
 };
 

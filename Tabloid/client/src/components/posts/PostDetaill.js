@@ -45,12 +45,12 @@ const PostDetail = () => {
                     Back to list
                 </button>
 
-                {/* <button type="button" */}
-                <Link to={`/posts/delete/${postId}`}>
-
+                <button type="button"
+                
+                onClick={() => { history.push(`/posts/delete/${postId}`) }}>
                     Delete
-                    </Link>
-                {/* </button > */}
+                    
+                </button >
 
             </CardBody >
         </Card >

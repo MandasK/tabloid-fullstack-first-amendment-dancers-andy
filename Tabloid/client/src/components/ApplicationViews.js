@@ -7,7 +7,6 @@ import Hello from "./Hello";
 import PostList from "./posts/PostList";
 import UserPostList from "./posts/UserPostList";
 import PostDetail from "./posts/PostDetaill";
-//import ConfirmDelete from "./posts/PostDetaill";
 import PostForm from "./posts/PostForm";
 import TagList from "./Tag/TagList"
 import { TagProvider } from "../providers/TagProvider";
