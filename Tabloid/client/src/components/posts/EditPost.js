@@ -40,12 +40,12 @@ const EditPost = () => {
             categoryId: 1,
             userProfileId: post.userProfileId
         };
-        console.log(post)
-        EditPost(updatedPost).then(() => {
-            // Navigate the user back to the home route
-            console.log(updatedPost)
-            history.push("/my_posts");
-        });
+        EditPost(updatedPost)
+        //.then(() => history.push("/my_posts/"));
+        console.log("post", post)
+            .then(() => setPost(updatedPost))
+        console.log("post again", post)
+        console.log("updatedPost", updatedPost)
     };
     //if (post.userProfileId === JSON.parse(sessionStorage.getItem("userProfile")).id) {
     return (
@@ -85,6 +85,10 @@ const EditPost = () => {
                             submit();
                         }}>
                             SUBMIT
+                        </Button>
+                        <Button color="info"
+                            onClick={() => { history.push(`/my_posts/`) }}>
+                            Back to My Posts
                         </Button>
                     </CardBody>
                 </Card>

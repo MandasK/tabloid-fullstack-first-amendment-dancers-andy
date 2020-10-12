@@ -66,12 +66,12 @@ export const PostProvider = (props) => {
                 },
                 body: JSON.stringify(post),
             }))
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Unauthorized");
-            });
+        // .then((response) => {
+        //     if (response.ok) {
+        //         return response.json();
+        //     }
+        //     throw new Error("Unauthorized");
+        // });
     }
 
     const DeletePost = (id) => {
