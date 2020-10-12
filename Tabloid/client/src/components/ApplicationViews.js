@@ -7,7 +7,7 @@ import Hello from "./Hello";
 import PostList from "./posts/PostList";
 import UserPostList from "./posts/UserPostList";
 import PostDetail from "./posts/PostDetaill";
-import ConfirmDelete from "./posts/PostDetaill";
+//import ConfirmDelete from "./posts/PostDetaill";
 import PostForm from "./posts/PostForm";
 import TagList from "./Tag/TagList"
 import { TagProvider } from "../providers/TagProvider";
@@ -16,6 +16,7 @@ import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
 import { useParams } from "react-router-dom";
+import ConfirmDelete from "./posts/ConfirmDelete";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -48,12 +49,16 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/posts/delete/:postId(\d+)" exact>
+        {/* <Route path="/posts/delete/:postId(\d+)" exact>
           {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
-        </Route>
+        </Route> */}
 
         <Route path="/posts/:postId(\d+)" exact>
           {isLoggedIn ? <PostDetail /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/posts/delete/:postId(\d+)" exact>
+          {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
         </Route>
 
 
@@ -78,6 +83,6 @@ export default function ApplicationViews() {
           {isLoggedIn ? <CategoryEdit /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
-    </main>
+    </main >
   );
 };

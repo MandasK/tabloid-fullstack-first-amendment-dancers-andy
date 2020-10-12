@@ -15,17 +15,9 @@ const ConfirmDelete = () => {
     //     getSinglePost(postId).then(setPost);
     // }, []);
 
-    if (!post) {
-        return null;
-    }
-
-
-    //convert publication date to MM / DD / YYYY
-
-    const publishDate = new Date(post.publishDateTime)
-    console.log("is this the confirmation page???");
-    const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
-
+    // if (!post) {
+    //     return null;
+    // }
 
     return (
         // <Card className="m-4">
@@ -42,7 +34,7 @@ const ConfirmDelete = () => {
         //         </button>
         //     </CardBody>
         // </Card>
-        <h1>hi there? hello?</h1>
+        <h1>Hello? hello? world? hello?</h1>
     );
 };
 
