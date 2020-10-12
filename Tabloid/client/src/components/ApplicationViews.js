@@ -4,6 +4,10 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import PostList from "./posts/PostList";
+import UserPostList from "./posts/UserPostList";
+import PostDetail from "./posts/PostDetaill";
+import PostForm from "./posts/PostForm";
 import TagList from "./Tag/TagList"
 import { TagProvider } from "../providers/TagProvider";
 import CategoryList from "./Category/CategoryList";
@@ -23,11 +27,28 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
         <Route path="/tagmanagement">
-          {isLoggedIn ? 
-          <TagProvider>
-            <TagList /> 
-          </TagProvider>
-          : <Redirect to="/login" />}
+
+          {isLoggedIn ?
+            <TagProvider>
+              <TagList />
+            </TagProvider>
+            : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/posts" exact>
+          {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/my_posts" exact>
+          {isLoggedIn ? <UserPostList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/postForm" exact>
+          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/posts/:postId(\d+)" exact>
+          {isLoggedIn ? <PostDetail /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
