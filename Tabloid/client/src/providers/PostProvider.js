@@ -56,22 +56,23 @@ export const PostProvider = (props) => {
             }));
 
 
-    const EditPost = (post) =>
+    const EditPost = (post) => {
         getToken().then((token) =>
             fetch(`/api/post/${post.id}`, {
-                method: "Put",
+                method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(post)
-            }).then(resp => {
-                debugger
-                if (resp.ok) {
-                    return resp.json();
+                body: JSON.stringify(post),
+            }))
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
                 }
                 throw new Error("Unauthorized");
-            }));
+            });
+    }
 
     const DeletePost = (id) => {
         getToken().then((token) =>

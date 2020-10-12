@@ -28,7 +28,7 @@ const EditPost = () => {
     useEffect(() => {
         getSinglePost(postId).then(setPost);
     }, []);
-    const submit = (e) => {
+    const submit = () => {
         const updatedPost = {
             id: post.id,
             title,
@@ -38,16 +38,16 @@ const EditPost = () => {
             publishDateTime: post.publishDateTime,
             isApproved: post.isApproved,
             categoryId: 1,
-            userProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id
+            userProfileId: post.userProfileId
         };
-
-
-        EditPost(updatedPost).then((p) => {
+        console.log(post)
+        EditPost(updatedPost).then(() => {
             // Navigate the user back to the home route
+            console.log(updatedPost)
             history.push("/my_posts");
         });
     };
-
+    //if (post.userProfileId === JSON.parse(sessionStorage.getItem("userProfile")).id) {
     return (
         <div className="container pt-4">
             <div className="row justify-content-center">
@@ -80,14 +80,22 @@ const EditPost = () => {
                                 />
                             </FormGroup> */}
                         </Form>
-                        <Button color="info" onClick={submit}>
+                        <Button color="info" onClick={event => {
+                            event.preventDefault();
+                            submit();
+                        }}>
                             SUBMIT
-            </Button>
+                        </Button>
                     </CardBody>
                 </Card>
             </div>
         </div>
     );
+    // } else {
+    //         return (
+    //             <h1>Hmmm... I don't think you should be here..</h1>
+    //         )
+    //     }
 };
 
 export default EditPost;

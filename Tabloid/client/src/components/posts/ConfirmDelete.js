@@ -27,33 +27,41 @@ const ConfirmDelete = () => {
         return null;
     }
 
-    return (
-        <Card className="m-4">
-            <button type="button"
-                onClick={() => { history.push(`/posts/`) }}>
-                Back to list
-            </button>
-            <h1>Careful now</h1>
-            <h2> Are you sure you want to delete "{post.title}"</h2>
-            <CardBody>
+    if (post.userProfileId === JSON.parse(sessionStorage.getItem("userProfile")).id) {
+
+
+        return (
+            <Card className="m-4">
                 <button type="button"
                     onClick={() => { history.push(`/posts/`) }}>
-                    No, But thanks for asking
+                    Back to list
+            </button>
+                <h1>Careful now</h1>
+                <h2> Are you sure you want to delete "{post.title}"</h2>
+                <CardBody>
+                    <button type="button"
+                        onClick={() => { history.push(`/posts/`) }}>
+                        No, But thanks for asking
                 </button>
-                <button type="button"
-                    onClick={() => {
-                        DeletePost(postId)
-                            .then(() => {
-                                history.push(`/posts/`)
-                            })
-                    }
-                    }
-                >Yes, I hate it!
+                    <button type="button"
+                        onClick={() => {
+                            DeletePost(postId)
+                                .then(() => {
+                                    history.push(`/posts/`)
+                                })
+                        }
+                        }
+                    >Yes, I hate it!
                 </button>
-            </CardBody>
-        </Card>
-        // <h1>Hello? hello? world? hello?</h1>
-    );
+                </CardBody>
+            </Card>
+            // <h1>Hello? hello? world? hello?</h1>
+        );
+    } else {
+        return (
+            <h1>Hmmm... I don't think you should be here..</h1>
+        )
+    }
 };
 
 
