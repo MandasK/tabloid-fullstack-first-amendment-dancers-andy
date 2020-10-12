@@ -19,6 +19,8 @@ import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
+import UserProfileList from "./UserProfile/UserProfileList";
+import UserProfileDetails from './UserProfile/UserProfileDetails';
 import CommentList from "./Comment/CommentList";
 
 export default function ApplicationViews() {
@@ -98,6 +100,12 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/category/:id/edit">
           {isLoggedIn ? <CategoryEdit /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/user" exact>
+          {isLoggedIn ? <UserProfileList /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/user/:id(\d+)/details" exact>
+          {isLoggedIn ? <UserProfileDetails /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
     </main>
