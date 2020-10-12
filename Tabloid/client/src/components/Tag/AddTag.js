@@ -9,7 +9,8 @@ const AddTag = (props) => {
       } = useContext(TagContext);
 
       //Adds the new tag to database
-      const AddNewTag = () => {
+      const AddNewTag = (e) => {
+          e.preventDefault()
             let tag = {
                 name: tagToEdit.name
             }

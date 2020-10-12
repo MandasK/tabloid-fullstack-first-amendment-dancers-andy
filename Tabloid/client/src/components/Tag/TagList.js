@@ -30,6 +30,7 @@ const TagList = () => {
   useEffect(() => {
     GetAllTags();
   }, [update]);
+  
 //Opens the Add New Tag Window
   const openNew = () => {
     setTagToEdit({name:""});
