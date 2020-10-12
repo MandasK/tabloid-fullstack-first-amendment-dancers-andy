@@ -34,6 +34,24 @@ export const TagProvider = (props) => {
     );
   };
 
+  const AddTag = (tag) => {
+    getToken().then((token) => 
+    fetch(`/api/tag/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(tag)
+    }))
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Unauthorized");
+    });
+  }
+
   const UpdateTag = (tag) => {
     getToken().then((token) => 
     fetch(`/api/tag/${tag.id}`, {
@@ -64,7 +82,7 @@ export const TagProvider = (props) => {
 
   return (
     <TagContext.Provider
-      value={{ tags, tagToEdit, setTagToEdit, GetAllTags, GetTagById, UpdateTag, DeleteTag }}
+      value={{ tags, tagToEdit, setTagToEdit, GetAllTags, GetTagById, AddTag, UpdateTag, DeleteTag }}
     >
       {props.children}
     </TagContext.Provider>
