@@ -16,16 +16,16 @@ const CategoryEdit = () => {
     }, []);
 
     const handleEdit = (evt) => {
-        const stateToChange = { ...updatedCategory }
+        const stateToChange = { ...category }
         stateToChange[evt.target.name] = evt.target.value;
-        setUpdatedCategory(stateToChange);
+        setCategory(stateToChange);
     }
 
     const editCategory = () => {
-        if (updatedCategory.id !== 0 || updatedCategory.id !== 10) {
+        if (category.id !== 0 || category.id !== 10) {
             updateCategory({
                 id: parseInt(category.id),
-                name: updatedCategory.name
+                name: category.name
             })
                 .then(() => history.push("/category"))
                 .catch((err) => alert(`An error ocurred: ${err.message}`));
