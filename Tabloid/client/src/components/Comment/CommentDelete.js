@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams, Link} from 'react-router-dom';
 import { CommentContext } from "../../providers/CommentProvider";
 import { Button, Card, CardBody } from "reactstrap";
+import "./Comment.css"
 
 
 
@@ -28,8 +29,15 @@ const CommentDelete = () => {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-lg-6">
-                    <h3>Are you sure you want to delete {comment.name}?</h3>
-                    <Button onClick={handleDelete}>Delete!!!</Button>
+                    <h3>Are you sure you want to delete this comment?</h3>
+                    <div>Subject: {comment.subject}</div>
+                    <div>Content: {comment.content}</div>
+                    <div>Created on: {comment.createDateTime}</div>
+                    <Button onClick={handleDelete} color="danger" className="commentButton">Delete</Button>
+
+                    <Link to={`/posts/${postId}/comments`}>
+                        <Button color="secondary" className="commentButton">Back</Button>
+                    </Link>
 
                 </div>
             </div>

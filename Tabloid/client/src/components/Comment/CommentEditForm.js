@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
 
 import { CommentContext } from "../../providers/CommentProvider";
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
+import "./Comment.css"
 
 const CommentEditForm = () => {
 
-    const { commentId } = useParams();
+    const { commentId, postId } = useParams();
     const { getCommentById, addComment, editComment } = useContext(CommentContext);
     const [userProfileId, setUserProfileId] = useState();
 
@@ -93,9 +94,12 @@ const CommentEditForm = () => {
                                 />
                             </FormGroup>
                         </Form>
-                        <Button color="info" onClick={submit}>
-                            SUBMIT
+                        <Button color="info" onClick={submit} className="commentButton">
+                            Submit
                         </Button>
+                        <Link to={`/posts/${postId}/comments`}>
+                        <Button color="secondary" className="commentButton">Back</Button>
+                    </Link>
                     </CardBody>
                 </Card>
             </div>

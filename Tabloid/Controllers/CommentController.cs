@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Tabloid.Controllers
 {
-    
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase

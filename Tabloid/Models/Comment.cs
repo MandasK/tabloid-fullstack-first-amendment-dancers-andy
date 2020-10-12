@@ -8,7 +8,7 @@ namespace Tabloid.Models
 {
     public class Comment
     {
-        
+
         public int Id { get; set; }
         public int PostId { get; set; }
         public int UserProfileId { get; set; }
@@ -19,5 +19,6 @@ namespace Tabloid.Models
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CreateDateTime { get; set; }
+        public UserProfile UserProfile{get; set;}
     }
 }

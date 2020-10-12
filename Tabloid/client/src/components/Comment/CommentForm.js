@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
-import { useHistory, useParams } from "react-router-dom"
+import { useHistory, useParams, Link } from "react-router-dom"
 import { CommentContext } from "../../providers/CommentProvider";
+import "./Comment.css"
 
 
 const CommentForm = () => {
@@ -25,13 +26,10 @@ const CommentForm = () => {
         const user = JSON.parse(sessionStorage.getItem("userProfile")).id
         comment.userProfileId = user
         comment.postId = parseInt(postId);
-        comment.createDateTime = new Date()
-
-console.log(comment.userProfileId)
-console.log(comment.postId)
-console.log(comment.subject)
-console.log(comment.content)
-console.log(comment.createDateTime)
+        // const date = new Date();
+        // const HumanPublishDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+        // comment.createDateTime = HumanPublishDate
+        comment.createDateTime = new Date();
 
         addComment(comment).then((evt) => {
             history.push(`/posts/${postId}/comments`);
@@ -70,18 +68,14 @@ console.log(comment.createDateTime)
                                     onChange={(e) => setContent(e.target.value)}
                                 />
                             </FormGroup>
-                            {/* <FormGroup>
-                                <Label for="createDateTime">CreateDateTime</Label>
-                                <Input
-                                    id="createDateTime"
-                                    type="date"
-                                    onChange={(e) => setCreateDateTime(e.target.value)}
-                                />
-                            </FormGroup> */}
+
                         </Form>
-                        <Button color="info" onClick={submit}>
+                        <Button color="info" onClick={submit} className="commentButton">
                             SUBMIT
               </Button>
+              <Link to={`/posts/${postId}/comments`}>
+                        <Button color="secondary" className="commentButton">Back</Button>
+                    </Link>
                     </CardBody>
                 </Card>
             </div>

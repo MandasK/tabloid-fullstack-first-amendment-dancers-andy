@@ -24,8 +24,9 @@ namespace Tabloid.Repositories
                 {
                     Console.WriteLine(postId);
                     cmd.CommandText = @"
-                        SELECT Id, PostId, UserProfileId, Subject, Content, CreateDateTime
-                        FROM Comment
+                        SELECT c.Id, PostId, UserProfileId, Subject, Content, c.CreateDateTime, FirstName, LastName
+                        FROM Comment c
+                        LEFT JOIN UserProfile up on c.UserProfileId = up.Id
                         WHERE PostId = @PostId
                         ORDER BY CreateDateTime DESC;";
                     cmd.Parameters.AddWithValue("@PostId", postId);
@@ -42,7 +43,13 @@ namespace Tabloid.Repositories
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             Subject = DbUtils.GetString(reader, "Subject"),
                             Content = DbUtils.GetString(reader, "Content"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime")
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            UserProfile = new UserProfile()
+                            {
+                             Id = DbUtils.GetInt(reader, "UserProfileId"),
+                             FirstName = DbUtils.GetString(reader, "FirstName"),
+                             LastName = DbUtils.GetString(reader, "LastName")
+                             },
                         });
                     }
                     reader.Close();
@@ -92,8 +99,9 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, PostId, UserProfileId, Subject, Content, CreateDateTime
-                        FROM Comment
+                        SELECT c.Id, PostId, UserProfileId, Subject, Content, c.CreateDateTime, FirstName, LastName
+                        FROM Comment c
+                        LEFT JOIN UserProfile up on c.UserProfileId = up.Id
                         WHERE Id = @id
                         ORDER BY CreateDateTime DESC;";
                     cmd.Parameters.AddWithValue("@id", id);
@@ -110,7 +118,13 @@ namespace Tabloid.Repositories
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             Subject = DbUtils.GetString(reader, "Subject"),
                             Content = DbUtils.GetString(reader, "Content"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime")
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName")
+                            },
                         };
                     }
                     reader.Close();

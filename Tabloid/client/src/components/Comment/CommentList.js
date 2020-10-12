@@ -16,6 +16,7 @@ const CommentList = () => {
     return (
         <>
             <p><Link to={`/posts/${postId}/comments/new`}>New Comment</Link></p>
+            <p><Link to={`/posts/${postId}`}>Back to post</Link></p>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="cards-column">
