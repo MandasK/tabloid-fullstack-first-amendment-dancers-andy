@@ -6,7 +6,7 @@ import { useParams, useHistory, Link } from "react-router-dom";
 
 const ConfirmDelete = () => {
     const [post, setPost] = useState();
-    const { getSinglePost } = useContext(PostContext);
+    const { getSinglePost, DeletePost } = useContext(PostContext);
     const { postId } = useParams();
     const history = useHistory();
     console.log("is this the confirmation page???");
@@ -14,6 +14,14 @@ const ConfirmDelete = () => {
     useEffect(() => {
         getSinglePost(postId).then(setPost);
     }, []);
+
+    // const RequestDelete = (id) => {
+    //     DeletePost(id).then(() => {
+    //         history.push(`/posts/`)
+    //     })
+
+
+    // }
 
     if (!post) {
         return null;
@@ -31,6 +39,16 @@ const ConfirmDelete = () => {
                 <button type="button"
                     onClick={() => { history.push(`/posts/`) }}>
                     No, But thanks for asking
+                </button>
+                <button type="button"
+                    onClick={() => {
+                        DeletePost(postId)
+                            .then(() => {
+                                history.push(`/posts/`)
+                            })
+                    }
+                    }
+                >Yes, I hate it!
                 </button>
             </CardBody>
         </Card>

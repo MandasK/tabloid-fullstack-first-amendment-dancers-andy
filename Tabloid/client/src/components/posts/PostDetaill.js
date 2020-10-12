@@ -37,7 +37,7 @@ const PostDetail = () => {
             {/* <p className="text-left px-2">Posted by: {post.userProfile.firstName}</p> */}
             <CardImg top src={post.imageLocation} alt={post.title} />
             <CardBody>
-
+            {/* /posts/edit/:postId(\d+) */}
                 <p>{post.content}</p>
                 <p>{HumanPublishDate}</p>
                 <button type="button"
@@ -49,6 +49,12 @@ const PostDetail = () => {
                 
                 onClick={() => { history.push(`/posts/delete/${postId}`) }}>
                     Delete
+                    
+                </button >
+                <button type="button"
+                
+                onClick={() => { history.push(`/posts/edit/${postId}`) }}>
+                    Edit
                     
                 </button >
 

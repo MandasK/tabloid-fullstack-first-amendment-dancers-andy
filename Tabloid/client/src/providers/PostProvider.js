@@ -55,18 +55,36 @@ export const PostProvider = (props) => {
                 throw new Error("Unauthorized");
             }));
 
-    const DeletePost = (id) =>
+
+    const EditPost = (post) =>
+        getToken().then((token) =>
+            fetch(`/api/post/${post.id}`, {
+                method: "Put",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(post)
+            }).then(resp => {
+                debugger
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error("Unauthorized");
+            }));
+
+    const DeletePost = (id) => {
         getToken().then((token) =>
             fetch(`/api/post/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).then((res) => res.json())
-        );
+            }))
+    };
 
     return (
-        <PostContext.Provider value={{ posts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost }}>
+        <PostContext.Provider value={{ posts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost, EditPost }}>
             {props.children}
         </PostContext.Provider>
     );

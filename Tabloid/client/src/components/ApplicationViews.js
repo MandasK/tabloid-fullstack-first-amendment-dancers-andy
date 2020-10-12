@@ -16,6 +16,7 @@ import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
 import { useParams } from "react-router-dom";
 import ConfirmDelete from "./posts/ConfirmDelete";
+import EditPost from "./posts/EditPost";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -46,6 +47,10 @@ export default function ApplicationViews() {
 
         <Route path="/postForm" exact>
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/posts/edit/:postId(\d+)" exact>
+          {isLoggedIn ? <EditPost /> : <Redirect to="/login" />}
         </Route>
 
         {/* <Route path="/posts/delete/:postId(\d+)" exact>
