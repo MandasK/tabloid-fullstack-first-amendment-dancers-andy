@@ -15,11 +15,7 @@ function App() {
   return (
     <Router>
       <UserProfileProvider>
-        <CommentProvider>
-        <CommentForm />
-        </CommentProvider>
-        <CategoryProvider>
-        </CategoryProvider>
+
         <PostProvider>
           <CategoryProvider>
             <Header />

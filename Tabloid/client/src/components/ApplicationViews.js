@@ -7,7 +7,7 @@ import Hello from "./Hello";
 import CommentEditForm from "./Comment/CommentEditForm";
 import CommentDelete from "./Comment/CommentDelete";
 import CommentForm from "./Comment/CommentForm";
-import {CommentProvider} from "../providers/CommentProvider";
+import { CommentProvider } from "../providers/CommentProvider";
 
 import PostList from "./posts/PostList";
 import UserPostList from "./posts/UserPostList";
@@ -19,11 +19,12 @@ import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
+import CommentList from "./Comment/CommentList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
   const { id } = useParams();
-  
+
 
   return (
     <main>
@@ -65,14 +66,26 @@ export default function ApplicationViews() {
         </Route>
 
         {/* Comment Routes */}
-        <Route path="/comment/:id/delete">
+        <Route path="/posts/:postId/comments/:commentId/delete">
           {isLoggedIn ? <CommentProvider><CommentDelete /></CommentProvider> : <Redirect to="/login/" />}
         </Route>
 
-        <Route path="/comment/:id/edit">
-          {isLoggedIn ? <CommentProvider><CommentEditForm /> </CommentProvider>: <Redirect to="/login/" />}
+        <Route path="/posts/:postId/comments/:commentId/edit">
+          {isLoggedIn ? <CommentProvider><CommentEditForm /></CommentProvider> : <Redirect to="/login/" />}
         </Route>
 
+        <Route path="/comment/:id/edit">
+          {isLoggedIn ? <CommentProvider><CommentEditForm /> </CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+
+        <Route path="/posts/:postId/comments" exact>
+          {isLoggedIn ? <CommentProvider> <CommentList /> </CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+
+        <Route path="/posts/:postId/comments/new">
+          {isLoggedIn ? <CommentProvider> <CommentForm /> </CommentProvider> : <Redirect to="/login/" />}
+        </Route>
+        {/* End of Comment Routes */}
 
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login/" />}

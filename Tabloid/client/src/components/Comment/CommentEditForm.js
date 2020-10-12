@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
 
 import { CommentContext } from "../../providers/CommentProvider";
@@ -6,32 +6,50 @@ import { useParams, useHistory } from 'react-router-dom';
 
 const CommentEditForm = () => {
 
-    const { addComment } = useContext(CommentContext);
-    const [userProfileId, setUserProfileId] = useState("");
-    const [postId, setPostId] = useState("");
-    const [subject, setSubject] = useState("");
-    const [content, setContent] = useState("");
-    const [createDateTime, setCreateDateTime] = useState("");
+    const { commentId } = useParams();
+    const { getCommentById, addComment, editComment } = useContext(CommentContext);
+    const [userProfileId, setUserProfileId] = useState();
+
     const history = useHistory();
+    const [comment, setComment] = useState({ userProfileId: "", postId: "", subject: "", content: "", createDateTime: "" });
+    const [updatedComment, setUpdatedComment] = useState();
 
-    const submit = (evt) => {
-        evt.preventDefault()
-        const comment = {
-            userProfileId,
-            postId,
-            subject,
-            content,
-            createDateTime
-        };
-        const user = JSON.parse(sessionStorage.getItem("userProfile")).id
-        comment.userProfileId = user
+    useEffect(() => {
+        getCommentById(commentId).then(setComment);
+    }, []);
+    
 
-        comment.createDateTime = new Date()
+ 
+     const submit = (evt) => {
+         evt.preventDefault();
+         const updatedComment =
+         {
+            id: comment.id,
+            userProfileId: comment.userProfileId,
+            postId: comment.postId,
+            subject: comment.subject,
+            content: comment.content,
+            createDateTime: comment.createDateTime
+        }
+        
+        
+        editComment(updatedComment).then(() => 
+            history.push(`/posts/${comment.postId}/comments`))
+        
+    }
 
-        addComment(comment).then((evt) => {
-            history.push("/");
-        });
-    };
+    const handleFieldChange = evt => {
+        const stateToChange = { ...comment }
+        stateToChange[evt.target.id] = evt.target.value
+        setComment(stateToChange)
+        // console.log(evt.target.id)
+        // console.log(evt.target.value)
+        // console.log(comment)
+    }
+
+    if (!comment) {
+        return null;
+    }
 
     return (
         <div className="container pt-4">
@@ -39,39 +57,41 @@ const CommentEditForm = () => {
                 <Card className="col-sm-12 col-lg-6">
                     <CardBody>
                         <Form>
-                            {/* <FormGroup>
-                                <Label for="userId">User Id (For Now...)</Label>
+                            <FormGroup>
                                 <Input
                                     id="userId"
-                                    onChange={(e) => setUserProfileId(e.target.value)}
-                                />
-                            </FormGroup> */}
-                            <FormGroup>
-                                <Label for="postId">Post Id</Label>
-                                <Input
-                                    id="postId"
-                                    onChange={(e) => setPostId(parseInt(e.target.value))}
+                                    type="hidden"
+                                    defaultValue={userProfileId}
                                 />
                             </FormGroup>
                             <FormGroup>
+                                <Label for="postId">Edit Comment</Label>
+                                <Input type="hidden" id="postId"
+                                    value={comment.postId} />
+                            </FormGroup>
+                            <FormGroup>
                                 <Label for="subject">Subject</Label>
-                                <Input id="subject" onChange={(e) => setSubject(e.target.value)} />
+                                <Input id="subject"
+                                    defaultValue={comment.subject}
+                                    onChange={handleFieldChange}
+                                />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="content">Content</Label>
                                 <Input
                                     id="content"
-                                    onChange={(e) => setContent(e.target.value)}
+                                    defaultValue={comment.content}
+                                    onChange={handleFieldChange}
                                 />
                             </FormGroup>
-                            {/* <FormGroup>
-                                <Label for="createDateTime">CreateDateTime</Label>
+                            <FormGroup>
+                                {/* <Label for="createDateTime">CreateDateTime</Label> */}
                                 <Input
                                     id="createDateTime"
-                                    type="date"
-                                    onChange={(e) => setCreateDateTime(e.target.value)}
+                                    type="hidden"
+                                    defaultValue={comment.createDateTime}
                                 />
-                            </FormGroup> */}
+                            </FormGroup>
                         </Form>
                         <Button color="info" onClick={submit}>
                             SUBMIT

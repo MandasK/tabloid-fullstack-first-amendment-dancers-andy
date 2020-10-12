@@ -1,18 +1,19 @@
 import React, { useContext, useState } from "react";
 import { Button, Form, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { CommentContext } from "../../providers/CommentProvider";
+
 
 const CommentForm = () => {
 
     const { addComment } = useContext(CommentContext);
     const [userProfileId, setUserProfileId] = useState("");
-    const [postId, setPostId] = useState("");
+    //const [postId, setPostId] = useState("");
     const [subject, setSubject] = useState("");
     const [content, setContent] = useState("");
     const [createDateTime, setCreateDateTime] = useState("");
     const history = useHistory();
-
+    const { postId } = useParams();
     const submit = (evt) => {
         const comment = {
             userProfileId,
@@ -23,11 +24,17 @@ const CommentForm = () => {
         };
         const user = JSON.parse(sessionStorage.getItem("userProfile")).id
         comment.userProfileId = user
-        
+        comment.postId = parseInt(postId);
         comment.createDateTime = new Date()
 
+console.log(comment.userProfileId)
+console.log(comment.postId)
+console.log(comment.subject)
+console.log(comment.content)
+console.log(comment.createDateTime)
+
         addComment(comment).then((evt) => {
-            history.push("/");
+            history.push(`/posts/${postId}/comments`);
         });
     };
 
@@ -45,10 +52,11 @@ const CommentForm = () => {
                                 />
                             </FormGroup> */}
                             <FormGroup>
-                                <Label for="postId">Post Id</Label>
-                                <Input
+                                <Label for="postId">New Comment</Label>
+                                <Input type="hidden"
                                     id="postId"
-                                    onChange={(e) => setPostId(parseInt(e.target.value))}
+                                    value = {postId}
+                                    
                                 />
                             </FormGroup>
                             <FormGroup>

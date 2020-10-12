@@ -8,17 +8,16 @@ import { Button, Card, CardBody } from "reactstrap";
 const CommentDelete = () => {
     const [comment, setComment] = useState();
     const { getCommentById, deleteComment } = useContext(CommentContext);
-    const { id } = useParams;
-    const history = useHistory;
+    const { id, postId, commentId } = useParams();
+    const history = useHistory();
 
     useEffect(() => {
-        getCommentById(id).then(setComment);
+        getCommentById(commentId).then(setComment);
     }, []);
 
     const handleDelete = (id) => {
-        console.log("deleting" + id)
-        deleteComment(id)
-            .then(() => history.push("/comment"))
+        deleteComment(commentId)
+            .then(() => history.push(`/post/${postId}/comments`))
     }
 
     if (!comment) {

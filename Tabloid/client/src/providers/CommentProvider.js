@@ -52,6 +52,7 @@ export const CommentProvider = (props) => {
                 }
             }).then((res) => res.json()));
 
+
     const addComment = (comment) =>
         getToken().then((token) =>
             fetch(apiUrl, {
