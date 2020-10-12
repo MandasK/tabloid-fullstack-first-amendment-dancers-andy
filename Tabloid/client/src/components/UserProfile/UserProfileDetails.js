@@ -14,12 +14,16 @@ const UserProfileDetails = () => {
        getUserById(id).then(() => setIsLoading(true))
    }, [auser]);
    
+ 
    const date = new Date(auser.createDateTime)
    const betterDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 
     if(!auser) {
         return null;
     }
+
+    while (auser.status !== 404)
+    {
     if(isloading) {
         return(
             <div className="d-flex justify-content-center">
@@ -36,6 +40,7 @@ const UserProfileDetails = () => {
                         <div>Display Name: {auser.displayName}</div>
                         <div>Email: {auser.email}</div>
                         <div>Profile Type: {auser.userType.name}</div>
+                        
                         <div>Profile Created on {betterDate}</div>
                     </CardBody>
                     <Button type="button"
@@ -48,9 +53,12 @@ const UserProfileDetails = () => {
             </div>
         )
     }
+    
     else {
         return <Spinner className="app-spinner dark"/>
     }
+    
+}
 }
 
 export default UserProfileDetails;
