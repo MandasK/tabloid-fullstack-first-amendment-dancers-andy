@@ -22,7 +22,7 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    Console.WriteLine(postId);
+                    
                     cmd.CommandText = @"
                         SELECT c.Id, PostId, UserProfileId, Subject, Content, c.CreateDateTime, FirstName, LastName
                         FROM Comment c

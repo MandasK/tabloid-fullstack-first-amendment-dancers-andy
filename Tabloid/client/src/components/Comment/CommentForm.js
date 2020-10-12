@@ -71,7 +71,7 @@ const CommentForm = () => {
 
                         </Form>
                         <Button color="info" onClick={submit} className="commentButton">
-                            SUBMIT
+                            Submit
               </Button>
               <Link to={`/posts/${postId}/comments`}>
                         <Button color="secondary" className="commentButton">Back</Button>

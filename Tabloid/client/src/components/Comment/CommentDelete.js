@@ -19,14 +19,14 @@ const CommentDelete = () => {
 
     const handleDelete = (id) => {
         deleteComment(commentId)
-            .then(() => history.push(`/post/${postId}/comments`))
+            .then(() => history.push(`/posts/${postId}/comments`))
     }
 
     if (!comment) {
         return null;
     }
 
-    if (currentUser === comment.userProfileId) {
+    if (currentUser !== comment.userProfileId) {
         return null;
     }
 

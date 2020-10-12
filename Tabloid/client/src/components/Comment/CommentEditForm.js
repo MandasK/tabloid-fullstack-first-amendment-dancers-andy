@@ -51,7 +51,7 @@ const CommentEditForm = () => {
     if (!comment) {
         return null;
     }
-    if (currentUser === comment.userProfileId) {
+    if (currentUser !== comment.userProfileId) {
         return null;
     }
 
