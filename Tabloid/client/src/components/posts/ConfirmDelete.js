@@ -9,7 +9,7 @@ const ConfirmDelete = () => {
     const { getSinglePost, DeletePost } = useContext(PostContext);
     const { postId } = useParams();
     const history = useHistory();
-    console.log("is this the confirmation page???");
+    
 
     useEffect(() => {
         getSinglePost(postId).then(setPost);
