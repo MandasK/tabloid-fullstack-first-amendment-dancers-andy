@@ -96,7 +96,11 @@ const PostForm = () => {
                         </Form>
                         <Button color="info" onClick={submit}>
                             SUBMIT
-            </Button>
+                        </Button>
+                        <Button color="info"
+                            onClick={() => { history.push(`/posts/`) }}>
+                            Cancel
+                        </Button>
                     </CardBody>
                 </Card>
             </div>

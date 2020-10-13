@@ -15,7 +15,7 @@ const PostList = () => {
 
     return (
         <div className="container">
-            <div className="row justify-content-center">
+            <div className="row justify-content-left">
                 <Button color="danger"
                     onClick={() => { history.push(`/postForm/`) }}>
                     add post
