@@ -34,7 +34,7 @@ const PostList = () => {
                         <tbody key={post.id}>
                             <tr>
                                 <Link to={`/posts/${post.id}`}>
-                                    <td>{post.title}</td>
+                                    <th scope="row">{post.title}</th>
                                 </Link>
                                 <td>{post.userProfile.firstName} {post.userProfile.lastName}</td>
                                 <td>{post.category.name}</td>
