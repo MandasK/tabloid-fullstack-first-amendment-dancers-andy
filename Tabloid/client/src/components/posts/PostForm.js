@@ -22,7 +22,7 @@ const PostForm = () => {
     const history = useHistory();
     //Title, Content, ImageLocation, CreateDateTime, 
     //PublishDateTime, IsApproved, CategoryId, UserProfileId
-    const submit = (e) => {
+    const submit = () => {
         const post = {
             title,
             content,
@@ -32,7 +32,7 @@ const PostForm = () => {
         };
 
 
-        addPost(post).then((p) => {
+        addPost(post).then(() => {
             // Navigate the user back to the home route
             history.push("/my_posts");
         });

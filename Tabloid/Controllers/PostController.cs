@@ -59,7 +59,7 @@ namespace Tabloid.Controllers
             }
 
             _postRepository.Update(post);
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
