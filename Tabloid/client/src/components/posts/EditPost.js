@@ -47,6 +47,18 @@ const EditPost = () => {
             userProfileId: post.userProfileId
         }
         updatedPost.categoryId = JSON.parse(updatedPost.categoryId)
+        if (updatedPost.title === ""){
+            updatedPost.title = post.title
+        }
+        if (updatedPost.content === ""){
+            updatedPost.content = post.content
+        }
+        if (updatedPost.imageLocation === ""){
+            updatedPost.imageLocation = post.imageLocation
+        }
+        if (updatedPost.categoryId === 0){
+            updatedPost.categoryId = post.categoryId
+        }
         debugger
         EditPost(updatedPost)
         .then(() => history.push("/my_posts/"));
@@ -75,19 +87,19 @@ const EditPost = () => {
                                     <Label for="title">Title</Label>
                                     <Input
                                         id="title"
-                                        placeholder={post.title}
+                                        defaultValue={post.title}
                                         onChange={(e) => setTitle(e.target.value)}
                                     />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="content">Content</Label>
-                                    <Input id="content" placeholder={post.content} onChange={(e) => setContent(e.target.value)} />
+                                    <Input id="content" defaultValue={post.content} onChange={(e) => setContent(e.target.value)} />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="imageLocation">Image</Label>
                                     <Input
                                         id="imageLocation"
-                                        placeholder={post.imageLocation}
+                                        defaultValue={post.imageLocation}
                                         onChange={(e) => setImageLocation(e.target.value)}
                                     />
                                 </FormGroup>
@@ -95,7 +107,7 @@ const EditPost = () => {
                                 <Label for="categoryId">category</Label>
                                 <select defaultValue="" name="categoryId" id="categoryId" className="form-control" onChange={(e) => setCategoryId(e.target.value)}>
                                     
-                                <option value="" hidden defaultValue >{post.category.name}</option>
+                                <option defaultValue={post.categoryId} hidden>{post.category.name}</option>
                                     {categories.map(e => (
                                         <option key={e.id} value={e.id}>
                                             {e.name}
