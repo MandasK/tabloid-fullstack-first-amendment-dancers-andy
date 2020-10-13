@@ -20,7 +20,7 @@ const PostForm = () => {
     const [content, setContent] = useState("");
     const [imageLocation, setImageLocation] = useState("");
     const [createDateTime, setCreateDateTime] = useState("");
-    const [categoryId, setCategoryId] = useState();
+    const [categoryId, setCategoryId] = useState(0);
     const history = useHistory();
     //const [categories, setCategories] = useState();
 
@@ -37,9 +37,9 @@ const PostForm = () => {
             userProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id
         };
         post.categoryId = JSON.parse(post.categoryId)
-        debugger
+
         addPost(post).then(() => {
-            // Navigate the user back to the home route
+
             history.push("/my_posts");
         });
     };
