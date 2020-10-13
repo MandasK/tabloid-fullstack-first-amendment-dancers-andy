@@ -8,7 +8,7 @@ set identity_insert [UserType] off
 set identity_insert [Category] on
 insert into [Category] ([Id], [Name]) 
 values (1, 'Technology'), (2, 'Politics'), (3, 'Science'), (4, 'Cooking'), (5, 'Music'),
-	   (6, 'Cthulhu Sightings'), (7, 'History'), (8, 'Home and Garden'), (9, 'Entertainment')
+	   (6, 'Cthulhu Sightings'), (7, 'History'), (8, 'Home and Garden'), (9, 'Entertainment'), (10, 'Other')
 set identity_insert [Category] off
 
 set identity_insert [Tag] on
