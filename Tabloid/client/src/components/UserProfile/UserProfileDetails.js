@@ -27,10 +27,10 @@ const UserProfileDetails = () => {
     if(isloading) {
         return(
             <div className="d-flex justify-content-center">
-                <Card style={{ border: "none", width: "40%" }} className="smallContainer">
+                <Card style={{ border: "none", width: "30%", height:"30%" }} className="smallContainer">
 
                     {
-                        auser.imageLocation != null ? <CardImg style={{ height: "40%", width: "40%" }} src={auser.imageLocation} alt={auser.fullName} className="userdetailsImg" />
+                        auser.imageLocation != null ? <CardImg src={auser.imageLocation} alt={auser.fullName} className="userdetailsImg" />
                         : <i className="fa-user-circle fa-7x" />
                     }
                     <CardHeader>
