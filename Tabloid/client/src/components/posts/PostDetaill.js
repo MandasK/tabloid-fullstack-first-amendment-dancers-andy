@@ -36,27 +36,28 @@ const PostDetail = () => {
                 {/* /posts/edit/:postId(\d+) */}
                 <p>{post.content}</p>
                 <p>{HumanPublishDate}</p>
-                <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" color="danger">Comments</Button></Link>
+                <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton"
+                >Comments</Button></Link>
 
-                <button type="button"
+                <Button type="button"
                     onClick={() => { history.push(`/posts/`) }}>
-                    Posts
-                </button>
+                    Post List
+                </Button>
 
 
                 
-                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <button type="button"
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <Button color="danger"
                 
                 onClick={() => { history.push(`/posts/delete/${postId}`) }}>
                         Delete
                          
-                </button >}
-                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <button type="button"
+                </Button >}
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <Button color="info"
                 
                 onClick={() => { history.push(`/posts/edit/${postId}`) }}>
                         Edit
                          
-                </button >}
+                </Button >}
                 
             </CardBody >
         </Card >

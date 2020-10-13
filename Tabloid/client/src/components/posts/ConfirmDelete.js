@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem, Card, CardImg, CardBody } from "reactstrap";
+import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory, Link } from "react-router-dom";
 
@@ -32,18 +32,15 @@ const ConfirmDelete = () => {
 
         return (
             <Card className="m-4">
-                <button type="button"
-                    onClick={() => { history.push(`/posts/`) }}>
-                    Back to list
-            </button>
+                
                 <h1>Careful now</h1>
                 <h2> Are you sure you want to delete "{post.title}"</h2>
                 <CardBody>
-                    <button type="button"
+                    <Button color="info"
                         onClick={() => { history.push(`/posts/${postId}`) }}>
                         No, But thanks for asking
-                </button>
-                    <button type="button"
+                </Button>
+                    <Button color="danger"
                         onClick={() => {
                             DeletePost(postId)
                                 .then(() => {
@@ -52,10 +49,9 @@ const ConfirmDelete = () => {
                         }
                         }
                     >Yes, I hate it!
-                </button>
+                </Button>
                 </CardBody>
             </Card>
-            // <h1>Hello? hello? world? hello?</h1>
         );
     } else {
         return (
