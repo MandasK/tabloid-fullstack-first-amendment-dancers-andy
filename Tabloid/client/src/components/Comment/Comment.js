@@ -19,31 +19,33 @@ const Comment = ({ comment }) => {
 
     }
     const publishDate = new Date(comment.createDateTime)
-    
+
     const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
 
 
     return (
-        <Card>
-            <CardBody>
-                <div>{comment.userProfile.firstName} {comment.userProfile.lastName}</div>
-                <div>{HumanPublishDate}</div>
-                <strong>{comment.subject}</strong>
-                <div>{comment.content}</div>
-                <div>
-                    {(currentUser === comment.userProfileId) ?
-                        <Link to={`/posts/${postId}/comments/${comment.id}/delete`}>
-                            <Button color="danger" className="commentButton">Delete</Button>
-                        </Link>
-                        : <div></div>}
+        <Card style={{ border: "none" }}>
+            <div className="commentCard">
+                <CardBody>
+                    <div>{comment.userProfile.firstName} {comment.userProfile.lastName}</div>
+                    <div>{HumanPublishDate}</div>
+                    <strong>{comment.subject}</strong>
+                    <div>{comment.content}</div>
+                    <div>
+                        {(currentUser === comment.userProfileId) ?
+                            <Link to={`/posts/${postId}/comments/${comment.id}/delete`}>
+                                <Button color="danger" className="commentButton">Delete</Button>
+                            </Link>
+                            : <div></div>}
 
-                    {(currentUser === comment.userProfileId) ?
-                        <Link to={`/posts/${postId}/comments/${comment.id}/edit`}>
-                            <Button className="commentButton">Edit</Button>
-                        </Link> 
-                        : <div></div>}
-                </div>
-            </CardBody>
+                        {(currentUser === comment.userProfileId) ?
+                            <Link to={`/posts/${postId}/comments/${comment.id}/edit`}>
+                                <Button className="commentButton">Edit</Button>
+                            </Link>
+                            : <div></div>}
+                    </div>
+                </CardBody>
+            </div>
         </Card>
     )
 };
