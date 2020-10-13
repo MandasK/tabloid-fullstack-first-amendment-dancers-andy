@@ -59,7 +59,7 @@ const EditPost = () => {
         if (updatedPost.categoryId === 0){
             updatedPost.categoryId = post.categoryId
         }
-        debugger
+        
         EditPost(updatedPost)
         .then(() => history.push("/my_posts/"));
     };

@@ -37,29 +37,31 @@ const PostDetail = () => {
             {/* <p className="text-left px-2">Posted by: {post.userProfile.firstName}</p> */}
             <CardImg top src={post.imageLocation} alt={post.title} />
             <CardBody>
-            {/* /posts/edit/:postId(\d+) */}
+                {/* /posts/edit/:postId(\d+) */}
                 <p>{post.content}</p>
                 <p>{HumanPublishDate}</p>
                 <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" color="danger">Comments</Button></Link>
-                
+
                 <button type="button"
                     onClick={() => { history.push(`/posts/`) }}>
                     Back to list
                 </button>
 
-                <button type="button"
+
+                
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <button type="button"
                 
                 onClick={() => { history.push(`/posts/delete/${postId}`) }}>
-                    Delete
-                    
-                </button >
-                <button type="button"
+                        Delete
+                         
+                </button >}
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <button type="button"
                 
                 onClick={() => { history.push(`/posts/edit/${postId}`) }}>
-                    Edit
-                    
-                </button >
-
+                        Edit
+                         
+                </button >}
+                
             </CardBody >
         </Card >
     );
