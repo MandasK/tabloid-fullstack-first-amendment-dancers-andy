@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { CategoryContext } from '../../providers/CategoryProvider';
 import Category from './Category';
-import { Button, ListGroup, Row } from 'reactstrap';
+import { Button, ListGroup, Row, Table } from 'reactstrap';
 import { Link } from "react-router-dom";
 import "./Category.css"
 
@@ -15,23 +15,43 @@ const CategoryList = (props) => {
 
     return (
         <div className="container">
-            <div className="justify-content-center">
+            
                 <Row>
 
                     <p><Link to={`/category/add`}>Add New Category</Link></p>
 
                 </Row>
                 <br></br>
-                <Row>
-
-                    {categories.map((category) => (       
-                            <Category key={category.id} category={category} />                       
-                    ))}
-
-                </Row>
+                <div className="row justify-content-left">
+      
+            <Table>
+            <thead>
+                <tr>
+                <th>Name</th>
+                <th>Edit</th>
+                 <th>Delete</th>
+                 </tr>
+            </thead>        
+                {categories.map((category) => ( 
+                    <tbody key={category.id}>
+                    <tr>
+                        <td>{category.name}</td>
+                        <td><Link to={`/category/${category.id}/edit`}><Button className="editCategoryButton" color="primary">Edit</Button></Link></td>
+                       <td><Link to={`/category/${category.id}/delete`}><Button className="deleteCategoryButton" color="danger">Delete</Button></Link></td>
+                        
+                    </tr>
+                </tbody>
+                ))}
+            </Table>
             </div>
+
+               
+            
         </div>
     )
 }
 
 export default CategoryList;
+
+
+
