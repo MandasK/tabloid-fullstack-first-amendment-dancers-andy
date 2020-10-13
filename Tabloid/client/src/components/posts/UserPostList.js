@@ -35,9 +35,11 @@ const UserPostList = () => {
                     {posts.map((post) => (
                         <tbody key={post.id}>
                             <tr>
-                                <Link to={`/posts/${post.id}`}>
-                                    <th scope="row">{post.title}</th>
-                                </Link>
+                                <th scope="row">
+                                    <Link to={`/posts/${post.id}`}>
+                                        {post.title}
+                                    </Link>
+                                </th>
                                 <td>{post.userProfile.firstName} {post.userProfile.lastName}</td>
                                 <td>{post.category.name}</td>
                             </tr>

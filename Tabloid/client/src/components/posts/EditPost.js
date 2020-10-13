@@ -66,7 +66,6 @@ const EditPost = () => {
 
     useEffect(() => {
         getSinglePost(postId).then((res)=>{
-            console.log(res)
             setPost(res)
             setIsLoading(false);
         });
@@ -75,7 +74,7 @@ const EditPost = () => {
     if (!post) {
         return null;
     }
-    console.log("post again", post)
+    
     if (post.userProfileId === JSON.parse(sessionStorage.getItem("userProfile")).id) {
         return (
             <div className="container pt-4">
