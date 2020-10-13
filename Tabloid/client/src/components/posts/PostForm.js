@@ -37,10 +37,24 @@ const PostForm = () => {
             userProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id
         };
         post.categoryId = JSON.parse(post.categoryId)
+        if (post.title === "") {
+            window.alert("Please add a title")
+        }
+        if (post.content === "") {
+            window.alert("what is a post with no content?")
+        }
+        // if (post.imageLocation === "") {
+        //     post.imageLocation = post.imageLocation
+        // }
+        if (post.categoryId === 0) {
+            window.alert("please select a category")
+        }
+        if (post.title !== "" && post.content !== "" && post.categoryId !== 0) {
+            addPost(post).then((res) => {
+                history.push(`/posts/${res.id}`);
+            });
+        }
 
-        addPost(post).then((res) => {
-            history.push(`/posts/${res.id}`);
-        });
     };
 
     return (

@@ -28,10 +28,6 @@ const PostDetail = () => {
 
     return (
         <Card className="m-4">
-            <button type="button"
-                onClick={() => { history.push(`/posts/`) }}>
-                Back to list
-            </button>
             <strong>{post.title}</strong>
             <p className="text-left px-2">By {post.userProfile.displayName}</p>
             {/* <p className="text-left px-2">Posted by: {post.userProfile.firstName}</p> */}
@@ -44,7 +40,7 @@ const PostDetail = () => {
 
                 <button type="button"
                     onClick={() => { history.push(`/posts/`) }}>
-                    Back to list
+                    Posts
                 </button>
 
 
