@@ -38,9 +38,8 @@ const PostForm = () => {
         };
         post.categoryId = JSON.parse(post.categoryId)
 
-        addPost(post).then(() => {
-
-            history.push("/my_posts");
+        addPost(post).then((res) => {
+            history.push(`/posts/${res.id}`);
         });
     };
 
