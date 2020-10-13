@@ -94,7 +94,8 @@ const EditPost = () => {
                                 <FormGroup>
                                 <Label for="categoryId">category</Label>
                                 <select defaultValue="" name="categoryId" id="categoryId" className="form-control" onChange={(e) => setCategoryId(e.target.value)}>
-                                    <option value="0">Select a Category</option>
+                                    
+                                <option value="" hidden defaultValue >{post.category.name}</option>
                                     {categories.map(e => (
                                         <option key={e.id} value={e.id}>
                                             {e.name}
