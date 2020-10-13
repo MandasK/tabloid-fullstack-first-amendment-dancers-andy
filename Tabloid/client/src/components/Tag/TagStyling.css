@@ -23,7 +23,8 @@
     max-width: fit-content;
     min-width: 35vw;
     min-height: 15vh;
-    border: 1px solid slategray;
+    background-color: rgba(70, 131, 180, 0.226);   
+    border:rgba(70, 131, 180, 0.541) 1px solid;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -70,7 +71,8 @@
 
   .edit_Fields {
     min-height: 20vh;
-    border: 1px solid slategray;
+    background-color: rgba(70, 131, 180, 0.226);   
+    border:rgba(70, 131, 180, 0.541) 1px solid;
     -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
     -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
     box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
@@ -146,4 +148,8 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.Post_Tag_Button {
+  margin-left: 4vw;
 }

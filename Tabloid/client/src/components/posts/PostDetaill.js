@@ -3,6 +3,8 @@ import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button } from "react
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { TagProvider } from "../../providers/TagProvider";
+import TagsForPost from "./TagsForPost"
 
 
 
@@ -11,7 +13,8 @@ const PostDetail = () => {
     const { getSinglePost } = useContext(PostContext);
     const { postId } = useParams();
     const history = useHistory();
-
+    const [showTags,setShowTags] = useState(false)
+    
 
     useEffect(() => {
         getSinglePost(postId).then(setPost);
@@ -49,9 +52,17 @@ const PostDetail = () => {
                     onClick={() => { history.push(`/posts/`) }}>
                     Back to list
                 </button>
-
+                <Button className="Post_Tag_Button" color="primary" hidden={showTags} onClick={() => setShowTags(true)}>Manage Tags</Button>
+            {showTags &&
+            <TagProvider>
+                <TagsForPost
+                        setShowTags={setShowTags} /> 
+            </TagProvider>
+            }
             </CardBody>
         </Card>
+        
+        
     );
 };
 
