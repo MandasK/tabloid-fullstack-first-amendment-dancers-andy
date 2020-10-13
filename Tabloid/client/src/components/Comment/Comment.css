@@ -3,3 +3,10 @@
     margin-left: 1em;
     margin-top: 2em;
 }
+
+.commentCard {
+    background-color: rgba(70, 131, 180, 0.226);   
+    border-radius: 1em;
+    border-color: white;
+    margin-top: 1em
+}
