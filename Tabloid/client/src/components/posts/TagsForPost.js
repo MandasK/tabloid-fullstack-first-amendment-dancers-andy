@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TagContext } from "../../providers/TagProvider";
+import PostTag from "./PostTag"
 import { Button } from "reactstrap";
 
 const TagsForPost = (props) => {
@@ -7,7 +8,8 @@ const TagsForPost = (props) => {
     
     const {
         tags,
-        GetAllTags
+        GetAllTags,
+        AddPostTag
         } = useContext(TagContext)
     
     const addIsSelected = () => {
@@ -28,21 +30,20 @@ const TagsForPost = (props) => {
         console.log(target)
         let index = selectedTags.findIndex(tag => tag.id == e.target.id)
         tempArray[index].isSelected = target
-        setSelectedTags(tempArray) 
-        console.log(selectedTags) 
-
+        setSelectedTags(tempArray)  
     }
-    // const handleFieldChange = (event) => {
-    //     const stateToChange = { ...tagToEdit };
-    //     stateToChange[event.target.id] = event.target.value;
-    //     setTagToEdit(stateToChange);
-    //     setSaveButton(true);
-    //   };
     
 
     const saveTags = () => {
-        selectedTags.foreach((tag) => {
-            
+
+        selectedTags.forEach(tag => {
+            if (tag.isSelected === true){
+                let postTag = {
+                    postId: props.postId,
+                    tagId: tag.id
+                }
+                AddPostTag(postTag)
+            }
         })
     }
 
@@ -61,12 +62,12 @@ const TagsForPost = (props) => {
             <h3>Click to Select/Deselect</h3>
             <form>
                 { (selectedTags !== undefined) && selectedTags.map((tag) =>
-                    <div className="form-check" key={tag.id}>
-                        <input className="form-check-input" type="checkbox" value={tag.id} id={tag.id} checked={tag.isSelected} onChange={handleFieldChange}/>
-                        <label className="form-check-label" htmlFor={tag.id}>
-                        {tag.name}
-                        </label>
-                </div>
+                  <PostTag
+                        key={tag.id}
+                        selectedTags={selectedTags}                       
+                        tag={tag} 
+                        handleFieldChange={handleFieldChange} 
+              /> 
                 )}
             </form>
         <Button type="submit" className="Post_Tag_Button" color="primary" onClick={() => saveTags()}>Save</Button>
@@ -77,9 +78,11 @@ const TagsForPost = (props) => {
 
 export default TagsForPost
 
-// <PostTag
-//                         key={tag.id}
-//                         selectedTags={selectedTags}                       
-//                         tag={tag} 
-//                         editTag={editTag} 
-//                     />
+
+
+{/* <div className="form-check" key={tag.id}>
+<input className="form-check-input" type="checkbox" value={tag.id} id={tag.id} checked={tag.isSelected} onChange={handleFieldChange}/>
+<label className="form-check-label" htmlFor={tag.id}>
+{tag.name}
+</label>
+</div> */}

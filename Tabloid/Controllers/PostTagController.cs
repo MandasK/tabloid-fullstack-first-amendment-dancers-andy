@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -35,8 +36,12 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult AddTagToPost (PostTag postTag)
         {
-            _postTagRepository.AddPostTag(postTag);
-            return CreatedAtAction("Get", new { id = postTag.id }, postTag);
+            PostTag tagCheck = _postTagRepository.CheckIfExists(postTag);
+            if (tagCheck == null) { 
+                    _postTagRepository.AddPostTag(postTag);            
+                    return Ok();
+                }
+            return Ok();
         }
 
         [HttpDelete("{id}")]

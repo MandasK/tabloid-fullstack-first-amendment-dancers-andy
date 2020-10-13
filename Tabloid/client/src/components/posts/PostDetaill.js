@@ -56,7 +56,8 @@ const PostDetail = () => {
             {showTags &&
             <TagProvider>
                 <TagsForPost
-                        setShowTags={setShowTags} /> 
+                        setShowTags={setShowTags}
+                        postId={post.id} /> 
             </TagProvider>
             }
             </CardBody>
