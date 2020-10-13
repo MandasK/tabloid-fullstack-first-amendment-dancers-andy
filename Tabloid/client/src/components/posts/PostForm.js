@@ -22,7 +22,6 @@ const PostForm = () => {
     const [createDateTime, setCreateDateTime] = useState("");
     const [categoryId, setCategoryId] = useState(0);
     const history = useHistory();
-    //const [categories, setCategories] = useState();
 
     useEffect(() => {
         getAllCategories()
@@ -43,9 +42,6 @@ const PostForm = () => {
         if (post.content === "") {
             window.alert("what is a post with no content?")
         }
-        // if (post.imageLocation === "") {
-        //     post.imageLocation = post.imageLocation
-        // }
         if (post.categoryId === 0) {
             window.alert("please select a category")
         }

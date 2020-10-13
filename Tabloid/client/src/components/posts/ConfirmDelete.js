@@ -15,14 +15,6 @@ const ConfirmDelete = () => {
         getSinglePost(postId).then(setPost);
     }, []);
 
-    // const RequestDelete = (id) => {
-    //     DeletePost(id).then(() => {
-    //         history.push(`/posts/`)
-    //     })
-
-
-    // }
-
     if (!post) {
         return null;
     }

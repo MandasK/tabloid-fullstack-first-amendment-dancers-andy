@@ -30,10 +30,8 @@ const PostDetail = () => {
         <Card className="m-4">
             <strong>{post.title}</strong>
             <p className="text-left px-2">By {post.userProfile.displayName}</p>
-            {/* <p className="text-left px-2">Posted by: {post.userProfile.firstName}</p> */}
             <CardImg top src={post.imageLocation} alt={post.title} />
             <CardBody>
-                {/* /posts/edit/:postId(\d+) */}
                 <p>{post.content}</p>
                 <p>{HumanPublishDate}</p>
                 <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton"
