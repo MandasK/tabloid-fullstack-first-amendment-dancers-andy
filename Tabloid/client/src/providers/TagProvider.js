@@ -81,9 +81,9 @@ export const TagProvider = (props) => {
     }))
   }
 
-  const GetPostTags = () => {
+  const GetPostTags = (postId) => {
     getToken().then((token) =>
-      fetch("/api/posttag", {
+      fetch(`/api/posttag/${postId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -124,7 +124,7 @@ export const TagProvider = (props) => {
 
   return (
     <TagContext.Provider
-      value={{ tags, tagToEdit, setTagToEdit, GetAllTags, GetTagById, AddTag, UpdateTag, DeleteTag, AddPostTag, GetPostTags, DeletePostTag }}
+      value={{ tags, tagToEdit, postTags, setTagToEdit, GetAllTags, GetTagById, AddTag, UpdateTag, DeleteTag, AddPostTag, GetPostTags, DeletePostTag }}
     >
       {props.children}
     </TagContext.Provider>

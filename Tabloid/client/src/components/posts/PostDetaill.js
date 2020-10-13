@@ -1,11 +1,10 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
-import { useParams, useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { TagProvider } from "../../providers/TagProvider";
+import { TagContext } from "../../providers/TagProvider";
+import PostTag from "./PostTag"
 import TagsForPost from "./TagsForPost"
-
+import { useParams, useHistory, Link } from "react-router-dom";
 
 
 const PostDetail = () => {
@@ -15,9 +14,14 @@ const PostDetail = () => {
     const history = useHistory();
     const [showTags,setShowTags] = useState(false)
     
+    const {
+        postTags,
+        GetPostTags
+        } = useContext(TagContext)
 
     useEffect(() => {
         getSinglePost(postId).then(setPost);
+        GetPostTags(postId)
     }, []);
 
     if (!post) {
@@ -28,42 +32,61 @@ const PostDetail = () => {
     //convert publication date to MM / DD / YYYY
 
     const publishDate = new Date(post.publishDateTime)
-    console.log(publishDate);
     const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
 
 
     return (
         <Card className="m-4">
-            <button type="button"
-                onClick={() => { history.push(`/posts/`) }}>
-                Back to list
-            </button>
-            <strong>{post.title}</strong>
-            <p className="text-left px-2">By {post.userProfile.displayName}</p>
-            {/* <p className="text-left px-2">Posted by: {post.userProfile.firstName}</p> */}
+            <div className="post_Detail_Top_With_Tags">
+                <div>
+                    <strong>{post.title}</strong>
+                    <p className="text-left px-2">By {post.userProfile.displayName}</p>
+                </div>
+                <div className="Post_Tag_Sizer">
+                    <h6 className="Tags_h6">Tags</h6>
+                    {postTags.map((tag) => (
+                    <PostTag 
+                        key={tag.id} 
+                        tag={tag}  
+                    />
+                    ))}
+                </div>
+            </div>
             <CardImg top src={post.imageLocation} alt={post.title} />
             <CardBody>
-
                 <p>{post.content}</p>
                 <p>{HumanPublishDate}</p>
-                <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" color="danger">Comments</Button></Link>
-                
-                <button type="button"
+                <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton"
+                >Comments</Button></Link>
+
+                <Button type="button"
                     onClick={() => { history.push(`/posts/`) }}>
-                    Back to list
-                </button>
-                <Button className="Post_Tag_Button" color="primary" hidden={showTags} onClick={() => setShowTags(true)}>Manage Tags</Button>
-            {showTags &&
-            <TagProvider>
-                <TagsForPost
-                        setShowTags={setShowTags}
-                        postId={post.id} /> 
-            </TagProvider>
-            }
-            </CardBody>
-        </Card>
-        
-        
+                    Post List
+                </Button>
+
+
+                
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <Button color="danger"
+                
+                onClick={() => { history.push(`/posts/delete/${postId}`) }}>
+                        Delete
+                         
+                </Button >}
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <Button color="info"
+                
+                onClick={() => { history.push(`/posts/edit/${postId}`) }}>
+                        Edit
+                         
+                </Button >}
+                <Button className="Post_Tag_Button" color="secondary" hidden={showTags} onClick={() => setShowTags(true)}>Manage Tags</Button>
+                    {showTags &&                   
+                        <TagsForPost
+                                setShowTags={setShowTags}
+                                postId={post.id}
+                                postTags={postTags} />                    
+                    }
+            </CardBody >
+        </Card >
     );
 };
 

@@ -151,5 +151,23 @@
 }
 
 .Post_Tag_Button {
-  margin-left: 4vw;
+  margin-left: 1vw;
+}
+
+.Post_Tag_Save_Button {
+  margin-top: 2vh;
+}
+
+.post_Detail_Top_With_Tags {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Post_Tag_Sizer {
+  display: flex;
+  margin-right: 3vw;
+}
+
+.Tags_h6 {
+  margin-top:.8rem;
 }

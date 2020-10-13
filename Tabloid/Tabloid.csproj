@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Local.json.example" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="appsettings.Local.json" />
   </ItemGroup>
 

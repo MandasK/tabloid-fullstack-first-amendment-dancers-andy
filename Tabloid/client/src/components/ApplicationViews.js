@@ -8,7 +8,6 @@ import CommentEditForm from "./Comment/CommentEditForm";
 import CommentDelete from "./Comment/CommentDelete";
 import CommentForm from "./Comment/CommentForm";
 import { CommentProvider } from "../providers/CommentProvider";
-
 import PostList from "./posts/PostList";
 import UserPostList from "./posts/UserPostList";
 import PostDetail from "./posts/PostDetaill";
@@ -19,6 +18,8 @@ import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
 import CategoryEdit from "./Category/CategoryEdit";
+import ConfirmDelete from "./posts/ConfirmDelete";
+import EditPost from "./posts/EditPost";
 import UserProfileList from "./UserProfile/UserProfileList";
 import UserProfileDetails from './UserProfile/UserProfileDetails';
 import CommentList from "./Comment/CommentList";
@@ -55,9 +56,27 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/posts/:postId(\d+)" exact>
-          {isLoggedIn ? <PostDetail /> : <Redirect to="/login" />}
+        <Route path="/posts/edit/:postId(\d+)" exact>
+          {isLoggedIn ? <EditPost /> : <Redirect to="/login" />}
         </Route>
+
+        {/* <Route path="/posts/delete/:postId(\d+)" exact>
+          {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
+        </Route> */}
+
+        <Route path="/posts/:postId(\d+)" exact>
+          {isLoggedIn ? 
+            <TagProvider>
+              <PostDetail />
+            </TagProvider>
+           : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/posts/delete/:postId(\d+)" exact>
+          {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
+        </Route>
+
+
 
         <Route path="/login">
           <Login />
@@ -108,6 +127,6 @@ export default function ApplicationViews() {
           {isLoggedIn ? <UserProfileDetails /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
-    </main>
+    </main >
   );
 };

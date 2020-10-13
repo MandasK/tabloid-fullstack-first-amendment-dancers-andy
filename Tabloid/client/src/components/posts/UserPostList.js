@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "../../providers/PostProvider";
-import PostCard from "./PostCard";
 import { useHistory, Link } from "react-router-dom";
+import {
+    Button, Table
+} from "reactstrap";
 
 const UserPostList = () => {
     const { posts, getAllUserPosts } = useContext(PostContext);
@@ -15,23 +17,35 @@ const UserPostList = () => {
 
     return (
         <div className="container">
-            <div className="row justify-content-center">
-                <div className="cards-column">
-                    <button type="button"
-                        onClick={() => { history.push(`/postForm/`) }}>
-                        add post
-                    </button>
-                    {posts.map((post) => (
-                        <div key={post.id}>
-                            <Link to={`/posts/${post.id}`}>
-                                <strong>{post.title}</strong>
-                            </Link>
-                            <p>Author: {post.userProfile.firstName} {post.userProfile.lastName}</p>
-                            <p>Category: {post.category.name}</p>
+            <div className="row justify-content-left">
+                <Button color="danger"
+                    onClick={() => { history.push(`/postForm/`) }}>
+                    add post
+                    </Button>
+                <Table>
 
-                        </div>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+
+                    {posts.map((post) => (
+                        <tbody key={post.id}>
+                            <tr>
+                                <th scope="row">
+                                    <Link to={`/posts/${post.id}`}>
+                                        {post.title}
+                                    </Link>
+                                </th>
+                                <td>{post.userProfile.firstName} {post.userProfile.lastName}</td>
+                                <td>{post.category.name}</td>
+                            </tr>
+                        </tbody>
                     ))}
-                </div>
+                </Table>
             </div>
         </div>
     );
