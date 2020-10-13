@@ -124,8 +124,8 @@ const EditPost = () => {
                             </Button>
                             <Button color="info"
                                 disabled={isLoading}
-                                onClick={() => { history.push(`/my_posts/`) }}>
-                                Back to My Posts
+                                onClick={() => { history.push(`/posts/${post.id}`) }}>
+                                Cancel
                         </Button>
                         </CardBody>
                     </Card>

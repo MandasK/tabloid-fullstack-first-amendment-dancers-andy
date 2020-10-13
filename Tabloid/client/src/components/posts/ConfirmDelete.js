@@ -40,7 +40,7 @@ const ConfirmDelete = () => {
                 <h2> Are you sure you want to delete "{post.title}"</h2>
                 <CardBody>
                     <button type="button"
-                        onClick={() => { history.push(`/posts/`) }}>
+                        onClick={() => { history.push(`/posts/${postId}`) }}>
                         No, But thanks for asking
                 </button>
                     <button type="button"
