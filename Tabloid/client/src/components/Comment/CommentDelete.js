@@ -42,7 +42,7 @@ const CommentDelete = () => {
                 <div className="col-sm-12 col-lg-6">
                     <h3>Are you sure you want to delete this comment?</h3>
                     <div>Author: {comment.userProfile.firstName} {comment.userProfile.lastName}</div>
-                    <div>Subject: {comment.subject}</div>
+                    <div>Subject: <strong>{comment.subject}</strong></div>
                     <div>Content: {comment.content}</div>
                     <div>Created on: {HumanPublishDate}</div>
                     
