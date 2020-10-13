@@ -117,11 +117,13 @@ const EditPost = () => {
                             </Form>
                             <Button
                             color="info"
+                            style={{margin: 10}}
                             disabled={isLoading}
                             onClick={submit}
                              >Submit
                             </Button>
                             <Button color="info"
+                            style={{margin: 10}}
                                 disabled={isLoading}
                                 onClick={() => { history.push(`/posts/${post.id}`) }}>
                                 Cancel

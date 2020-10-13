@@ -29,10 +29,12 @@ const ConfirmDelete = () => {
                 <h2> Are you sure you want to delete "{post.title}"</h2>
                 <CardBody>
                     <Button color="info"
+                    style={{margin: 10}}
                         onClick={() => { history.push(`/posts/${postId}`) }}>
                         No, But thanks for asking
                 </Button>
                     <Button color="danger"
+                    style={{margin: 10}}
                         onClick={() => {
                             DeletePost(postId)
                                 .then(() => {
