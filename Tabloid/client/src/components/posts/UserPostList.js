@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "../../providers/PostProvider";
-import PostCard from "./PostCard";
 import { useHistory, Link } from "react-router-dom";
 
 const UserPostList = () => {

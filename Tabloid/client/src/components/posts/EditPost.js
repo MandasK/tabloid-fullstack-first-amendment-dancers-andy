@@ -23,9 +23,7 @@ const EditPost = () => {
     const history = useHistory();
     const { postId } = useParams();
     const [isLoading, setIsLoading] = useState(false);
-    //Title, Content, ImageLocation, CreateDateTime, 
-    //PublishDateTime, IsApproved, CategoryId, UserProfileId
-
+    
     
     const submit = event => {
         event.preventDefault();
@@ -41,13 +39,9 @@ const EditPost = () => {
             categoryId: 1,
             userProfileId: post.userProfileId
         }
-        //console.log("before edit", updatedPost)
+        
         EditPost(updatedPost)
         .then(() => history.push("/my_posts/"));
-        //console.log("post", post)
-        // .then(() => setPost(updatedPost))
-        //console.log("post again", post)
-        //console.log("updatedPost", updatedPost)
     };
 
     useEffect(() => {
@@ -99,13 +93,8 @@ const EditPost = () => {
                             color="info"
                             disabled={isLoading}
                             onClick={submit}
-                        >Submit</Button>
-                            {/* <Button color="info" onClick={event => {
-                                event.preventDefault();
-                                submit();
-                            }}>
-                                SUBMIT
-                        </Button> */}
+                             >Submit
+                            </Button>
                             <Button color="info"
                                 disabled={isLoading}
                                 onClick={() => { history.push(`/my_posts/`) }}>
