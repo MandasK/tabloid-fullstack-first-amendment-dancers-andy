@@ -61,7 +61,7 @@ const EditPost = () => {
         }
         
         EditPost(updatedPost)
-        .then(() => history.push("/my_posts/"));
+        .then(() => history.push(`/posts/${post.id}`));
     };
 
     useEffect(() => {
