@@ -10,7 +10,6 @@ const AddTag = (props) => {
 
       //Adds the new tag to database
       const AddNewTag = (e) => {
-          e.preventDefault()
             let tag = {
                 name: tagToEdit.name
             }

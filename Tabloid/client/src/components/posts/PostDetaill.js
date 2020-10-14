@@ -1,6 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button, CardTitle, CardSubtitle } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
+import { TagContext } from "../../providers/TagProvider";
+import PostTag from "./PostTag"
+import TagsForPost from "./TagsForPost"
 import { useParams, useHistory, Link } from "react-router-dom";
 
 
@@ -9,10 +12,16 @@ const PostDetail = () => {
     const { getSinglePost } = useContext(PostContext);
     const { postId } = useParams();
     const history = useHistory();
-
+    const [showTags,setShowTags] = useState(false)
+    
+    const {
+        postTags,
+        GetPostTags
+        } = useContext(TagContext)
 
     useEffect(() => {
         getSinglePost(postId).then(setPost);
+        GetPostTags(postId)
     }, []);
 
     if (!post) {
@@ -29,9 +38,22 @@ const PostDetail = () => {
     return (
         <Card className="m-4">
             <CardBody>
-            <h2>{post.title}</h2>
-            <CardSubtitle>By {post.userProfile.displayName}</CardSubtitle>
-            </CardBody>
+            <div className="post_Detail_Top_With_Tags">
+                <div>
+                    <h2>{post.title}</h2>
+                    <CardSubtitle>By {post.userProfile.displayName}</CardSubtitle>
+                </div>
+                <div className="Post_Tag_Sizer">
+                    <h6 className="Tags_h6">Tags</h6>
+                        {postTags.map((tag) => (
+                            <PostTag 
+                            key={tag.id} 
+                            tag={tag}  
+                            />
+                            ))}
+                </div>
+            </div>
+        </CardBody>
             <CardImg top src={post.imageLocation} alt={post.title} />
             <CardBody>
                 <p>{post.content}</p>
@@ -61,7 +83,16 @@ const PostDetail = () => {
                         Edit
                          
                 </Button >}
-                
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && 
+                <Button className="Post_Tag_Button" color="secondary" hidden={showTags} onClick={() => setShowTags(true)}>Manage Tags</Button>
+                    }
+                    {showTags &&                   
+                        <TagsForPost
+                            setShowTags={setShowTags}
+                            postId={post.id}
+                            postTags={postTags}
+                            GetPostTags={GetPostTags} />                    
+                    }
             </CardBody >
         </Card >
     );
@@ -69,3 +100,4 @@ const PostDetail = () => {
 
 
 export default PostDetail;
+

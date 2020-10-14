@@ -8,7 +8,6 @@ import CommentEditForm from "./Comment/CommentEditForm";
 import CommentDelete from "./Comment/CommentDelete";
 import CommentForm from "./Comment/CommentForm";
 import { CommentProvider } from "../providers/CommentProvider";
-
 import PostList from "./posts/PostList";
 import UserPostList from "./posts/UserPostList";
 import PostDetail from "./posts/PostDetaill";
@@ -66,7 +65,11 @@ export default function ApplicationViews() {
         </Route> */}
 
         <Route path="/posts/:postId(\d+)" exact>
-          {isLoggedIn ? <PostDetail /> : <Redirect to="/login" />}
+          {isLoggedIn ? 
+            <TagProvider>
+              <PostDetail />
+            </TagProvider>
+           : <Redirect to="/login" />}
         </Route>
 
         <Route path="/posts/delete/:postId(\d+)" exact>
