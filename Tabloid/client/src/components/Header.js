@@ -30,17 +30,23 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/category">Category Management</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/user">User Profiles</NavLink>
-                </NavItem>
+                <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
+              </NavItem>
+              <NavItem>
+              <NavLink tag={RRNavLink} to="/my_posts">My Posts</NavLink>
+            </NavItem>
               </>
             }
           </Nav>
           <Nav navbar>
             {isLoggedIn &&
               <>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/user">User Profiles</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/category">Category Management</NavLink>
+                </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/tagmanagement">Tag Management</NavLink>
                 </NavItem>
@@ -51,19 +57,17 @@ export default function Header() {
           <Nav className="mr-auto" navbar>
             { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
+            <>
               <NavItem>
                 <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
               </NavItem>
-            }
-          </Nav>
-          <Nav className="mr-auto" navbar>
-            { /* When isLoggedIn === true, we will render the Home link */}
-            {isLoggedIn &&
               <NavItem>
-                <NavLink tag={RRNavLink} to="/my_posts">My Posts</NavLink>
-              </NavItem>
+              <NavLink tag={RRNavLink} to="/my_posts">My Posts</NavLink>
+            </NavItem>
+            </>
             }
           </Nav>
+          
           <Nav navbar>
             {isLoggedIn &&
               <>

@@ -38,7 +38,7 @@ const EditTag = (props) => {
                     className="tag_Action_Button"
                     onClick={props.DiscardTagChanges}
                 >
-                Discard
+                Cancel
                 </Button>
     
                 <Button
