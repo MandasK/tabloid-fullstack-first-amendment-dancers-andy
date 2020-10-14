@@ -59,9 +59,9 @@ const TagList = () => {
       name: tagToEdit.name,
     };
     UpdateTag(updatedTag);
-    setUpdate(!update);
     setTagToEdit(undefined);
     setSaveButton(false);
+    setUpdate(!update);
   };
 
   const DiscardTagChanges = () => {

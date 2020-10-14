@@ -8,6 +8,16 @@
     width: 38vw;
   }
 
+  .post_Tag_Button {
+    margin: .5vw;
+    max-height: 2rem;
+    min-width: 5rem;
+  }
+
+  .Post_Tag_Sizer {
+    display: flex;
+    margin-right: 3vw;
+  }
 
   .tag_Container {
     background-color: rgba(70, 131, 180, 0.226);   
@@ -44,9 +54,9 @@
     justify-content: space-between;
     max-width: fit-content;
     min-width: 35vw;
-    /* min-width: 28rem; */
     min-height: 15vh;
-    border: 1px solid slategray;
+    background-color: rgba(70, 131, 180, 0.226);   
+    border:rgba(70, 131, 180, 0.541) 1px solid;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -86,7 +96,8 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 20vh;
-    border: 1px solid slategray;
+    background-color: rgba(70, 131, 180, 0.226);   
+    border:rgba(70, 131, 180, 0.541) 1px solid;
     -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
     -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
     box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.42);
@@ -95,6 +106,17 @@
   .tag_Action_Button {
     margin: 1vw;
     min-width: 20vw;
+  }
+  .post_Tag_Button {
+    margin: 1vw;
+    max-height: 2rem;
+    min-width: 5rem;
+  }
+
+  .Post_Tag_Sizer {
+    display: flex;
+    flex-direction: column;
+    margin-right: 3vw;
   }
 }
 
@@ -155,7 +177,12 @@
 }
 
 .Post_Tag_Save_Button {
-  margin-top: 2vh;
+  margin: 2vh 1vw 0 0 ;
+}
+
+.Post_Tag_Popup {
+  background-color: rgba(70, 131, 180, 0.226);   
+    border:rgba(70, 131, 180, 0.541) 1px solid;
 }
 
 .post_Detail_Top_With_Tags {
@@ -163,10 +190,7 @@
   justify-content: space-between;
 }
 
-.Post_Tag_Sizer {
-  display: flex;
-  margin-right: 3vw;
-}
+
 
 .Tags_h6 {
   margin-top:.8rem;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, { useState, useContext, createContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
 export const TagContext = createContext();
@@ -73,7 +73,7 @@ export const TagProvider = (props) => {
 
   const DeleteTag = (id) => {
     getToken().then((token) =>
-    fetch(`api/tag/${id}`, {
+    fetch(`/api/tag/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`
@@ -112,9 +112,9 @@ export const TagProvider = (props) => {
     });
   }
 
-  const DeletePostTag = (id) => {
+  const DeletePostTag = (tagId, postId) => {
     getToken().then((token) =>
-    fetch(`api/posttag/${id}`, {
+    fetch(`/api/posttag/${tagId}/${postId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`

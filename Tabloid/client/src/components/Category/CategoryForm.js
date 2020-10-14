@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { useHistory, Link } from "react-router-dom";
+import { Form, FormGroup, Label, Input, Button, Row } from "reactstrap";
 import { CategoryContext } from "../../providers/CategoryProvider";
 
 export default function CategoryForm() {
@@ -24,13 +24,22 @@ export default function CategoryForm() {
             <div className="justify-content-center">
                 <h3 className="row">Add a Category</h3>
                 <Form onSubmit={submitForm}>
-                    <FormGroup>
+                    <FormGroup className="CategoryFormInput">
                         <Label for="nameText">Name</Label>
                         <Input id="nameText" type="text" onChange={evt => setNameText(evt.target.value)} />
                     </FormGroup>
+                    <Row>
                     <FormGroup>
-                        <Button>Add Category</Button>
+                        <Button color="danger">Add Category</Button>
                     </FormGroup>
+                    <FormGroup>
+                        <Button type="button"
+                                className="goBackEditCategory"
+                                onClick={e => {
+                                history.push("/category")
+                                }}>Go Back</Button>
+                    </FormGroup>
+                    </Row>
                 </Form>
             </div>
         </>

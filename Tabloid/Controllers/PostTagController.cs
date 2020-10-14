@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostTagController : ControllerBase
@@ -44,10 +42,10 @@ namespace Tabloid.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{tagId}/{postId}")]
+        public IActionResult Delete(int tagId, int postId)
         {
-            _postTagRepository.Delete(id);
+            _postTagRepository.Delete(tagId, postId);
             return NoContent();
         }
 

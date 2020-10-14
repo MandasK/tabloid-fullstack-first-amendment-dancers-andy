@@ -103,7 +103,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Delete (int id)
+        public void Delete (int tagId, int postId)
         {
             using(var conn = Connection)
             {
@@ -112,9 +112,10 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                                         DELETE FROM PostTag
-                                        WHERE id = @id
+                                        WHERE PostId = @postId AND TagId = @tagId
                                         ";
-                    DbUtils.AddParameter(cmd, "@id", id);
+                    DbUtils.AddParameter(cmd, "@tagId", tagId);
+                    DbUtils.AddParameter(cmd, "@postId", postId);
                     cmd.ExecuteNonQuery();
                 }
             }

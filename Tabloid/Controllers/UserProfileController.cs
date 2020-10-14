@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
@@ -14,7 +16,7 @@ namespace Tabloid.Controllers
         {
             _userProfileRepository = userProfileRepository;
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
@@ -26,7 +28,7 @@ namespace Tabloid.Controllers
         {
             return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
         }
-
+        [Authorize]
         [HttpGet("{id}/details")]
         public IActionResult GetById(int id)
         {

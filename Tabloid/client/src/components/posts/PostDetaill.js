@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button } from "reactstrap";
+import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button, CardTitle, CardSubtitle } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { TagContext } from "../../providers/TagProvider";
 import PostTag from "./PostTag"
@@ -37,29 +37,32 @@ const PostDetail = () => {
 
     return (
         <Card className="m-4">
+            <CardBody>
             <div className="post_Detail_Top_With_Tags">
                 <div>
-                    <strong>{post.title}</strong>
-                    <p className="text-left px-2">By {post.userProfile.displayName}</p>
+                    <h2>{post.title}</h2>
+                    <CardSubtitle>By {post.userProfile.displayName}</CardSubtitle>
                 </div>
                 <div className="Post_Tag_Sizer">
                     <h6 className="Tags_h6">Tags</h6>
-                    {postTags.map((tag) => (
-                    <PostTag 
-                        key={tag.id} 
-                        tag={tag}  
-                    />
-                    ))}
+                        {postTags.map((tag) => (
+                            <PostTag 
+                            key={tag.id} 
+                            tag={tag}  
+                            />
+                            ))}
                 </div>
             </div>
+        </CardBody>
             <CardImg top src={post.imageLocation} alt={post.title} />
             <CardBody>
                 <p>{post.content}</p>
                 <p>{HumanPublishDate}</p>
-                <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton"
+                <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" style={{margin: 10}}
                 >Comments</Button></Link>
 
                 <Button type="button"
+                        style={{margin: 10}}
                     onClick={() => { history.push(`/posts/`) }}>
                     Post List
                 </Button>
@@ -67,23 +70,28 @@ const PostDetail = () => {
 
                 
                 {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <Button color="danger"
+                style={{margin: 10}}
                 
                 onClick={() => { history.push(`/posts/delete/${postId}`) }}>
                         Delete
                          
                 </Button >}
                 {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && <Button color="info"
+                style={{margin: 10}}
                 
                 onClick={() => { history.push(`/posts/edit/${postId}`) }}>
                         Edit
                          
                 </Button >}
+                {JSON.parse(sessionStorage.getItem("userProfile")).id === post.userProfileId && 
                 <Button className="Post_Tag_Button" color="secondary" hidden={showTags} onClick={() => setShowTags(true)}>Manage Tags</Button>
+                    }
                     {showTags &&                   
                         <TagsForPost
-                                setShowTags={setShowTags}
-                                postId={post.id}
-                                postTags={postTags} />                    
+                            setShowTags={setShowTags}
+                            postId={post.id}
+                            postTags={postTags}
+                            GetPostTags={GetPostTags} />                    
                     }
             </CardBody >
         </Card >
@@ -92,3 +100,4 @@ const PostDetail = () => {
 
 
 export default PostDetail;
+

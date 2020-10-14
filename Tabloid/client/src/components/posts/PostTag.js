@@ -5,7 +5,7 @@ const Tag = (props) => {
 
     return (
         <>
-        <Button size="sm" className="tag_Button" color="primary" >
+        <Button size="sm" className="post_Tag_Button" color="primary" >
             {props.tag.tagName}
         </Button>
         </>
