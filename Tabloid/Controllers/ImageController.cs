@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SixLabors.ImageSharp;
+using Microsoft.AspNetCore.Hosting;
+
 
 namespace Tabloid.Controllers
 {
@@ -12,25 +15,38 @@ namespace Tabloid.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
+        private readonly IWebHostEnvironment _webhost;
+        public ImageController(IWebHostEnvironment webhost)
+        {
+            _webhost = webhost;
+        }
+
         [HttpPost]
-        public IActionResult Upload(IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile file)
         {
             //where images are stored
-            string savedImagePath = "client/public/images/posts/";
+            var savedImagePath = Path.Combine(_webhost.WebRootPath, "images", file.FileName);
 
-            try
+            if(file.Length > 0)
             {
-                using var image = Image.Load(file.OpenReadStream());
-
-                image.Save(savedImagePath + file.FileName);
+                using (var stream = new FileStream(savedImagePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
             }
-            catch
+            else
             {
-                return Conflict();
+                return BadRequest();
             }
-
             return Ok();
-            
+        }
+
+        [HttpGet("{imageUrl}")]
+        public IActionResult Get(string imageUrl)
+        {
+            var path = Path.Combine(_webhost.WebRootPath, "images", imageUrl);
+            var imageFileStream = System.IO.File.OpenRead(path);
+            return File(imageFileStream, "image/jpeg");
         }
     }
 }

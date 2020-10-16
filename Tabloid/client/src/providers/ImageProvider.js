@@ -22,8 +22,13 @@ export const ImageProvider = (props) => {
             throw new Error("Image Upload Failed.")
         })); 
 
+    const getImageUrl = (imageUrl) => {
+        const getUrl = `/api/image/${imageUrl}`
+        return(getUrl)
+    };   
+
         return (
-            <ImageContext.Provider value={{ uploadImage }}>
+            <ImageContext.Provider value={{ getImageUrl, uploadImage }}>
                 {props.children}
             </ImageContext.Provider>
         );

@@ -130,7 +130,7 @@ const PostForm = () => {
                                                 id="imageUrl"
                                                 innerRef={imageUrl}
                                                 placeholder="Input an Image URL"
-                                                // onChange={(e) => setImageLocation(e.target.value)}
+                                                
                                             />
                                 </InputGroup>            
                             </FormGroup>

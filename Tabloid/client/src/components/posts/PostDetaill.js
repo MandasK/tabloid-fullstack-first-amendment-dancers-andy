@@ -4,15 +4,18 @@ import { PostContext } from "../../providers/PostProvider";
 import { TagContext } from "../../providers/TagProvider";
 import PostTag from "./PostTag"
 import TagsForPost from "./TagsForPost"
+import { ImageContext } from '../../providers/ImageProvider';
 import { useParams, useHistory, Link } from "react-router-dom";
 
 
 const PostDetail = () => {
     const [post, setPost] = useState();
     const { getSinglePost } = useContext(PostContext);
+    const {getImageUrl} = useContext(ImageContext)
     const { postId } = useParams();
     const history = useHistory();
     const [showTags,setShowTags] = useState(false)
+
     
     const {
         postTags,
@@ -28,7 +31,8 @@ const PostDetail = () => {
         return null;
     }
 
-
+    const imageUrl = getImageUrl(post.imageLocation);
+    console.log(imageUrl);
     //convert publication date to MM / DD / YYYY
 
     const publishDate = new Date(post.publishDateTime)
@@ -57,10 +61,10 @@ const PostDetail = () => {
             { post.imageLocation === "" || post.imageLocation === null ?
             <CardImg top />
             :
-            <CardImg top src={post.imageLocation[0] === "h" ? post.imageLocation : `/images/posts/${post.imageLocation}`} alt={post.title} />
+            <CardImg top src={post.imageLocation[0] === "h" ? post.imageLocation : imageUrl} alt={post.title} />
             }
             <CardBody>
-                <p style={{ "white-space" : "pre-wrap" }}>{post.content}</p>
+                <p style={{ whiteSpace : "pre-wrap" }}>{post.content}</p>
                 <p>{HumanPublishDate}</p>
                 <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" style={{margin: 10}}
                 >Comments</Button></Link>
