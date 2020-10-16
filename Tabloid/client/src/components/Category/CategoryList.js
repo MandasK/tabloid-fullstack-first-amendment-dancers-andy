@@ -36,8 +36,8 @@ const CategoryList = (props) => {
                     <tbody key={category.id}>
                     <tr>
                         <td>{category.name}</td>
-                        <td><Link to={`/category/${category.id}/edit`}><Button className="editCategoryButton" color="primary">Edit</Button></Link></td>
-                       <td><Link to={`/category/${category.id}/delete`}><Button className="deleteCategoryButton" color="danger">Delete</Button></Link></td>
+                        { category.id != 10 ? <td><Link to={`/category/${category.id}/edit`}><Button className="editCategoryButton" color="primary">Edit</Button></Link></td> : <td>Edit Not Allowed.</td>}
+                       { category.id != 10 ? <td><Link to={`/category/${category.id}/delete`}><Button className="deleteCategoryButton" color="danger">Delete</Button></Link></td> : <td>Delete Not Allowed.</td>}
                         
                     </tr>
                 </tbody>
