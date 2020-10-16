@@ -23,7 +23,6 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                             SELECT Id, Name
                             FROM Category
-                            WHERE Id != 10
                             ORDER BY Name
                                        ";
                     var reader = cmd.ExecuteReader();

@@ -38,7 +38,9 @@ export default function Header() {
               </>
             }
           </Nav>
-          <Nav navbar>
+
+
+          <Nav navbar style={{marginRight: "5%"}}>
             {isLoggedIn &&
               <>
                 <NavItem>
@@ -54,19 +56,7 @@ export default function Header() {
 
             }
           </Nav>
-          <Nav className="mr-auto" navbar>
-            { /* When isLoggedIn === true, we will render the Home link */}
-            {isLoggedIn &&
-            <>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
-              </NavItem>
-              <NavItem>
-              <NavLink tag={RRNavLink} to="/my_posts">My Posts</NavLink>
-            </NavItem>
-            </>
-            }
-          </Nav>
+          
           
           <Nav navbar>
             {isLoggedIn &&

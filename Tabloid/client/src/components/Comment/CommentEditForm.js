@@ -83,6 +83,9 @@ const CommentEditForm = () => {
                             <FormGroup>
                                 <Label for="content">Content</Label>
                                 <Input
+                                    className="contentTextArea"
+                                    type="textarea"
+                                    style={{ height: 200 }}
                                     id="content"
                                     defaultValue={comment.content}
                                     onChange={handleFieldChange}

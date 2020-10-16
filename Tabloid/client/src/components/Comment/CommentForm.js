@@ -64,6 +64,9 @@ const CommentForm = () => {
                             <FormGroup>
                                 <Label for="content">Content</Label>
                                 <Input
+                                    className="contentTextArea"
+                                    type="textarea"
+                                    rows="4"
                                     id="content"
                                     onChange={(e) => setContent(e.target.value)}
                                 />

@@ -92,7 +92,7 @@ const EditPost = () => {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="content">Content</Label>
-                                    <Input id="content" defaultValue={post.content} onChange={(e) => setContent(e.target.value)} />
+                                    <Input id="content" type="textarea" rows="10" defaultValue={post.content} onChange={(e) => setContent(e.target.value)} />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="imageLocation">Image</Label>

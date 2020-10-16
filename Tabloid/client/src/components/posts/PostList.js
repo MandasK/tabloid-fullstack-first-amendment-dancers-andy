@@ -39,9 +39,7 @@ const PostList = () => {
                                     </Link>
                                 </th>
                                 <td>
-                                    <Link to={`/user/${post.userProfileId}/details`}>
                                         {post.userProfile.firstName} {post.userProfile.lastName}
-                                    </Link>
                                 </td>
                                 <td>{post.category.name}</td>
                             </tr>
