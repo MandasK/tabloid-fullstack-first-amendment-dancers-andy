@@ -30,7 +30,7 @@ const Comment = ({ comment }) => {
                     <div>{comment.userProfile.firstName} {comment.userProfile.lastName}</div>
                     <div>{HumanPublishDate}</div>
                     <strong>{comment.subject}</strong>
-                    <div>{comment.content}</div>
+                    <div className="commentTextArea">{comment.content}</div>
                     <div>
                         {(currentUser === comment.userProfileId) ?
                             <Link to={`/posts/${postId}/comments/${comment.id}/delete`}>

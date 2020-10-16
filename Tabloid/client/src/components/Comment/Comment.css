@@ -10,3 +10,7 @@
     border-color: white;
     margin-top: 1em
 }
+
+.commentTextArea {
+    white-space: pre-wrap;
+}

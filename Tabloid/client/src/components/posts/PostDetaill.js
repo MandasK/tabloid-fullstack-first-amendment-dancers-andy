@@ -54,9 +54,11 @@ const PostDetail = () => {
                 </div>
             </div>
         </CardBody>
+            { post.imageLocation && 
             <CardImg top src={post.imageLocation} alt={post.title} />
+            }
             <CardBody>
-                <p>{post.content}</p>
+                <p style={{ "white-space" : "pre-wrap" }}>{post.content}</p>
                 <p>{HumanPublishDate}</p>
                 <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" style={{margin: 10}}
                 >Comments</Button></Link>

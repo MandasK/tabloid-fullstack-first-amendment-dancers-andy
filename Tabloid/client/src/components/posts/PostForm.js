@@ -68,7 +68,7 @@ const PostForm = () => {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="content">Content</Label>
-                                <Input id="content" onChange={(e) => setContent(e.target.value)} />
+                                <Input type="textarea" rows="10" id="content" onChange={(e) => setContent(e.target.value)} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="imageLocation">Image</Label>
