@@ -54,8 +54,10 @@ const PostDetail = () => {
                 </div>
             </div>
         </CardBody>
-            { post.imageLocation && 
-            <CardImg top src={post.imageLocation} alt={post.title} />
+            { post.imageLocation === "" || post.imageLocation === null ?
+            <CardImg top />
+            :
+            <CardImg top src={post.imageLocation[0] === "h" ? post.imageLocation : `/images/posts/${post.imageLocation}`} alt={post.title} />
             }
             <CardBody>
                 <p style={{ "white-space" : "pre-wrap" }}>{post.content}</p>

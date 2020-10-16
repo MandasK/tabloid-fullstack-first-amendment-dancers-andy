@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
     Form,
     FormGroup,
@@ -7,21 +7,28 @@ import {
     Label,
     Input,
     Button,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupText
 } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { useHistory } from "react-router-dom";
 import { CategoryContext } from "../../providers/CategoryProvider";
+import {ImageContext} from "../../providers/ImageProvider";
 
 const PostForm = () => {
     const { addPost } = useContext(PostContext);
     const { categories, getAllCategories } = useContext(CategoryContext);
+    const { uploadImage } = useContext(ImageContext);
     const [userProfileId, setUserProfileId] = useState("");
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
     const [imageLocation, setImageLocation] = useState("");
     const [createDateTime, setCreateDateTime] = useState("");
     const [categoryId, setCategoryId] = useState(0);
     const history = useHistory();
+
+    const title = useRef();
+    const content = useRef();
+    const imageUrl = useRef();
 
     useEffect(() => {
         getAllCategories()
@@ -29,9 +36,8 @@ const PostForm = () => {
 
     const submit = () => {
         const post = {
-            title,
-            content,
-            imageLocation,
+            title: title.current.value,
+            content: content.current.value,
             categoryId,
             userProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id
         };
@@ -45,6 +51,42 @@ const PostForm = () => {
         if (post.categoryId === 0) {
             window.alert("please select a category")
         }
+        // Image Upload
+        const file = document.querySelector('input[type="file"]').files[0];
+
+        if(file !== undefined)
+        {
+            const fileType = file.name.split('.').pop();
+
+            const availFileTypes = [
+                'png',
+                'bmp',
+                'jpeg',
+                'jpg',
+                'gif'
+            ];
+
+            if(!availFileTypes.includes(fileType)) {
+                alert('Accepted Image File Types: .png, .bmp, .jpeg, .jpg, and .gif');
+                return;
+            }
+            else {
+                const newImageName = `${new Date().getTime()}.${fileType}`;
+
+                const formData = new FormData();
+                formData.append('file', file, newImageName);
+
+                uploadImage(formData, newImageName);
+                post.imageLocation = newImageName;
+            }
+        }
+        else if (file === undefined && imageUrl.current.value !== "") {
+            post.imageLocation = imageUrl.current.vlaue;
+        }
+        else {
+            post.imageLocation = null;
+        }
+
         if (post.title !== "" && post.content !== "" && post.categoryId !== 0) {
             addPost(post).then((res) => {
                 history.push(`/posts/${res.id}`);
@@ -58,28 +100,43 @@ const PostForm = () => {
             <div className="row justify-content-center">
                 <Card className="col-sm-12 col-lg-6">
                     <CardBody>
-                        <Form>
+                        <Form encType="multipart/form-data">
                             <FormGroup>
                                 <Label for="title">Title</Label>
                                 <Input
                                     id="title"
-                                    onChange={(e) => setTitle(e.target.value)}
+                                    innerRef={title}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="content">Content</Label>
-                                <Input type="textarea" rows="10" id="content" onChange={(e) => setContent(e.target.value)} />
+                                <Input type="textarea" rows="10" id="content" innerRef={content} />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="imageLocation">Image</Label>
+                                <Label for="imageUpload">Upload an Image</Label>
                                 <Input
-                                    id="imageLocation"
-                                    onChange={(e) => setImageLocation(e.target.value)}
-                                />
+                                    type="file"
+                                    name="file"
+                                    id="imageUpload"
+                                    onClick={() => imageUrl.current.value = ""} />
+                                <InputGroup className="mt-2">
+                                    <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>OR</InputGroupText>
+                                    </InputGroupAddon>    
+                                
+                                            <Input
+                                                type="text"
+                                                name="imageUrl"
+                                                id="imageUrl"
+                                                innerRef={imageUrl}
+                                                placeholder="Input an Image URL"
+                                                // onChange={(e) => setImageLocation(e.target.value)}
+                                            />
+                                </InputGroup>            
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="categoryId">category</Label>
+                                <Label for="categoryId">Category</Label>
                                 <select defaultValue="" name="categoryId" id="categoryId" className="form-control" onChange={(e) => setCategoryId(e.target.value)}>
                                     <option value="0">Select a Category</option>
                                     {categories.map(e => (
