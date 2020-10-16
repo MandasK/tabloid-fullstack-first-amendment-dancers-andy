@@ -5,11 +5,13 @@ import { TagContext } from "../../providers/TagProvider";
 import PostTag from "./PostTag"
 import TagsForPost from "./TagsForPost"
 import { useParams, useHistory, Link } from "react-router-dom";
+import { SubscriptionContext } from "../../providers/SubscriptionProvider";
 
 
 const PostDetail = () => {
     const [post, setPost] = useState();
     const { getSinglePost } = useContext(PostContext);
+    const { addSubscription } = useContext(SubscriptionContext);
     const { postId } = useParams();
     const history = useHistory();
     const [showTags,setShowTags] = useState(false)
@@ -26,6 +28,14 @@ const PostDetail = () => {
 
     if (!post) {
         return null;
+    }
+
+    const subscribe = () => {
+        const subscription = {
+            SubscriberUserProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id,
+            ProviderUserProfileId: post.userProfileId
+        }
+        addSubscription(subscription)
     }
 
 
@@ -67,6 +77,10 @@ const PostDetail = () => {
                         style={{margin: 10}}
                     onClick={() => { history.push(`/posts/`) }}>
                     Post List
+                </Button>
+
+                <Button color="info" onClick={subscribe}>
+                            SUBSCRIBE
                 </Button>
 
 

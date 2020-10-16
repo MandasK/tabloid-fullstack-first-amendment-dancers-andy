@@ -16,12 +16,15 @@ export const SubscriptionProvider = (props) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(subscription)
-            }).then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error("Unauthorized");
-            }));
+            })
+            //.then(resp => {
+            // if (resp.ok) {
+            //     return resp.json();
+            // }
+            // throw new Error("Unauthorized");
+            // }
+            //)
+        );
 
 
     // const Unsubscribe = (subscription) =>
@@ -38,7 +41,7 @@ export const SubscriptionProvider = (props) => {
 
 
     return (
-        <SubscriptionContext.Provider value={{ addSubscription, Unsubscribe }}>
+        <SubscriptionContext.Provider value={{ addSubscription }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

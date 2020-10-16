@@ -10,18 +10,20 @@ import CommentDelete from './components/Comment/CommentDelete';
 
 import { PostProvider } from './providers/PostProvider';
 import { CategoryProvider } from "./providers/CategoryProvider"
+import { SubscriptionProvider } from './providers/SubscriptionProvider';
 
 function App() {
   return (
     <Router>
       <UserProfileProvider>
-
-        <PostProvider>
-          <CategoryProvider>
-            <Header />
-            <ApplicationViews />
-          </CategoryProvider>
-        </PostProvider>
+        <SubscriptionProvider>
+          <PostProvider>
+            <CategoryProvider>
+              <Header />
+              <ApplicationViews />
+            </CategoryProvider>
+          </PostProvider>
+        </SubscriptionProvider>
       </UserProfileProvider>
     </Router>
   );
