@@ -76,8 +76,19 @@ export const PostProvider = (props) => {
                 }
             }));
 
+    const get3RandomPosts = (num, block) => {
+        getToken().then((token) =>
+            fetch(`/api/post/${num}/${block}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => res.json())
+                .then(setPosts));
+    };
+
     return (
-        <PostContext.Provider value={{ posts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost, EditPost }}>
+        <PostContext.Provider value={{ posts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost, EditPost, get3RandomPosts }}>
             {props.children}
         </PostContext.Provider>
     );

@@ -10,6 +10,7 @@ namespace Tabloid.Repositories
         List<Post> GetAllApprovedPosts();
         List<Post> GetAllUserPosts(int UPID);
         Post GetPostById(int id);
+        List<Post> GetRandomPosts(int numberOfPosts, int block);
         void Update(Post post);
     }
 }

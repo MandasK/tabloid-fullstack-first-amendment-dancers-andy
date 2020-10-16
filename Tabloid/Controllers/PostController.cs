@@ -10,7 +10,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    [Authorize]
+    /*[Authorize]*/
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -25,6 +25,12 @@ namespace Tabloid.Controllers
         public IActionResult Get()
         {
             return Ok(_postRepository.GetAllApprovedPosts());
+        }
+
+        [HttpGet("{numberOfPosts}/{block}")]
+        public IActionResult Get(int numberOfPosts, int block)
+        {
+            return Ok(_postRepository.GetRandomPosts(numberOfPosts, block));
         }
 
         [HttpGet("GetAllUserPosts/{id}")]
