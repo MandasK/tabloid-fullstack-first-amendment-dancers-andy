@@ -4,7 +4,6 @@ import { PostContext } from "../providers/PostProvider";
 import { useHistory, Link } from "react-router-dom";
 import "./HomePage.css"
 import logo_transparent from '../components/Images/logo_transparent.png';
-import Newspaper from "../components/Images/Newspaper.png"
 import PostCardForHomePage from "./posts/PostCardForHomePage";
 
 const HomePage = () => {
