@@ -5,6 +5,7 @@ import Tag from "./Tag";
 import AddTag from "./AddTag";
 import EditTag from "./EditTag";
 import TagDeleteConfirm from "./TagDeleteConfirm";
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import "./TagStyling.css";
 
 const TagList = () => {
@@ -109,13 +110,19 @@ const TagList = () => {
       <div className="tag_View_Container">
         <div className="tag_Container">
           <div className="tag_Sizer">
-            {tags.map((tag) => (
-              <Tag 
-                  key={tag.id} 
-                  tag={tag} 
-                  editTag={editTag} 
-              />
-              ))}
+            <ReactCSSTransitionGroup
+                  transitionName="fade"
+                  transitionEnterTimeout={1000}
+                  transitionLeaveTimeout={1000}
+                  className="tag_Sizer">
+                      {tags.map((tag) => (
+                        <Tag 
+                            key={tag.id} 
+                            tag={tag} 
+                            editTag={editTag} 
+                        />
+                        ))}
+            </ReactCSSTransitionGroup>
           </div>
         </div>
         {/*These are the conditional components for the screen right (or top in mobile) section of Tag Management

@@ -1,22 +1,25 @@
 import React from 'react';
+
 import { Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button } from 'reactstrap'
 
 const PostCardForHomePage = (props) => {
-    console.log(props)
+    //Give each 'Post card' a unique targetable div
     let classid = `post_Card_Homepage${props.index}`
 
     return (
         <div className={classid}>
-            <Card>
-                <CardImg top width="100%" src={props.post.imageLocation} alt="Card image cap" />
-                <CardBody>
-                    <CardTitle>{props.post.title}</CardTitle>
-                    <CardSubtitle>{props.post.category.name}</CardSubtitle>
-                    <CardText>{props.post.content}</CardText>
-                    <Button>Button</Button>
-                </CardBody>
-            </Card>
+            <div>
+                <div className="picAndTitle">
+                    <h4 className="postTitle">{props.post.title}</h4>
+                    { props.goodImage && 
+                        <img src={props.post.imageLocation} alt="Post image" onError={props.badImage}/>
+                    }   
+                </div>
+                <div className="postBody">
+                    <p>{props.post.content}</p>
+                </div>
+            </div>
         </div>
     )
 }

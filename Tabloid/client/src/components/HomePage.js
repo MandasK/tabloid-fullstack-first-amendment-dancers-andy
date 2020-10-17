@@ -1,12 +1,22 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { LocalUserContext } from "../providers/LocalUserProvider";
 import { PostContext } from "../providers/PostProvider";
 import { useHistory, Link } from "react-router-dom";
 import "./HomePage.css"
 import logo_transparent from '../components/Images/logo_transparent.png';
+import Newspaper from "../components/Images/Newspaper.png"
 import PostCardForHomePage from "./posts/PostCardForHomePage";
 
 const HomePage = () => {
+
+    //remove broken link on bad image
+    const [goodImage, setGoodImage] = useState(true)
+
+    const badImage = () => {
+        setGoodImage(false)
+    }
+
+    //
 
     const {
         userId,
@@ -22,6 +32,12 @@ const HomePage = () => {
     useEffect(() =>{
         get3RandomPosts(3, userId)
     }, [])
+//Add default image if the link comes back broken. 
+// Unfortunately this is treating the route as a URL instead of a local source so I'll need some help first
+
+    const addDefaultSrc = (ev) => {
+        // ev.target.src = "./Images/Newspaper.png"
+      }
 
     let welcome = "Good Morning, "
     let time = new Date().toLocaleString().split(" ")
@@ -33,8 +49,11 @@ const HomePage = () => {
         else if (hour < 12 && hour > 6 && time[2] === "PM"){
             welcome = "Good Evening, "
         }
+
+    //index supplies a unique number to add to the 3 post class names
+    //That's what I'm using to slide the 3 posts into view at different rates
     let index = 1
-    console.log(posts)
+
     return (
         <div className="homePage">
             <div className="logo_Side">
@@ -50,6 +69,8 @@ const HomePage = () => {
                                 key={post.id}
                                 post={post}
                                 index={index++}
+                                goodImage={goodImage}
+                                badImage={badImage}
                                 /> )}
                 </div>
             </div>

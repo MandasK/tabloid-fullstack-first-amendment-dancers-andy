@@ -1,128 +1,207 @@
 div .welcome {
-    display: inline-block;
-    font-family: 'Montserrat';
-    font-size: 30px;
-    color: black;
-    color:white;
-    text-transform: none;
-    margin: 0 20px;
-    opacity: 1.0;
-    animation: fadeIn ease 5s;
-    -webkit-animation: fadeIn ease 5s;
-    -webkit-animation: moving 5s;
-    animation: moving 5s;
-    }
-    @keyframes moving {
-        from {transform: translateY(20px);}
-        to {transform: translateY(0px);}
-        0% {opacity:0;}
-        100% {opacity:1;}
-    }
-    @keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-    }
-    
-    @-moz-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-    }
-    
-    @-webkit-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-    }
-    
-    @-o-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-    }
-    
-    @-ms-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  display: inline-block;
+  font-size: 30px;
+  color: black;
+  color: white;
+  text-transform: none;
+  margin: 0 20px;
+  opacity: 1;
+  animation: fadeIn ease 5s;
+  -webkit-animation: fadeIn ease 5s;
+  -webkit-animation: moving 5s;
+  animation: moving 5s;
 }
-    
-.homePage{
-    display: flex;
-    background-color: #414066;
-    min-height: 90vh;
+@keyframes moving {
+  from {
+    transform: translateY(20px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.logo_Side{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    border-right: 2px white solid;
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.homePage {
+  display: flex;
+  background-color: #414066;
+  min-height: 90vh;
+}
+
+.logo_Side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 2px white solid;
+}
+
+.welcome {
+  font-family: 'Strait', sans-serif;
+  text-align: center;
+  
+}
 .post_Side {
-    margin-bottom: 3vh;
+  margin-bottom: 3vh;
 }
 
-.homepage_Post_Container{
-    max-height: 85vh;
-    overflow-y: scroll;
-    padding-right: 17px;
-    padding-left: 17px;
-    align-items: center;
+.homepage_Post_Container {
+  max-height: 85vh;
+  overflow-y: scroll;
+  padding-right: 17px;
+  padding-left: 17px;
+  align-items: center;
 }
 ::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
 .recommended_Banner {
-    text-align: center;
-    color: white;
+  text-align: center;
+  margin-top: 1rem;
+  color: white;
+  font-family: 'Strait', sans-serif;
 }
 
 .post_Card_Homepage1 {
-    margin: 2rem;
-    -webkit-animation: movingcard 1s;
-    animation: movingcard 1s;
-    }
-    @keyframes movingcard {
-        from {transform: translateY(100vh);}
-        to {transform: translateY(0vh);}
-        0% {opacity:0;}
-        100% {opacity:1;}
-    }
+  background-color: white;
+  border-radius: 5px;
+  margin: 2rem;
+  -webkit-animation: movingcard 1s;
+  animation: movingcard 1s;
+}
+@keyframes movingcard {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(0vh);
+  }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 .post_Card_Homepage2 {
-    margin: 2rem;
-    animation-delay: 2s;
-    -webkit-animation: movingcard2 2s;
-    animation: movingcard2 2s;
-    }
-    @keyframes movingcard2 {
-        from {transform: translateY(100vh);}
-        to {transform: translateY(0vh);}
-        0% {opacity:0;}
-        100% {opacity:1;}
-    }
+  background-color: white;
+  border-radius: 5px;
+  margin: 2rem;
+  animation-delay: 2s;
+  -webkit-animation: movingcard2 2s;
+  animation: movingcard2 2s;
+}
+@keyframes movingcard2 {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(0vh);
+  }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .post_Card_Homepage3 {
-    margin: 2rem;
-    animation-delay: 4s;
-    -webkit-animation: movingcard3 3s;
-    animation: movingcard3 3s;
-    }
-    @keyframes movingcard3 {
-        from {transform: translateY(100vh);}
-        to {transform: translateY(0vh);}
-        0% {opacity:0;}
-        100% {opacity:1;}
-    }
+  background-color: white;
+  border-radius: 5px;
+  margin: 2rem;
+  animation-delay: 4s;
+  -webkit-animation: movingcard3 3s;
+  animation: movingcard3 3s;
+}
+@keyframes movingcard3 {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(0vh);
+  }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 .user_Image_Welcome {
-    width: 10rem;
-    border-top: 2px white solid;
+  width: 10rem;
+  border-top: 2px white solid;
 }
-.LogoImage{
-    max-height: 40vh;
+.LogoImage {
+  max-height: 40vh;
 }
 
-.post_Card_Homepage{
-    margin:2vw;
-    max-width: 60vw;
+.post_Card_Homepage {
+  margin: 2vw;
+  max-width: 60vw;
+}
+
+.picAndTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1rem 0 1rem;
+  max-height: 20vh;
+  min-height: 10vh;
+}
+
+.postBody {
+  margin: 0 1rem 0 1rem;
+  max-height: 20rem;
+  overflow-y: scroll;
 }
