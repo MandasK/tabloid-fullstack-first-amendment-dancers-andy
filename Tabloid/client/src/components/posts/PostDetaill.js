@@ -10,11 +10,12 @@ import { SubscriptionContext } from "../../providers/SubscriptionProvider";
 
 const PostDetail = () => {
     const [post, setPost] = useState();
+    //const [subscriptions, setSubscriptions] = useState();
     const { getSinglePost } = useContext(PostContext);
-    const { addSubscription } = useContext(SubscriptionContext);
+    const { addSubscription, getReleventSubscriptions, subscriptions } = useContext(SubscriptionContext);
     const { postId } = useParams();
     const history = useHistory();
-    const [showTags,setShowTags] = useState(false)
+    const [showTags, setShowTags] = useState(false)
     
     const {
         postTags,
@@ -23,9 +24,21 @@ const PostDetail = () => {
 
     useEffect(() => {
         getSinglePost(postId).then(setPost);
-        GetPostTags(postId)
+        GetPostTags(postId);
+        getReleventSubscriptions(10, 10)
+        // post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId).then(setSubscriptions)
+        // post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId)
     }, []);
 
+    // useEffect(() => {
+    //     getReleventSubscriptions(10, 10)
+    // }, []);
+
+
+    console.log(subscriptions)
+    subscriptions.map((subscription) => (console.log(subscription.id)))
+post && console.log(post.userProfileId)
+console.log(JSON.parse(sessionStorage.getItem("userProfile")).id)
     if (!post) {
         return null;
     }

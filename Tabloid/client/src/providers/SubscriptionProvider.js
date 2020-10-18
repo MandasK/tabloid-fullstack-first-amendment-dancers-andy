@@ -4,7 +4,32 @@ import { UserProfileContext } from "./UserProfileProvider";
 export const SubscriptionContext = React.createContext();
 
 export const SubscriptionProvider = (props) => {
+    const [subscriptions, setSubscriptions] = useState([]);
     const { getToken } = useContext(UserProfileContext);
+
+
+    // const getReleventSubscriptions = (subscriber, provider) =>
+    //     getToken().then((token) =>
+    //         fetch(`/api/subscription/${subscriber}/${provider}`, {
+    //             method: "GET",
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         }).then((res) => res.json())
+    //             .then(setSubscriptions));
+
+    const getReleventSubscriptions = (subscriber, provider) => {
+        debugger
+        getToken().then((token) =>
+            fetch(`/api/subscription/${subscriber}/${provider}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => res.json())
+                .then(setSubscriptions));
+    };
+
 
 
     const addSubscription = (subscription) =>
@@ -41,7 +66,7 @@ export const SubscriptionProvider = (props) => {
 
 
     return (
-        <SubscriptionContext.Provider value={{ addSubscription }}>
+        <SubscriptionContext.Provider value={{ subscriptions, addSubscription, getReleventSubscriptions }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

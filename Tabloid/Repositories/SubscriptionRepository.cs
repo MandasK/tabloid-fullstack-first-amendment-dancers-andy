@@ -58,7 +58,7 @@ namespace Tabloid.Repositories
                             SubscriberUserProfileId = DbUtils.GetInt(reader, "SubscriberUserProfileId"),
                             ProviderUserProfileId = DbUtils.GetInt(reader, "ProviderUserProfileId"),
                             BeginDateTime = DbUtils.GetDateTime(reader, "BeginDateTime"),
-                            EndDateTime = DbUtils.GetDateTime(reader, "EndDateTime")
+                            EndDateTime = DbUtils.GetNullableDateTime(reader, "EndDateTime")
                         });
                     }
 

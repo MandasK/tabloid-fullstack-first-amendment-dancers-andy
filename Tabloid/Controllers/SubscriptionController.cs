@@ -19,6 +19,19 @@ namespace Tabloid.Controllers
         {
             _subscriptionRepository = subscriptionRepository;
         }
+
+        [HttpGet("{subscriber}/{provider}")]
+        public IActionResult Get(int subscriber, int provider)
+        {
+            var subscriptions = _subscriptionRepository.GetReleventSubscriptions(subscriber, provider);
+            if (subscriptions == null)
+            {
+                return NotFound();
+            }
+            return Ok(subscriptions);
+        }
+
+
         [HttpPost]
         public IActionResult Post(Subscription subscription)
         {
