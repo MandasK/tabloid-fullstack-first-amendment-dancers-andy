@@ -12,7 +12,7 @@ const UserProfileDetails = () => {
    
    useEffect(() => {  
        getUserById(id).then(() => setIsLoading(true))
-   }, [auser]);
+   }, []);
    
  
    const date = new Date(auser.createDateTime)
@@ -43,6 +43,7 @@ const UserProfileDetails = () => {
                         
                         <div>Profile Created on {betterDate}</div>
                     </CardBody>
+
                     <Button type="button"
                                 className="goBackuserButton"
                                 onClick={e => {

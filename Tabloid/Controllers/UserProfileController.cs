@@ -16,7 +16,7 @@ namespace Tabloid.Controllers
         {
             _userProfileRepository = userProfileRepository;
         }
-        [Authorize]
+        
         [HttpGet]
         public IActionResult Get()
         {
@@ -50,6 +50,17 @@ namespace Tabloid.Controllers
                 nameof(GetUserProfile),
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
+        }
+       
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, UserProfile userProfile)
+        {
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
+            _userProfileRepository.Update(userProfile);
+            return Ok();
         }
     }
 }
