@@ -33,6 +33,12 @@ namespace Tabloid.Controllers
             return Ok(_postRepository.GetRandomPosts(numberOfPosts, block));
         }
 
+        [HttpGet("Recommended")]
+        public IActionResult Recommended(string q, int block)
+        {
+            return Ok(_postRepository.GetRecommendedPosts(q, block));
+        }
+
         [HttpGet("GetAllUserPosts/{id}")]
         public IActionResult GetAllUserPosts(int id)
         {
