@@ -25,14 +25,15 @@ const PostDetail = () => {
     useEffect(() => {
         getSinglePost(postId).then(setPost);
         GetPostTags(postId);
-        getReleventSubscriptions(10, 10)
+        //getReleventSubscriptions(10, 10)
         // post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId).then(setSubscriptions)
-        // post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId)
+        //getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId)
+        // post != undefined ? console.log("post userProfileId", post.userProfileId) : console.log("Post is undefined")
     }, []);
 
-    // useEffect(() => {
-    //     getReleventSubscriptions(10, 10)
-    // }, []);
+    useEffect(() => {
+        post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId)
+    }, [post]);
 
 
     console.log(subscriptions)

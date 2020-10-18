@@ -19,7 +19,6 @@ export const SubscriptionProvider = (props) => {
     //             .then(setSubscriptions));
 
     const getReleventSubscriptions = (subscriber, provider) => {
-        debugger
         getToken().then((token) =>
             fetch(`/api/subscription/${subscriber}/${provider}`, {
                 method: "GET",
