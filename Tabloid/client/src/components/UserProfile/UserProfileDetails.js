@@ -8,6 +8,7 @@ const UserProfileDetails = () => {
     const [isloading, setIsLoading] = useState(false);
     const { id } = useParams();
     const history = useHistory();
+    const currentUserTypeId = JSON.parse(sessionStorage.getItem('userProfile')).userTypeId;
 
    
    useEffect(() => {  
@@ -24,7 +25,7 @@ const UserProfileDetails = () => {
 
     while (auser.status !== 404)
     {
-    if(isloading) {
+    if(isloading && currentUserTypeId === 1) {
         return(
             <div className="d-flex justify-content-center">
                 <Card style={{ border: "none", width: "30%", height:"30%" }} className="smallContainer">

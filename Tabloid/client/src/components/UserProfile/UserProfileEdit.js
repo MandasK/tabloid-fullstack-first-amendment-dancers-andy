@@ -4,14 +4,27 @@ import { UserProfileContext, userProfileContext } from "../../providers/UserProf
 import { Spinner, Card, CardImg, Button, CardBody, CardHeader } from 'reactstrap'
 
 const UserProfileDetails = () => {
-    const { getUserById, auser, updateUser} = useContext(UserProfileContext);
+    const { getUserById, auser, users, updateUser, getAllUsers} = useContext(UserProfileContext);
     const [ userTypeId, setUserTypeId] = useState();
     const [isloading, setIsLoading] = useState(false);
     const { id } = useParams();
     const history = useHistory();
-    const canDemote = true;
+    const currentUserTypeId = JSON.parse(sessionStorage.getItem('userProfile')).userTypeId;
+    const currentUserId = JSON.parse(sessionStorage.getItem('userProfile')).id;
+    let canDemote = true;
+    
 
 
+
+    useEffect(() => {
+        getAllUsers();
+    }, []);
+    const adminCount = users.filter(user => {
+        if(user.userTypeId === 1) {
+            return user
+        }
+    }).length
+    
     useEffect(() => {
         getUserById(id).then(() => setIsLoading(true))
     }, []);
@@ -35,14 +48,35 @@ const UserProfileDetails = () => {
             imageLocation: auser.imageLocation
 
         }
+
+        if (adminCount === 1 && auser.id === currentUserId && (updatedUser.userTypeId === 2 || updatedUser.userTypeId === 3)) {
+            canDemote = false;
+        }
+        console.log(canDemote)
+        console.log(adminCount)
+        console.log(auser.id)
+        console.log(currentUserId)
+        console.log(updatedUser.userTypeId)
+        
+        
+
+
+        if (canDemote) {
+            console.log("Demoted")
         updateUser(updatedUser).then(() => history.push(`/user`))
+        }
+        else {
+            
+            history.push(`/user/nodelete`)
+        }
+
     }
 
 
 
 
     while (auser.status !== 404) {
-        if (isloading) {
+        if (isloading && currentUserTypeId === 1) {
             return (
                 <div className="d-flex justify-content-center">
                     <Card style={{ border: "none", width: "30%", height: "30%" }} className="smallContainer">
@@ -82,7 +116,7 @@ const UserProfileDetails = () => {
                                 className="goBackuserButton"
                                 onClick={e => {
                                     history.push("/user")
-                                }}>Go Back
+                                }}>Cancel
                     </Button>
                 </div>
                     </Card>

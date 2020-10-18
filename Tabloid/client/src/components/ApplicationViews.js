@@ -24,6 +24,7 @@ import UserProfileList from "./UserProfile/UserProfileList";
 import UserProfileDetails from './UserProfile/UserProfileDetails';
 import UserProfileEdit from './UserProfile/UserProfileEdit';
 import CommentList from "./Comment/CommentList";
+import DemotionRejection from "./UserProfile/DemotionRejection";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -129,6 +130,9 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/user/:id(\d+)/edit" exact>
           {isLoggedIn ? <UserProfileEdit /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/user/nodelete">
+        {isLoggedIn ? <DemotionRejection /> : <Redirect to="/login/" />}
         </Route>
       </Switch>
     </main >
