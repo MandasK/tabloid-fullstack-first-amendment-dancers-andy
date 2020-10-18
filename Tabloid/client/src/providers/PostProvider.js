@@ -5,6 +5,7 @@ export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
+    const [subscribeePosts, setSubscribeePosts] = useState([])
     const { getToken } = useContext(UserProfileContext);
 
 
@@ -84,11 +85,22 @@ export const PostProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => res.json())
-                .then(setPosts));
+                .then(setSubscribeePosts));
+    };
+
+    const getSubscribeePosts = (query) => {
+        getToken().then((token) =>
+            fetch(`/api/post/subscribe?q=${query}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => res.json())
+                .then(setSubscribeePosts));
     };
 
     return (
-        <PostContext.Provider value={{ posts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost, EditPost, get3RandomPosts }}>
+        <PostContext.Provider value={{ posts, subscribeePosts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost, EditPost, get3RandomPosts, getSubscribeePosts }}>
             {props.children}
         </PostContext.Provider>
     );

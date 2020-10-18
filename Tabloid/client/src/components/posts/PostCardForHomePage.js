@@ -1,7 +1,5 @@
 import React from 'react';
-
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button } from 'reactstrap'
+import { Link } from 'react-router-dom';
 
 const PostCardForHomePage = (props) => {
     //Give each 'Post card' a unique targetable div
@@ -11,7 +9,9 @@ const PostCardForHomePage = (props) => {
         <div className={classid}>
             <div>
                 <div className="picAndTitle">
-                    <h4 className="postTitle">{props.post.title}</h4>
+                    <Link to={`/posts/${props.post.id}`}>
+                        <h4 className="postTitle">{props.post.title}</h4>
+                    </Link>
                     { props.goodImage && 
                         <img src={props.post.imageLocation} alt="Post image" onError={props.badImage}/>
                     }   

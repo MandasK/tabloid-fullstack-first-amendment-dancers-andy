@@ -82,7 +82,11 @@ export const TagProvider = (props) => {
         Authorization: `Bearer ${token}`
       }
     }))
-    .then(setUpdate(!update))
+    .then((response) => {
+      
+          setUpdate(!update)
+      
+    });
   }
 
   const GetPostTags = (postId) => {

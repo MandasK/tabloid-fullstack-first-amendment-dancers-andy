@@ -14,7 +14,6 @@ const HomePage = () => {
     const badImage = () => {
         setGoodImage(false)
     }
-
     //
 
     const {
@@ -24,13 +23,16 @@ const HomePage = () => {
     } = useContext(LocalUserContext);
 
     const {
-        posts,
+        subscribeePosts,
         get3RandomPosts
     } = useContext(PostContext);
 
     useEffect(() =>{
-        get3RandomPosts(3, userId)
+        if (subscribeePosts.length === 0) {
+            get3RandomPosts(3, userId)
+        }
     }, [])
+    
 //Add default image if the link comes back broken. 
 // Unfortunately this is treating the route as a URL instead of a local source so I'll need some help first
 
@@ -63,7 +65,7 @@ const HomePage = () => {
             <div className="post_Side">
                 <h3 className="recommended_Banner">Here are some posts we recommend for you</h3>
                 <div className="homepage_Post_Container" >
-                    {posts.map((post) =>
+                    {subscribeePosts.map((post) =>
                         <PostCardForHomePage 
                                 key={post.id}
                                 post={post}

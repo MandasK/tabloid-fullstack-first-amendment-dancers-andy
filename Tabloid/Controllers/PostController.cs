@@ -26,17 +26,19 @@ namespace Tabloid.Controllers
         {
             return Ok(_postRepository.GetAllApprovedPosts());
         }
-
+        //Get {n} posts from random users, blocking the userId provided in {block} 
         [HttpGet("{numberOfPosts}/{block}")]
         public IActionResult Get(int numberOfPosts, int block)
         {
             return Ok(_postRepository.GetRandomPosts(numberOfPosts, block));
         }
-
-        [HttpGet("Recommended")]
-        public IActionResult Recommended(string q, int block)
+        //GET all subsribee posts (ids listed in 'q') ordered by most recent,
+        //OR if a value is provided as 'num'
+        //GET {num} random posts 
+        [HttpGet("subscribe")]
+        public IActionResult Recommended(string q, int block, int? num = null)
         {
-            return Ok(_postRepository.GetRecommendedPosts(q, block));
+            return Ok(_postRepository.GetRecommendedPosts(q, block, num));
         }
 
         [HttpGet("GetAllUserPosts/{id}")]

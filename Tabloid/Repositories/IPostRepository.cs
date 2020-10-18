@@ -11,7 +11,7 @@ namespace Tabloid.Repositories
         List<Post> GetAllUserPosts(int UPID);
         Post GetPostById(int id);
         List<Post> GetRandomPosts(int numberOfPosts, int block);
-        List<Post> GetRecommendedPosts(string q, int block);
+        List<Post> GetRecommendedPosts(string q, int block, int? num);
         void Update(Post post);
     }
 }

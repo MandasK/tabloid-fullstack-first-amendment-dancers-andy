@@ -280,8 +280,8 @@ namespace Tabloid.Repositories
             }
         }
 
-        //Get {n} random posts that aren't the users
-
+        //Get {n} random posts that aren't the users (currently set to 3)
+        //This will get 3 random posts if the user has no current subscriptions
         public List<Post> GetRandomPosts(int numberOfPosts, int block)
         {
             using(var conn = Connection)
@@ -339,16 +339,18 @@ namespace Tabloid.Repositories
                 }                             
             }
         }
-
-        public List<Post> GetRecommendedPosts(string q, int block)
+        //This gets a list of posts using the User Profile ids sent in a query string ordered by Published DateTime. 
+        //Including a value for num will change this to getting {num} random posts from the ids in the query string
+        public List<Post> GetRecommendedPosts(string q, int block, int? num)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
+                    //Make an iterable list of the the query string q
                     string[] subscribees = q.Split(",");
-                    //Build the list of subsribee parameters for the Sql 'IN' list
+                    //Build the text of subsribee @ parameters for the Sql 'IN' list using the iterable query string
                     string subscriberlist = "";
                     for (int i = 0; i<subscribees.Length; i++)
                     {
@@ -362,6 +364,7 @@ namespace Tabloid.Repositories
                         {
                             return null;
                         }
+                        //Add the Sql '@' to the 'In' chain for this index of the query string 
                         string subscribee = "@subscribee" + i;
                         subscriberlist += subscribee;
                         //Add a comma between the statement if its not the last one in the list
@@ -370,13 +373,22 @@ namespace Tabloid.Repositories
                             subscriberlist += ", ";
                         }
 
-                        //Tie the Id value to the command text as it is being built
+                        //Tie this Id value to the command text as it is being built
                         DbUtils.AddParameter(cmd, subscribee, aSubscribee);
                     }
 
-
-                    cmd.CommandText = @"
-                                         SELECT TOP 3 p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
+                    //If num is null Set the Sql command text to a generic SELECT, and order by Date
+                    string selectStart = "SELECT ";
+                    string selectEnd = ") ORDER BY PublishDateTime DESC";
+                    if (num != null)
+                    {
+                        selectStart = "SELECT TOP " + num;
+                        selectEnd = ") ORDER BY newid()";
+                    }
+                    cmd.CommandText =   selectStart 
+                                            + 
+                                        @"
+                                         p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
                                          p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
                                          up.FirstName AS PosterFirstName, up.LastName AS PosterLastName,
                                          c.Name AS CategoryName
@@ -388,9 +400,9 @@ namespace Tabloid.Repositories
                                             +
                                               subscriberlist
                                             +
-                                         " ) ORDER BY newid()";
+                                              selectEnd;
 
-                    
+                    //Block the user from seeing their own posts in the 'recommended' result set
                     DbUtils.AddParameter(cmd, "@block", block);
 
                     var reader = cmd.ExecuteReader();

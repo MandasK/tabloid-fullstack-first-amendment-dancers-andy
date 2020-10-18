@@ -60,6 +60,11 @@ const PostDetail = () => {
             <CardBody>
                 <p style={{ "white-space" : "pre-wrap" }}>{post.content}</p>
                 <p>{HumanPublishDate}</p>
+                <Button type="button"
+                        style={{margin: 10}}
+                    onClick={() => {history.goBack()}}>
+                    Back
+                </Button>
                 <Link to={`/posts/${post.id}/comments`}><Button className="postCommentButton" style={{margin: 10}}
                 >Comments</Button></Link>
 
