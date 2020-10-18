@@ -81,10 +81,7 @@ const PostForm = () => {
             }
         }
         else if (file === undefined && imageUrl.current.value !== "") {
-            post.imageLocation = imageUrl.current.vlaue;
-        }
-        else {
-            post.imageLocation = null;
+            post.imageLocation = imageUrl.current.value;
         }
 
         if (post.title !== "" && post.content !== "" && post.categoryId !== 0) {

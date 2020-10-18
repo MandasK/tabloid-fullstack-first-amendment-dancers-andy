@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 
 namespace Tabloid.Controllers
@@ -22,22 +24,34 @@ namespace Tabloid.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public  IActionResult Upload(IFormFile file)
         {
             //where images are stored
-            var savedImagePath = Path.Combine(_webhost.WebRootPath, "images", file.FileName);
+            var savedImagePath = Path.Combine(_webhost.WebRootPath, "images/");
+            try
+            {
+                using var image = Image.Load(file.OpenReadStream());
 
-            if(file.Length > 0)
-            {
-                using (var stream = new FileStream(savedImagePath, FileMode.Create))
+                int originalWidth = image.Width;
+                int originalHeight = image.Height;
+                
+
+                int maxWidth = 500;
+                if(originalWidth > maxWidth)
                 {
-                    await file.CopyToAsync(stream);
+                    int newHeight = maxWidth * originalHeight;
+                    newHeight = newHeight / originalWidth;
+
+                    image.Mutate(i => i.Resize(maxWidth, newHeight));
                 }
+
+                image.Save(savedImagePath + file.FileName);
             }
-            else
+            catch
             {
-                return BadRequest();
+                return Conflict();
             }
+
             return Ok();
         }
 
@@ -48,5 +62,7 @@ namespace Tabloid.Controllers
             var imageFileStream = System.IO.File.OpenRead(path);
             return File(imageFileStream, "image/jpeg");
         }
-    }
+    
+
+}
 }
