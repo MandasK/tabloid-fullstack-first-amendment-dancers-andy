@@ -12,6 +12,7 @@ import { SubscriptionContext } from "../../providers/SubscriptionProvider";
 const PostDetail = () => {
     const [post, setPost] = useState();
     const { getSinglePost } = useContext(PostContext);
+    const {getImageUrl} = useContext(ImageContext)
     const { addSubscription, getReleventSubscriptions, subscriptions, Unsubscribe } = useContext(SubscriptionContext);
     const { postId } = useParams();
     const history = useHistory();

@@ -11,7 +11,6 @@ import CommentDelete from './components/Comment/CommentDelete';
 import { PostProvider } from './providers/PostProvider';
 import { CategoryProvider } from "./providers/CategoryProvider";
 import { ImageProvider } from './providers/ImageProvider';
-import { CategoryProvider } from "./providers/CategoryProvider"
 import { SubscriptionProvider } from './providers/SubscriptionProvider';
 
 function App() {
