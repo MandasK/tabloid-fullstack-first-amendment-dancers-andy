@@ -8,14 +8,14 @@ import PostCardForHomePage from "./posts/PostCardForHomePage";
 
 const HomePage = () => {
 
-    //remove broken link on bad image
-    const [goodImage, setGoodImage] = useState(true)
+    // //remove broken link on bad image
+    // const [goodImage, setGoodImage] = useState(true)
     
 
-    const badImage = () => {
-        setGoodImage(false)
-    }
-    //
+    // const badImage = () => {
+    //     setGoodImage(false)
+    // }
+    // //
 
     const {
         userId,
@@ -39,8 +39,6 @@ const HomePage = () => {
 // setImagePreview(URL.createObjectURL(evt.target.files[0]));
     const addDefaultSrc = (ev) => {
         ev.target.src = "../Images/Newspaper.png"
-        // ev.target.src = URL.createObjectURL(evt.target.files[0])
-        // ev.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Old_man_reading_news_paper_early_in_the_morning_at_Basantapur-IMG_6800.jpg/220px-Old_man_reading_news_paper_early_in_the_morning_at_Basantapur-IMG_6800.jpg"
       }
 
     let welcome = "Good Morning, "
@@ -73,8 +71,8 @@ const HomePage = () => {
                                 key={post.id}
                                 post={post}
                                 index={index++}
-                                goodImage={goodImage}
-                                badImage={badImage}
+                                // goodImage={goodImage}
+                                // badImage={badImage}
                                 addDefaultSrc={addDefaultSrc}
                                 /> )}
                 </div>

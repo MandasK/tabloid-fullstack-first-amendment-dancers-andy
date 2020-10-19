@@ -442,5 +442,20 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        //Search for posts by their tag(s)
+        public List<Post> SearchByTag(int tagId)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                    
+                                        ";
+                            
+                }
+            }
+        }
     }
 }
