@@ -12,6 +12,8 @@ const TagList = () => {
     tags,
     tagToEdit,
     setTagToEdit,
+    update,
+    setUpdate,
     GetAllTags,
     GetTagById,
     UpdateTag,
@@ -20,7 +22,7 @@ const TagList = () => {
   const [saveButton, setSaveButton] = useState(false);
   const [confirmView, setConfirmView] = useState(false);
   const [addTagWindow, setAddTagWindow] = useState(false);
-  const [update, setUpdate] = useState(false)
+  // const [update, setUpdate] = useState(false)
 
   const editTag = (id) => {
     setAddTagWindow(false);
@@ -61,7 +63,7 @@ const TagList = () => {
     UpdateTag(updatedTag);
     setTagToEdit(undefined);
     setSaveButton(false);
-    setUpdate(!update);
+    // setUpdate(!update);
   };
 
   const DiscardTagChanges = () => {
@@ -81,7 +83,7 @@ const TagList = () => {
     setTagToEdit(undefined);
     setConfirmView(false);
     setSaveButton(false);
-    setUpdate(!update);
+    // setUpdate(!update);
   };
 
 //Resets the window after an 'Add Tag' action
@@ -91,7 +93,7 @@ const TagList = () => {
     setConfirmView(false);
     setSaveButton(false);
     setTagToEdit(undefined);
-    setUpdate(!update);
+    // setUpdate(!update);
   }
 
 
@@ -106,14 +108,14 @@ const TagList = () => {
       <h5 className="tag_Spacer">Click to edit</h5>
       <div className="tag_View_Container">
         <div className="tag_Container">
-          <div className="tag_Sizer">
-            {tags.map((tag) => (
-              <Tag 
-                  key={tag.id} 
-                  tag={tag} 
-                  editTag={editTag} 
-              />
-              ))}
+          <div className="tag_Sizer">           
+                      {tags.map((tag) => (
+                        <Tag 
+                            key={tag.id} 
+                            tag={tag} 
+                            editTag={editTag} 
+                        />
+                        ))}
           </div>
         </div>
         {/*These are the conditional components for the screen right (or top in mobile) section of Tag Management
