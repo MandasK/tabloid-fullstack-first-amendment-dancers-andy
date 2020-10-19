@@ -31,21 +31,23 @@ const PostDetail = () => {
     useEffect(() => {
         getSinglePost(postId).then(setPost);
         GetPostTags(postId);
-        console.log(currentSubscription)
-        
+        //refresh page when subscription status changes
     }, [isSubscribed]);
 
     useEffect(() => {
+        //ensure there post is not undefined before getting subscriptions
         post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId)
     }, [post]);
 
     useEffect(() => {
+        //ensure post is not undefined
         if (post) {
+            //determine if current use is post author
         if (JSON.parse(sessionStorage.getItem("userProfile")).id == post.userProfileId)
         {
             setIsAuthor(true)
         }
-        
+        //map through subscriptions to determine whether the current user is currently subscribed to current post's author
         subscriptions.map((subscription) => {
             if (subscription.endDateTime == null) {
                 setIsSubscribed(true)
@@ -57,6 +59,7 @@ const PostDetail = () => {
         } )
         
     }
+    //ensure subscription list populates
     }, [subscriptions, isSubscribed]);
 
     if (!post) {
@@ -116,7 +119,6 @@ const PostDetail = () => {
                { !isAuthor && ( !isSubscribed ? <Button color="info" disabled={isLoading, isSubscribed} onClick={(e) => {
                 e.preventDefault()
                 subscribe()
-                console.log("clicked subscribe")
             }
                 }>
                             Subscribe to Author
@@ -124,7 +126,6 @@ const PostDetail = () => {
                 e.preventDefault()
                 setIsLoading(true)
                 Unsubscribe(currentSubscription.id).then(setIsSubscribed(false), setIsLoading(false))
-                console.log("clicked unsubscribe")
             }
                 }>
                             UnSubscribe from Author
