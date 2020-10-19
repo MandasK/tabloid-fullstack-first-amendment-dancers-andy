@@ -1,16 +1,19 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button, CardTitle, CardSubtitle } from "reactstrap";
+import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button, CardTitle, CardSubtitle, Container } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { TagContext } from "../../providers/TagProvider";
 import PostTag from "./PostTag"
 import TagsForPost from "./TagsForPost"
+import { ImageContext } from '../../providers/ImageProvider';
 import { useParams, useHistory, Link } from "react-router-dom";
 import { SubscriptionContext } from "../../providers/SubscriptionProvider";
+import "./Post.css"
 
 
 const PostDetail = () => {
     const [post, setPost] = useState();
     const { getSinglePost } = useContext(PostContext);
+    const {getImageUrl} = useContext(ImageContext)
     const { addSubscription, getReleventSubscriptions, subscriptions, Unsubscribe } = useContext(SubscriptionContext);
     const { postId } = useParams();
     const history = useHistory();
@@ -66,6 +69,8 @@ const PostDetail = () => {
         return null;
     }
 
+    const imageUrl = getImageUrl(post.imageLocation);
+    
     const subscribe = () => {
         
         setIsLoading(true)
@@ -83,7 +88,8 @@ const PostDetail = () => {
 
 
     return (
-        <Card className="m-4">
+        <div className="postDetailsCardContainer">
+        <Card className="m-auto">
             <CardBody>
             <div className="post_Detail_Top_With_Tags">
                 <div>
@@ -101,11 +107,13 @@ const PostDetail = () => {
                 </div>
             </div>
         </CardBody>
-            { post.imageLocation && 
-            <CardImg top src={post.imageLocation} alt={post.title} />
+            { post.imageLocation === "" || post.imageLocation === null ?
+            <CardImg top />
+            :
+            <CardImg top src= { post.imageLocation[0] === "h" ? post.imageLocation : imageUrl }  alt={post.title} />
             }
             <CardBody>
-                <p style={{ "white-space" : "pre-wrap" }}>{post.content}</p>
+                <p style={{ whiteSpace : "pre-wrap" }}>{post.content}</p>
                 <p>{HumanPublishDate}</p>
                 <Button type="button"
                         style={{margin: 10}}
@@ -165,6 +173,7 @@ const PostDetail = () => {
                     }
             </CardBody >
         </Card >
+        </div>
     );
 };
 
