@@ -43,7 +43,8 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                                          SELECT Id, SubscriberUserProfileId, ProviderUserProfileId, BeginDateTime, EndDateTime 
                                          FROM Subscription
-                                         WHERE SubscriberUserProfileId = @subscriber AND ProviderUserProfileId = @provider;";
+                                         WHERE SubscriberUserProfileId = @subscriber AND ProviderUserProfileId = @provider
+                                         ORDER BY BeginDateTime;";
                     DbUtils.AddParameter(cmd, "@subscriber", subscriber);
                     DbUtils.AddParameter(cmd, "@provider", provider);
 
@@ -85,6 +86,43 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@Id", id);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public Subscription GetSubscriptionById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                         SELECT Id, SubscriberUserProfileId, ProviderUserProfileId, BeginDateTime, EndDateTime 
+                                         FROM Subscription
+                                         WHERE Id = @Id;";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Subscription subscription = null;
+                    if (reader.Read())
+                    {
+                        subscription = new Subscription()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            SubscriberUserProfileId = DbUtils.GetInt(reader, "SubscriberUserProfileId"),
+                            ProviderUserProfileId = DbUtils.GetInt(reader, "ProviderUserProfileId"),
+                            BeginDateTime = DbUtils.GetDateTime(reader, "BeginDateTime"),
+                            EndDateTime = DbUtils.GetNullableDateTime(reader, "EndDateTime")
+
+                        };
+                    }
+
+                    reader.Close();
+
+                    return subscription;
                 }
             }
         }

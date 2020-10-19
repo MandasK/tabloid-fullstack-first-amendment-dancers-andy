@@ -11,13 +11,14 @@ import { SubscriptionContext } from "../../providers/SubscriptionProvider";
 const PostDetail = () => {
     const [post, setPost] = useState();
     const { getSinglePost } = useContext(PostContext);
-    const { addSubscription, getReleventSubscriptions, subscriptions } = useContext(SubscriptionContext);
+    const { addSubscription, getReleventSubscriptions, subscriptions, Unsubscribe } = useContext(SubscriptionContext);
     const { postId } = useParams();
     const history = useHistory();
     const [showTags, setShowTags] = useState(false)
     const [isSubscribed, setIsSubscribed] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [isAuthor, setIsAuthor] = useState(false)
+    const [currentSubscription, setCurrentSubscription] = useState()
 
 
     
@@ -48,8 +49,14 @@ const PostDetail = () => {
         subscriptions.map((subscription) => {
             if (subscription.endDateTime == null) {
                 setIsSubscribed(true)
+                setCurrentSubscription(subscription)
+                console.log("CurrentSubscription", currentSubscription)
+                console.log("SubscriptionId", subscription.id)
             } else if (subscription.endDateTime !== null) {
                 setIsSubscribed(false)
+                setCurrentSubscription(subscription)
+                console.log("CurrentSubscription", currentSubscription)
+                console.log("SubscriptionId", subscription.id)
             }
         } )
         
@@ -67,10 +74,11 @@ const PostDetail = () => {
             SubscriberUserProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id,
             ProviderUserProfileId: post.userProfileId
         }
-        addSubscription(subscription).then(setIsSubscribed(true), setIsLoading(false))
+        addSubscription(subscription).then(setCurrentSubscription, setIsSubscribed(true), setIsLoading(false))
     }
 
     console.log("loading", isLoading, "Subscribed", isSubscribed)
+    console.log("CurrentSubscription", currentSubscription)
 
 
     //convert publication date to MM / DD / YYYY
@@ -121,9 +129,9 @@ const PostDetail = () => {
                 }>
                             SUBSCRIBE
                 </Button> : <Button color="info" disabled={isLoading, !isSubscribed} onClick={(e) => {
-                // e.preventDefault()
-                // subscribe()
-                // console.log("clicked subscribe")
+                e.preventDefault()
+                Unsubscribe(currentSubscription.id)
+                console.log("clicked unsubscribe")
             }
                 }>
                             UNSUBSCRIBE

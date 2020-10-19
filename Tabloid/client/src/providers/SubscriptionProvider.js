@@ -41,31 +41,30 @@ export const SubscriptionProvider = (props) => {
                 },
                 body: JSON.stringify(subscription)
             })
-            //.then(resp => {
-            // if (resp.ok) {
-            //     return resp.json();
-            // }
-            // throw new Error("Unauthorized");
-            // }
-            //)
+                .then(resp => {
+                    if (resp.ok) {
+                        return resp.json();
+                    }
+                    throw new Error("Unauthorized");
+                }
+                )
         );
 
 
-    // const Unsubscribe = (subscription) =>
-    //     getToken().then((token) =>
-    //         fetch(`/api/subscription/${subscription}`, {
-    //             method: "PUT",
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify(subscription),
-    //         }));
+    const Unsubscribe = (id) =>
+        getToken().then((token) =>
+            fetch(`/api/subscription/${id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }));
 
 
 
     return (
-        <SubscriptionContext.Provider value={{ subscriptions, addSubscription, getReleventSubscriptions }}>
+        <SubscriptionContext.Provider value={{ subscriptions, addSubscription, getReleventSubscriptions, Unsubscribe }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

@@ -31,11 +31,34 @@ namespace Tabloid.Controllers
             return Ok(subscriptions);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var subscription = _subscriptionRepository.GetSubscriptionById(id);
+            if (subscription == null)
+            {
+                return NotFound();
+            }
+            return Ok(subscription);
+        }
+
 
         [HttpPost]
         public IActionResult Post(Subscription subscription)
         {
             _subscriptionRepository.Add(subscription);
+            return CreatedAtAction("Get", new { id = subscription.Id }, subscription);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id)
+        {
+            //if (id != subscription.Id)
+            //{
+            //    return BadRequest();
+            //}
+
+            _subscriptionRepository.Unsubscribe(id);
             return Ok();
         }
     }
