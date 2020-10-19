@@ -12,9 +12,7 @@ const PostCardForHomePage = (props) => {
                     <Link to={`/posts/${props.post.id}`}>
                         <h4 className="postTitle">{props.post.title}</h4>
                     </Link>
-                    { props.goodImage && 
-                        <img src={props.post.imageLocation} alt="Post image" onError={props.addDefaultSrc}/>
-                    }   
+                        <img src={props.post.imageLocation} alt="Post image" onError={props.addDefaultSrc}/>                 
                 </div>
                 <div className="postBody">
                     <p>{props.post.content}</p>
