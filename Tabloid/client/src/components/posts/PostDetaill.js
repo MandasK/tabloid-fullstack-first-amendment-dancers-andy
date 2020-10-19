@@ -10,12 +10,17 @@ import { SubscriptionContext } from "../../providers/SubscriptionProvider";
 
 const PostDetail = () => {
     const [post, setPost] = useState();
-    //const [subscriptions, setSubscriptions] = useState();
     const { getSinglePost } = useContext(PostContext);
     const { addSubscription, getReleventSubscriptions, subscriptions } = useContext(SubscriptionContext);
     const { postId } = useParams();
     const history = useHistory();
     const [showTags, setShowTags] = useState(false)
+    const [isSubscribed, setIsSubscribed] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [isAuthor, setIsAuthor] = useState(false)
+
+
+    
     
     const {
         postTags,
@@ -25,32 +30,47 @@ const PostDetail = () => {
     useEffect(() => {
         getSinglePost(postId).then(setPost);
         GetPostTags(postId);
-        //getReleventSubscriptions(10, 10)
-        // post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId).then(setSubscriptions)
-        //getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId)
-        // post != undefined ? console.log("post userProfileId", post.userProfileId) : console.log("Post is undefined")
+        
     }, []);
 
     useEffect(() => {
         post && getReleventSubscriptions(JSON.parse(sessionStorage.getItem("userProfile")).id, post.userProfileId)
     }, [post]);
 
+    useEffect(() => {
+        console.log("Hi there", subscriptions)
+        if (post) {
+        if (JSON.parse(sessionStorage.getItem("userProfile")).id == post.userProfileId)
+        {
+            setIsAuthor(true)
+        }
+        
+        subscriptions.map((subscription) => {
+            if (subscription.endDateTime == null) {
+                setIsSubscribed(true)
+            } else if (subscription.endDateTime !== null) {
+                setIsSubscribed(false)
+            }
+        } )
+        
+    }
+    }, [subscriptions, isSubscribed]);
 
-    console.log(subscriptions)
-    subscriptions.map((subscription) => (console.log(subscription.id)))
-post && console.log(post.userProfileId)
-console.log(JSON.parse(sessionStorage.getItem("userProfile")).id)
     if (!post) {
         return null;
     }
 
     const subscribe = () => {
+        
+        setIsLoading(true)
         const subscription = {
             SubscriberUserProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id,
             ProviderUserProfileId: post.userProfileId
         }
-        addSubscription(subscription)
+        addSubscription(subscription).then(setIsSubscribed(true), setIsLoading(false))
     }
+
+    console.log("loading", isLoading, "Subscribed", isSubscribed)
 
 
     //convert publication date to MM / DD / YYYY
@@ -93,9 +113,22 @@ console.log(JSON.parse(sessionStorage.getItem("userProfile")).id)
                     Post List
                 </Button>
 
-                <Button color="info" onClick={subscribe}>
+               { !isAuthor && ( !isSubscribed ? <Button color="info" disabled={isLoading, isSubscribed} onClick={(e) => {
+                e.preventDefault()
+                subscribe()
+                console.log("clicked subscribe")
+            }
+                }>
                             SUBSCRIBE
-                </Button>
+                </Button> : <Button color="info" disabled={isLoading, !isSubscribed} onClick={(e) => {
+                // e.preventDefault()
+                // subscribe()
+                // console.log("clicked subscribe")
+            }
+                }>
+                            UNSUBSCRIBE
+                </Button> )
+                }
 
 
                 
