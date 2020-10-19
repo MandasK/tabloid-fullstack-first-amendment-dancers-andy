@@ -5,7 +5,6 @@ import Tag from "./Tag";
 import AddTag from "./AddTag";
 import EditTag from "./EditTag";
 import TagDeleteConfirm from "./TagDeleteConfirm";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import "./TagStyling.css";
 
 const TagList = () => {
