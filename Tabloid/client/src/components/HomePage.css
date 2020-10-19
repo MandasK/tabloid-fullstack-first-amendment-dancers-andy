@@ -201,7 +201,13 @@ div .welcome {
 }
 
 .postBody {
-  margin: 0 1rem 0 1rem;
   max-height: 20rem;
   overflow-y: scroll;
+  background-color: rgba(128, 128, 128, 0.198);
+  border-radius: 0 40px 0 0  ;
 }
+
+.postBody p {
+  margin: .5rem 1rem;
+}
+
