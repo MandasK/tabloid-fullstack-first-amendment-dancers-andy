@@ -148,7 +148,7 @@ const EditPost = () => {
                                         type="textarea" 
                                         rows="10" 
                                         defaultValue={post.content} 
-                                        innerRef={post} />
+                                        innerRef={content} />
                                 </FormGroup>
                                 <FormGroup>
                                 <Label for="imageUpload">Upload an Image</Label>
@@ -156,6 +156,7 @@ const EditPost = () => {
                                     type="file"
                                     name="file"
                                     id="imageUpload"
+                                    defaultValue=""
                                     onChange={e => previewImage(e)}
                                     onClick={() => imageUrl.current.value = ""} />
                                 <InputGroup className="mt-2">

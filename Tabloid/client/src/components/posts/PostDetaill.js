@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button, CardTitle, CardSubtitle } from "reactstrap";
+import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button, CardTitle, CardSubtitle, Container } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { TagContext } from "../../providers/TagProvider";
 import PostTag from "./PostTag"
@@ -7,6 +7,7 @@ import TagsForPost from "./TagsForPost"
 import { ImageContext } from '../../providers/ImageProvider';
 import { useParams, useHistory, Link } from "react-router-dom";
 import { SubscriptionContext } from "../../providers/SubscriptionProvider";
+import "./Post.css"
 
 
 const PostDetail = () => {
@@ -87,7 +88,8 @@ const PostDetail = () => {
 
 
     return (
-        <Card className="m-4">
+        <div className="postDetailsCardContainer">
+        <Card className="m-auto">
             <CardBody>
             <div className="post_Detail_Top_With_Tags">
                 <div>
@@ -171,6 +173,7 @@ const PostDetail = () => {
                     }
             </CardBody >
         </Card >
+        </div>
     );
 };
 
