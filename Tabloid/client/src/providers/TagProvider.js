@@ -8,6 +8,7 @@ export const TagProvider = (props) => {
   const [tags, setTags] = useState([]);
   const [tagToEdit, setTagToEdit] = useState();
   const [postTags,setPostTags] = useState([]);
+  const [update, setUpdate] = useState(false)
 
   const GetAllTags = () => {
     getToken().then((token) =>
@@ -18,7 +19,7 @@ export const TagProvider = (props) => {
         },
       })
         .then((res) => res.json())
-        .then(setTags)
+        .then(setTags)        
     );
   };
 
@@ -47,6 +48,7 @@ export const TagProvider = (props) => {
     }))
     .then((response) => {
       if (response.ok) {
+        setUpdate(!update)
         return response.json();
       }
       throw new Error("Unauthorized");
@@ -65,6 +67,7 @@ export const TagProvider = (props) => {
     }))
     .then((response) => {
       if (response.ok) {
+          setUpdate(!update)
         return response.json();
       }
       throw new Error("Unauthorized");
@@ -79,6 +82,11 @@ export const TagProvider = (props) => {
         Authorization: `Bearer ${token}`
       }
     }))
+    .then((response) => {
+      
+          setUpdate(!update)
+      
+    });
   }
 
   const GetPostTags = (postId) => {
@@ -124,7 +132,7 @@ export const TagProvider = (props) => {
 
   return (
     <TagContext.Provider
-      value={{ tags, tagToEdit, postTags, setTagToEdit, GetAllTags, GetTagById, AddTag, UpdateTag, DeleteTag, AddPostTag, GetPostTags, DeletePostTag }}
+      value={{ tags, tagToEdit, postTags, update, setUpdate, setTagToEdit, GetAllTags, GetTagById, AddTag, UpdateTag, DeleteTag, AddPostTag, GetPostTags, DeletePostTag }}
     >
       {props.children}
     </TagContext.Provider>

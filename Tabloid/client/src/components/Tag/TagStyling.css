@@ -9,12 +9,14 @@
   }
 
   .post_Tag_Button {
+    font-family: 'Strait', sans-serif;
     margin: .5vw;
     max-height: 2rem;
     min-width: 5rem;
   }
 
   .Post_Tag_Sizer {
+    font-family: 'Strait', sans-serif;
     display: flex;
     margin-right: 3vw;
   }
@@ -121,12 +123,14 @@
 }
 
 .tag_Button {
+  font-family: 'Strait', sans-serif;
   margin: 1%;
   max-height: 2.5rem;
   min-width: 8rem;
 }
 
 .left_side_buttons {
+  font-family: 'Strait', sans-serif;
   margin-left: 0.2rem;
   display: flex;
   align-items: flex-start;
@@ -136,6 +140,7 @@
 .tag_Headline {
   display: flex;
   justify-content: space-between;
+  font-family: 'Strait', sans-serif;
   background-color: cornflowerblue;
   color: white;
 }
@@ -163,9 +168,11 @@
 
 .tag_Delete_Button {
   margin-right: 0.4rem;
+  font-family: 'Strait', sans-serif;
 }
 
 .tag_Sizer {
+  font-family: 'Strait', sans-serif;
   max-height: 4vh;
   display: flex;
   justify-content: space-between;
@@ -189,8 +196,6 @@
   display: flex;
   justify-content: space-between;
 }
-
-
 
 .Tags_h6 {
   margin-top:.8rem;

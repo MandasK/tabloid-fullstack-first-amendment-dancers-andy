@@ -6,6 +6,7 @@ using Tabloid.Repositories;
 using Tabloid.Models;
 using Tabloid.Utils;
 using Microsoft.Data.SqlClient;
+using System.Web;
 
 namespace Tabloid.Repositories
 {
@@ -275,6 +276,169 @@ namespace Tabloid.Repositories
 
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //Get {n} random posts that aren't the users (currently set to 3)
+        //This will get 3 random posts if the user has no current subscriptions
+        public List<Post> GetRandomPosts(int numberOfPosts, int block)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                         SELECT TOP 3 p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
+                                         p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
+                                         up.FirstName AS PosterFirstName, up.LastName AS PosterLastName,
+                                         c.Name AS CategoryName
+                                         FROM Post p
+                                         LEFT JOIN UserProfile up on p.UserProfileId = up.Id
+                                         LEFT JOIN Category c on p.CategoryId = c.Id
+                                         WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME() AND p.UserProfileId != @block
+                                         ORDER BY newid()";
+                    DbUtils.AddParameter(cmd, "@numberOfPosts", numberOfPosts);
+                    DbUtils.AddParameter(cmd, "@block", block);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                FirstName = DbUtils.GetString(reader, "PosterFirstName"),
+                                LastName = DbUtils.GetString(reader, "PosterLastName")
+                            },
+                            Category = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
+                                Name = DbUtils.GetString(reader, "CategoryName")
+
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }                             
+            }
+        }
+        //This gets a list of posts using the User Profile ids sent in a query string ordered by Published DateTime. 
+        //Including a value for num will change this to getting {num} random posts from the ids in the query string
+        public List<Post> GetRecommendedPosts(string q, int block, int? num)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    //Make an iterable list of the the query string q
+                    string[] subscribees = q.Split(",");
+                    //Build the text of subsribee @ parameters for the Sql 'IN' list using the iterable query string
+                    string subscriberlist = "";
+                    for (int i = 0; i<subscribees.Length; i++)
+                    {
+                        int aSubscribee;
+                        //Catch any attempt to pass in a non-int
+                        try
+                        {
+                            int.TryParse(subscribees[i], out aSubscribee);
+                        }
+                        catch
+                        {
+                            return null;
+                        }
+                        //Add the Sql '@' to the 'In' chain for this index of the query string 
+                        string subscribee = "@subscribee" + i;
+                        subscriberlist += subscribee;
+                        //Add a comma between the statement if its not the last one in the list
+                        if (i != subscribees.Length - 1)
+                        {
+                            subscriberlist += ", ";
+                        }
+
+                        //Tie this Id value to the command text as it is being built
+                        DbUtils.AddParameter(cmd, subscribee, aSubscribee);
+                    }
+
+                    //If num is null Set the Sql command text to a generic SELECT, and order by Date
+                    string selectStart = "SELECT ";
+                    string selectEnd = ") ORDER BY PublishDateTime DESC";
+                    if (num != null)
+                    {
+                        selectStart = "SELECT TOP " + num;
+                        selectEnd = ") ORDER BY newid()";
+                    }
+                    cmd.CommandText =   selectStart 
+                                            + 
+                                        @"
+                                         p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
+                                         p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
+                                         up.FirstName AS PosterFirstName, up.LastName AS PosterLastName,
+                                         c.Name AS CategoryName
+                                         FROM Post p
+                                         LEFT JOIN UserProfile up on p.UserProfileId = up.Id
+                                         LEFT JOIN Category c on p.CategoryId = c.Id
+                                         WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME() AND p.UserProfileId != @block
+                                         AND p.UserProfileId IN ( "
+                                            +
+                                              subscriberlist
+                                            +
+                                              selectEnd;
+
+                    //Block the user from seeing their own posts in the 'recommended' result set
+                    DbUtils.AddParameter(cmd, "@block", block);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                FirstName = DbUtils.GetString(reader, "PosterFirstName"),
+                                LastName = DbUtils.GetString(reader, "PosterLastName")
+                            },
+                            Category = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
+                                Name = DbUtils.GetString(reader, "CategoryName")
+
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
                 }
             }
         }
