@@ -9,7 +9,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-   // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SubscriptionController: ControllerBase
@@ -24,6 +24,17 @@ namespace Tabloid.Controllers
         public IActionResult Get(int subscriber, int provider)
         {
             var subscriptions = _subscriptionRepository.GetReleventSubscriptions(subscriber, provider);
+            if (subscriptions == null)
+            {
+                return NotFound();
+            }
+            return Ok(subscriptions);
+        }
+
+        [HttpGet("getAll/{subscriber}")]
+        public IActionResult GetAll(int subscriber)
+        {
+            var subscriptions = _subscriptionRepository.GetAllUserSubscriptions(subscriber);
             if (subscriptions == null)
             {
                 return NotFound();

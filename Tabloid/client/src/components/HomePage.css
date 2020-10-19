@@ -99,10 +99,6 @@ div .welcome {
   padding-left: 17px;
   align-items: center;
 }
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; /* make scrollbar transparent */
-}
 
 .recommended_Banner {
   text-align: center;
