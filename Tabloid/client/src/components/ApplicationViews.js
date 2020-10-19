@@ -3,7 +3,8 @@ import { Switch, Route, Redirect, useParams } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
-import Hello from "./Hello";
+import HomePage from "./HomePage";
+import { LocalUserProvider } from "../providers/LocalUserProvider";
 import CommentEditForm from "./Comment/CommentEditForm";
 import CommentDelete from "./Comment/CommentDelete";
 import CommentForm from "./Comment/CommentForm";
@@ -26,6 +27,7 @@ import UserProfileEdit from './UserProfile/UserProfileEdit';
 import CommentList from "./Comment/CommentList";
 import DemotionRejection from "./UserProfile/DemotionRejection";
 
+
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
   const { id } = useParams();
@@ -35,10 +37,15 @@ export default function ApplicationViews() {
     <main>
       <Switch>
         <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+          {isLoggedIn ?
+            <LocalUserProvider>
+              <HomePage />
+            </LocalUserProvider>
+          : 
+          <Redirect to="/login" />}
         </Route>
-        <Route path="/tagmanagement">
 
+        <Route path="/tagmanagement">
           {isLoggedIn ?
             <TagProvider>
               <TagList />
