@@ -8,13 +8,6 @@ import PostCardForHomePage from "./posts/PostCardForHomePage";
 
 const HomePage = () => {
 
-    //remove broken link on bad image
-    const [goodImage, setGoodImage] = useState(true)
-
-    const badImage = () => {
-        setGoodImage(false)
-    }
-    //
 
     const {
         userId,
@@ -70,8 +63,7 @@ const HomePage = () => {
                                 key={post.id}
                                 post={post}
                                 index={index++}
-                                goodImage={goodImage}
-                                badImage={badImage}
+                                addDefaultSrc={addDefaultSrc}
                                 /> )}
                 </div>
             </div>
