@@ -15,13 +15,14 @@ export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const { users, auser, getAllUsers, getUserById} = useContext(UserProfileContext);
+  const { users, auser, getAllUsers, currentUser, getUserById, getCurrentUser} = useContext(UserProfileContext);
+  const clientUser = JSON.parse(sessionStorage.getItem('userProfile'));
   let currentUserType = 3
+    
+
   if (isLoggedIn) {
     currentUserType = JSON.parse(sessionStorage.getItem('userProfile')).userTypeId 
   }
-
-
 
   return (
     <div>

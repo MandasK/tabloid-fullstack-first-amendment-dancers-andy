@@ -4,17 +4,18 @@ import { UserProfileContext, userProfileContext } from "../../providers/UserProf
 import { Spinner, Card, CardImg, Button, CardBody, CardHeader } from 'reactstrap'
 
 const UserProfileDetails = () => {
-    const { getUserById, auser, users, updateUser, getAllUsers} = useContext(UserProfileContext);
+    const { getUserById, currentUser, auser, users, updateUser, getAllUsers, getCurrentUser} = useContext(UserProfileContext);
     const [ userTypeId, setUserTypeId] = useState();
     const [isloading, setIsLoading] = useState(false);
     const { id } = useParams();
     const history = useHistory();
-    const currentUserTypeId = JSON.parse(sessionStorage.getItem('userProfile')).userTypeId;
-    const currentUserId = JSON.parse(sessionStorage.getItem('userProfile')).id;
     let canDemote = true;
+    const clientUser = JSON.parse(sessionStorage.getItem('userProfile'));
     
 
-
+    useEffect(() => {  
+        getCurrentUser(clientUser.firebaseUserId);
+    }, []);
 
     useEffect(() => {
         getAllUsers();
@@ -49,34 +50,20 @@ const UserProfileDetails = () => {
 
         }
 
-        if (adminCount === 1 && auser.id === currentUserId && (updatedUser.userTypeId === 2 || updatedUser.userTypeId === 3)) {
+        if (adminCount === 1 && auser.id === currentUser.id && (updatedUser.userTypeId === 2 || updatedUser.userTypeId === 3)) {
             canDemote = false;
         }
-        console.log(canDemote)
-        console.log(adminCount)
-        console.log(auser.id)
-        console.log(currentUserId)
-        console.log(updatedUser.userTypeId)
-        
-        
-
-
-        if (canDemote) {
-            console.log("Demoted")
+        if (canDemote) {   
         updateUser(updatedUser).then(() => history.push(`/user`))
         }
         else {
             
             history.push(`/user/nodelete`)
         }
-
     }
 
-
-
-
     while (auser.status !== 404) {
-        if (isloading && currentUserTypeId === 1) {
+        if (isloading && currentUser.userTypeId === 1) {
             return (
                 <div className="d-flex justify-content-center">
                     <Card style={{ border: "none", width: "30%", height: "30%" }} className="smallContainer">

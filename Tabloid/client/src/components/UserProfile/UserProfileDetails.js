@@ -4,11 +4,17 @@ import { UserProfileContext, userProfileContext } from "../../providers/UserProf
 import { Spinner, Card, CardImg, Button, CardBody, CardHeader } from 'reactstrap'
 
 const UserProfileDetails = () => {
-    const { getUserById, auser } = useContext(UserProfileContext);
+    const { getUserById, auser, currentUser, getCurrentUser } = useContext(UserProfileContext);
     const [isloading, setIsLoading] = useState(false);
     const { id } = useParams();
     const history = useHistory();
-    const currentUserTypeId = JSON.parse(sessionStorage.getItem('userProfile')).userTypeId;
+    const clientUser = JSON.parse(sessionStorage.getItem('userProfile'));
+    
+
+    useEffect(() => {  
+        getCurrentUser(clientUser.firebaseUserId);
+    }, []);
+
 
    
    useEffect(() => {  
@@ -25,7 +31,7 @@ const UserProfileDetails = () => {
 
     while (auser.status !== 404)
     {
-    if(isloading && currentUserTypeId === 1) {
+    if(isloading && currentUser.userTypeId === 1) {
         return(
             <div className="d-flex justify-content-center">
                 <Card style={{ border: "none", width: "30%", height:"30%" }} className="smallContainer">

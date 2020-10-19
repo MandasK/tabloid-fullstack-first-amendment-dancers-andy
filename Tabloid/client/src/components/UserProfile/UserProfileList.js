@@ -5,18 +5,18 @@ import { Row, Table, Button, Spinner } from 'reactstrap';
 import { UserProfileContext } from '../../providers/UserProfileProvider';
 
 const UserProfileList = (props) => {
-    const { users, auser, getAllUsers, getUserById} = useContext(UserProfileContext);
-    const currentUser = JSON.parse(sessionStorage.getItem('userProfile')).id;
+    const { users, getAllUsers, currentUser, getCurrentUser} = useContext(UserProfileContext);
     const history = useHistory();
-
+    const clientUser = JSON.parse(sessionStorage.getItem('userProfile'));
+    
     useEffect(() => {  
-        getUserById(currentUser);
+        getCurrentUser(clientUser.firebaseUserId);
     }, []);
 
     useEffect(() => {
         getAllUsers();
     }, []);
-    if (auser.userTypeId ===1) {
+    if (currentUser.userTypeId ===1) {
     return (
 
         <div className="container">
