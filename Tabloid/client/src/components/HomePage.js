@@ -8,6 +8,14 @@ import PostCardForHomePage from "./posts/PostCardForHomePage";
 
 const HomePage = () => {
 
+    //remove broken link on bad image
+    const [goodImage, setGoodImage] = useState(true)
+    
+
+    const badImage = () => {
+        setGoodImage(false)
+    }
+    //
 
     const {
         userId,
@@ -28,9 +36,11 @@ const HomePage = () => {
     
 //Add default image if the link comes back broken. 
 // Unfortunately this is treating the route as a URL instead of a local source so I'll need some help first
-
+// setImagePreview(URL.createObjectURL(evt.target.files[0]));
     const addDefaultSrc = (ev) => {
-        // ev.target.src = "./Images/Newspaper.png"
+        ev.target.src = "../Images/Newspaper.png"
+        // ev.target.src = URL.createObjectURL(evt.target.files[0])
+        // ev.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Old_man_reading_news_paper_early_in_the_morning_at_Basantapur-IMG_6800.jpg/220px-Old_man_reading_news_paper_early_in_the_morning_at_Basantapur-IMG_6800.jpg"
       }
 
     let welcome = "Good Morning, "
@@ -58,11 +68,13 @@ const HomePage = () => {
             <div className="post_Side">
                 <h3 className="recommended_Banner">Here are some posts we recommend for you</h3>
                 <div className="homepage_Post_Container" >
-                    {subscribeePosts.map((post) =>
+                    {subscribeePosts.map((post) =>                    
                         <PostCardForHomePage 
                                 key={post.id}
                                 post={post}
                                 index={index++}
+                                goodImage={goodImage}
+                                badImage={badImage}
                                 addDefaultSrc={addDefaultSrc}
                                 /> )}
                 </div>

@@ -211,3 +211,7 @@ div .welcome {
   margin: .5rem 1rem;
 }
 
+.home_Post_Image{
+  max-height: 15vh;
+}
+

@@ -109,12 +109,7 @@ const TagList = () => {
       <h5 className="tag_Spacer">Click to edit</h5>
       <div className="tag_View_Container">
         <div className="tag_Container">
-          <div className="tag_Sizer">
-            <ReactCSSTransitionGroup
-                  transitionName="fade"
-                  transitionEnterTimeout={1000}
-                  transitionLeaveTimeout={1000}
-                  className="tag_Sizer">
+          <div className="tag_Sizer">           
                       {tags.map((tag) => (
                         <Tag 
                             key={tag.id} 
@@ -122,7 +117,6 @@ const TagList = () => {
                             editTag={editTag} 
                         />
                         ))}
-            </ReactCSSTransitionGroup>
           </div>
         </div>
         {/*These are the conditional components for the screen right (or top in mobile) section of Tag Management
