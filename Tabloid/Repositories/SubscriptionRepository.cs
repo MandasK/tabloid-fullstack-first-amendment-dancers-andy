@@ -70,6 +70,43 @@ namespace Tabloid.Repositories
             }
         }
 
+
+        public List<Subscription> GetAllUserSubscriptions(int subscriber)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                         SELECT Id, SubscriberUserProfileId, ProviderUserProfileId, BeginDateTime, EndDateTime 
+                                         FROM Subscription
+                                         WHERE SubscriberUserProfileId = @subscriber AND EndDateTime is Null
+                                         ORDER BY BeginDateTime;";
+                    DbUtils.AddParameter(cmd, "@subscriber", subscriber);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var subscriptions = new List<Subscription>();
+                    while (reader.Read())
+                    {
+                        subscriptions.Add(new Subscription()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            SubscriberUserProfileId = DbUtils.GetInt(reader, "SubscriberUserProfileId"),
+                            ProviderUserProfileId = DbUtils.GetInt(reader, "ProviderUserProfileId"),
+                            BeginDateTime = DbUtils.GetDateTime(reader, "BeginDateTime"),
+                            EndDateTime = DbUtils.GetNullableDateTime(reader, "EndDateTime")
+                        });
+                    }
+
+                    reader.Close();
+
+                    return subscriptions;
+                }
+            }
+        }
+
         public void Unsubscribe(int id)
         {
             using (var conn = Connection)

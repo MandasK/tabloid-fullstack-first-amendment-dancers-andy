@@ -6,6 +6,7 @@ namespace Tabloid.Repositories
     public interface ISubscriptionRepository
     {
         void Add(Subscription subscription);
+        List<Subscription> GetAllUserSubscriptions(int subscriber);
         List<Subscription> GetReleventSubscriptions(int subscriber, int provider);
         Subscription GetSubscriptionById(int id);
         void Unsubscribe(int id);
