@@ -10,7 +10,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    /*[Authorize]*/
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -26,7 +26,7 @@ namespace Tabloid.Controllers
         {
             return Ok(_postRepository.GetAllApprovedPosts());
         }
-        //Get {n} posts from random users, blocking the userId provided in {block} 
+        //Get {n} posts from random users, blocking the userId provided in {block} -PM 
         [HttpGet("{numberOfPosts}/{block}")]
         public IActionResult Get(int numberOfPosts, int block)
         {
@@ -34,7 +34,7 @@ namespace Tabloid.Controllers
         }
         //GET all subsribee posts (ids listed in 'q') ordered by most recent,
         //OR if a value is provided as 'num'
-        //GET {num} random posts 
+        //GET {num} random posts - PM
         [HttpGet("subscribe")]
         public IActionResult Recommended(string q, int block, int? num = null)
         {
