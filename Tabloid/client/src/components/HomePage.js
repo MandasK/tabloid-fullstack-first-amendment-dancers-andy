@@ -33,13 +33,8 @@ const HomePage = () => {
             get3RandomPosts(3, userId)
         }
     }, [])
-    
-//Add default image if the link comes back broken. 
-// Unfortunately this is treating the route as a URL instead of a local source so I'll need some help first
-// setImagePreview(URL.createObjectURL(evt.target.files[0]));
-    const addDefaultSrc = (ev) => {
-        ev.target.src = "../Images/Newspaper.png"
-      }
+ 
+
 
     let welcome = "Good Morning, "
     let time = new Date().toLocaleString().split(" ")
