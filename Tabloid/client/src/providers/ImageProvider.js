@@ -25,7 +25,10 @@ export const ImageProvider = (props) => {
     const getImageUrl = (imageUrl) => {
         const getUrl = `/api/image/${imageUrl}`
         return(getUrl)
-    };   
+    }; 
+    
+   
+
 
         return (
             <ImageContext.Provider value={{ getImageUrl, uploadImage }}>

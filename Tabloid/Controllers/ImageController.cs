@@ -40,7 +40,7 @@ namespace Tabloid.Controllers
                 if(originalWidth > maxWidth)
                 {
                     int newHeight = maxWidth * originalHeight;
-                    newHeight = newHeight / originalWidth;
+                    newHeight /= originalWidth;
 
                     image.Mutate(i => i.Resize(maxWidth, newHeight));
                 }
@@ -58,11 +58,9 @@ namespace Tabloid.Controllers
         [HttpGet("{imageUrl}")]
         public IActionResult Get(string imageUrl)
         {
-            var path = Path.Combine(_webhost.WebRootPath, "images", imageUrl);
+            var path = Path.Combine(_webhost.WebRootPath, "images/", imageUrl);
             var imageFileStream = System.IO.File.OpenRead(path);
             return File(imageFileStream, "image/jpeg");
         }
-    
-
 }
 }

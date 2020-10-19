@@ -32,7 +32,7 @@ const PostDetail = () => {
     }
 
     const imageUrl = getImageUrl(post.imageLocation);
-    console.log(imageUrl);
+    
     //convert publication date to MM / DD / YYYY
 
     const publishDate = new Date(post.publishDateTime)

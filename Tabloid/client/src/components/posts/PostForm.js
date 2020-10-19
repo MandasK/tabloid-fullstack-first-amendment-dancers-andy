@@ -9,7 +9,8 @@ import {
     Button,
     InputGroup,
     InputGroupAddon,
-    InputGroupText
+    InputGroupText,
+    Alert
 } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { useHistory } from "react-router-dom";
@@ -25,7 +26,7 @@ const PostForm = () => {
     const [createDateTime, setCreateDateTime] = useState("");
     const [categoryId, setCategoryId] = useState(0);
     const history = useHistory();
-
+    const [imagePreview, setImagePreview] = useState(null);
     const title = useRef();
     const content = useRef();
     const imageUrl = useRef();
@@ -33,6 +34,18 @@ const PostForm = () => {
     useEffect(() => {
         getAllCategories()
     }, []);
+
+    const previewImage = evt => {
+        if (evt.target.files.length) {
+            setImagePreview(URL.createObjectURL(evt.target.files[0]));
+        }
+    };
+
+    const previewImageUrl = evt => {
+        if (evt.target.value.length) {
+            setImagePreview(evt.target.value);
+        }
+    }
 
     const submit = () => {
         const post = {
@@ -63,7 +76,12 @@ const PostForm = () => {
                 'bmp',
                 'jpeg',
                 'jpg',
-                'gif'
+                'gif',
+                'PNG',
+                'BMP',
+                'JPEG',
+                'GIF',
+                'JPG'
             ];
 
             if(!availFileTypes.includes(fileType)) {
@@ -115,6 +133,7 @@ const PostForm = () => {
                                     type="file"
                                     name="file"
                                     id="imageUpload"
+                                    onChange={previewImage}
                                     onClick={() => imageUrl.current.value = ""} />
                                 <InputGroup className="mt-2">
                                     <InputGroupAddon addonType="prepend">
@@ -127,11 +146,18 @@ const PostForm = () => {
                                                 id="imageUrl"
                                                 innerRef={imageUrl}
                                                 placeholder="Input an Image URL"
+                                                onChange={previewImageUrl}
                                                 
                                             />
                                 </InputGroup>            
                             </FormGroup>
-
+                            <FormGroup>
+                                {
+                                    imagePreview === null ?
+                                    <Alert color="light">No image provided.</Alert>
+                                    : <img src={imagePreview} alt="preview" className="img-thumbnail" />
+                                }
+                            </FormGroup>
                             <FormGroup>
                                 <Label for="categoryId">Category</Label>
                                 <select defaultValue="" name="categoryId" id="categoryId" className="form-control" onChange={(e) => setCategoryId(e.target.value)}>
