@@ -34,9 +34,11 @@ namespace Tabloid.Controllers
             return Ok(subscriptions);
         }
 
-        [HttpGet("getAll/{subscriber}")]
-        public IActionResult GetAll(int subscriber)
+        [HttpGet("GetAllUserSubscriptions")]
+        public IActionResult GetAll()
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            int subscriber = currentUserProfile.Id;
             var subscriptions = _subscriptionRepository.GetAllUserSubscriptions(subscriber);
             if (subscriptions == null)
             {
