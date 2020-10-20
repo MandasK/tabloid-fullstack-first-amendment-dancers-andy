@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import { Spinner } from "reactstrap";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import {useHistory} from 'react-router-dom'
 
 export const UserProfileContext = createContext();
 
@@ -12,7 +13,8 @@ export function UserProfileProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
   const [users, setusers] = useState([]);
   const [auser, setauser] = useState([]);
-  const [currentUser,setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
+  const history = useHistory();
 
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -26,8 +28,14 @@ export function UserProfileProvider(props) {
     return firebase.auth().signInWithEmailAndPassword(email, pw)
       .then((signInResponse) => getUserProfile(signInResponse.user.uid))
       .then((userProfile) => {
+
+        if (parseInt(userProfile.userTypeId) === 3) {
+          history.push(`/deactivateduser`)
+          return null;
+        }
         sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
         setIsLoggedIn(true);
+        history.push("/")
       });
   };
 
@@ -105,15 +113,15 @@ export function UserProfileProvider(props) {
   };
 
   const updateUser = (user) =>
-  getToken().then((token) =>
-  fetch(`${apiUrl}/${user.id}`, {
-    method: "PUT",
-    headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(user)
-}));
+    getToken().then((token) =>
+      fetch(`${apiUrl}/${user.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+      }));
 
   return (
     <UserProfileContext.Provider
