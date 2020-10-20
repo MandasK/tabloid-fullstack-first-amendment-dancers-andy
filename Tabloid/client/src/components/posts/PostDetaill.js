@@ -87,6 +87,19 @@ const PostDetail = () => {
     const publishDate = new Date(post.publishDateTime)
     const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
 
+    // convert word count to readtime
+    const findReadTime = () => {
+        let time = 0;
+        let count  = 0;
+        if (post.content !== undefined) {
+            count = post.content.split(" ").length;
+        }
+
+        time = count / 265;
+
+        time = Math.ceil(time);
+        return time;
+    }
 
     return (
         <div className="postDetailsCardContainer">
@@ -100,6 +113,7 @@ const PostDetail = () => {
                 <div>
                     <h2>{post.title}</h2>
                     <CardSubtitle>By {post.userProfile.displayName}</CardSubtitle>
+                    <CardSubtitle>Estimated Read Time: {findReadTime()} {findReadTime()== 1 ? "minute" : "minutes"}</CardSubtitle>
                 </div>
                 <div className="Post_Tag_Sizer">
                     <h6 className="Tags_h6">Tags</h6>
