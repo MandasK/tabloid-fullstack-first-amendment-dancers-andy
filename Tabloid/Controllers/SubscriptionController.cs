@@ -69,11 +69,7 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id)
         {
-            //if (id != subscription.Id)
-            //{
-            //    return BadRequest();
-            //}
-
+           
             _subscriptionRepository.Unsubscribe(id);
             return Ok();
         }

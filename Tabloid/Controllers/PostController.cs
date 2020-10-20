@@ -76,9 +76,6 @@ namespace Tabloid.Controllers
         {
             var currentUserProfile = GetCurrentUserProfile();
             var postFromDB = _postRepository.GetPostById(id);
-            //createDateTime: post.createDateTime,
-            //publishDateTime: post.publishDateTime,
-            // isApproved: post.isApproved,
             if (postFromDB.UserProfileId == currentUserProfile.Id)
             {
                 if (id != post.Id)
