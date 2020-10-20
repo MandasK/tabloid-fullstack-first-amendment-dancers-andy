@@ -2,7 +2,7 @@ USE [Tabloid];
 GO
 
 set identity_insert [UserType] on
-insert into [UserType] ([ID], [Name]) VALUES (1, 'Admin'), (2, 'Author');
+insert into [UserType] ([ID], [Name]) VALUES (1, 'Admin'), (2, 'Author'), (3, 'Deactivated');
 set identity_insert [UserType] off
 
 set identity_insert [Category] on

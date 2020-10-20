@@ -5,7 +5,7 @@ import UserProfile from './UserProfile';
 import { Row, Table, Button, Spinner } from 'reactstrap';
 import { UserProfileContext } from '../../providers/UserProfileProvider';
 
-const UserProfileList = (props) => {
+const DeactivatedUserList = (props) => {
     const { users, getAllUsers, currentUser, getCurrentUser } = useContext(UserProfileContext);
     const history = useHistory();
     const clientUser = JSON.parse(sessionStorage.getItem('userProfile'));
@@ -18,7 +18,7 @@ const UserProfileList = (props) => {
         getAllUsers();
     }, []);
 
-    const activeUsers = users.filter(user => user.userTypeId !== 3)
+    const activeUsers = users.filter(user => user.userTypeId === 3)
 
 
 
@@ -30,7 +30,7 @@ const UserProfileList = (props) => {
         <div className="container">
             <div className="row justify-content-left">
                 <div className="row justify-content-center">
-                    <h3>Users</h3>
+                    <h3>Deactivated Users</h3>
                 </div>
                 <Table>
 
@@ -69,13 +69,11 @@ const UserProfileList = (props) => {
                 <Button type="button"
                                 className="goBackuserButton"
                                 onClick={e => {
-                                    history.push("/user/deactivated")
-                                }}>Deactivated Users
+                                    history.push("/user")
+                                }}>Active Users
                     </Button>
             </div>
         </div>
     )
 }
-
-
-export default UserProfileList;
+export default DeactivatedUserList;

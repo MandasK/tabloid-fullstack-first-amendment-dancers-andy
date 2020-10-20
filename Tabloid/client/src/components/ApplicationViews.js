@@ -26,6 +26,8 @@ import UserProfileDetails from './UserProfile/UserProfileDetails';
 import UserProfileEdit from './UserProfile/UserProfileEdit';
 import CommentList from "./Comment/CommentList";
 import DemotionRejection from "./UserProfile/DemotionRejection";
+import DeactivatedUser from "./DeactivatedUser";
+import DeactivatedUserList from "./UserProfile/DeactivatedUserList";
 
 
 export default function ApplicationViews() {
@@ -140,6 +142,12 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/user/nodelete">
         {isLoggedIn ? <DemotionRejection /> : <Redirect to="/login/" />}
+        </Route>
+        <Route path="/deactivateduser">
+          <DeactivatedUser />
+        </Route>
+        <Route path="/user/deactivated">
+          <DeactivatedUserList />
         </Route>
       </Switch>
     </main >
