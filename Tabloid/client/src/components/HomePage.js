@@ -49,7 +49,7 @@ const HomePage = () => {
             !q.includes(subscription.providerUserProfileId) && q.push(subscription.providerUserProfileId)
         })
         let qstring = q.toString();
-        qstring != "" && getSubscribeePosts(qstring, JSON.parse(sessionStorage.getItem("userProfile")).id, 3)
+        qstring != "" && getSubscribeePosts(qstring, JSON.parse(sessionStorage.getItem("userProfile")).id)
         if (gotSubscriptions) {
             if (subscribeePosts.length === 0) {
                 get3RandomPosts(3, userId)
