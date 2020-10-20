@@ -12,6 +12,7 @@ namespace Tabloid.Repositories
         Post GetPostById(int id);
         List<Post> GetRandomPosts(int numberOfPosts, int block);
         List<Post> GetRecommendedPosts(string q, int block, int? num);
+        List<Post> SearchByTag(int tagId);
         void Update(Post post);
     }
 }

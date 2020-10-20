@@ -5,8 +5,8 @@ const Tag = (props) => {
 
     return (
         <>
-        <Button size="sm" className="post_Tag_Button" color="primary" >
-            {props.tag.tagName}
+        <Button size="sm" className="post_Tag_Button" color="primary" onClick={() => props.tagButtonClick(props.tag.tagId)}>
+            {props.tag.name}
         </Button>
         </>
     )

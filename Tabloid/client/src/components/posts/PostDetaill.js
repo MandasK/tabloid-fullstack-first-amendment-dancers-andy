@@ -28,8 +28,14 @@ const PostDetail = () => {
     
     const {
         postTags,
-        GetPostTags
-        } = useContext(TagContext)
+        GetPostTags, 
+        setTagSearchId
+        } = useContext(TagContext);
+
+    const tagButtonClick = (tagId) => {
+        setTagSearchId(tagId);
+        history.push("/searchbytag")
+    }
 
     useEffect(() => {
         getSinglePost(postId).then(setPost);
@@ -101,7 +107,8 @@ const PostDetail = () => {
                         {postTags.map((tag) => (
                             <PostTag 
                             key={tag.id} 
-                            tag={tag}  
+                            tag={tag}
+                            tagButtonClick={tagButtonClick}  
                             />
                             ))}
                 </div>

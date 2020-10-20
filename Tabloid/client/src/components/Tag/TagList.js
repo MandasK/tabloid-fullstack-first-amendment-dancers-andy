@@ -24,7 +24,7 @@ const TagList = () => {
   const [addTagWindow, setAddTagWindow] = useState(false);
   // const [update, setUpdate] = useState(false)
 
-  const editTag = (id) => {
+  const tagButtonClick = (id) => {
     setAddTagWindow(false);
     GetTagById(id);
   };
@@ -113,7 +113,7 @@ const TagList = () => {
                         <Tag 
                             key={tag.id} 
                             tag={tag} 
-                            editTag={editTag} 
+                            tagButtonClick={tagButtonClick} 
                         />
                         ))}
           </div>

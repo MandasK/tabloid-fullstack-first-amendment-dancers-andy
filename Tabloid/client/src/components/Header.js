@@ -30,11 +30,14 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
-              </NavItem>
-              <NavItem>
-              <NavLink tag={RRNavLink} to="/my_posts">My Posts</NavLink>
-            </NavItem>
+                  <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/my_posts">My Posts</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/searchbytag">Search by Tag</NavLink>
+                </NavItem>
               </>
             }
           </Nav>

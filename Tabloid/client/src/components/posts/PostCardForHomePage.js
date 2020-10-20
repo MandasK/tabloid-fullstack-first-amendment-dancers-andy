@@ -6,6 +6,9 @@ const PostCardForHomePage = (props) => {
     const [image, setImage] = useState(props.post.imageLocation)
     //Give each 'Post card' a unique targetable div
     let classid = `post_Card_Homepage${props.index}`
+    if (props.index>2){
+        classid = `post_Card_Homepage3`
+    }
 
     //update image state to default image if the link comes back broken.
     const addDefaultSrc = () => {
