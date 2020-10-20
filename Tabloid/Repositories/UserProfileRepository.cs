@@ -189,6 +189,39 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void Update(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        UPDATE UserProfile
+                                        SET UserTypeId = @userTypeId,
+                                            FirstName = @firstName,
+                                            LastName = @lastName,
+                                            DisplayName = @displayName,
+                                            Email = @email,
+                                            FirebaseUserId = @firebaseUserId,
+                                            ImageLocation = @imageLocation
+                                    
+                                        WHERE Id = @Id;";
+
+                    DbUtils.AddParameter(cmd, "@userTypeId", userProfile.UserTypeId);
+                    DbUtils.AddParameter(cmd, "@firstName", userProfile.FirstName);
+                    DbUtils.AddParameter(cmd, "@lastName", userProfile.LastName);
+                    DbUtils.AddParameter(cmd, "@displayName", userProfile.DisplayName);
+                    DbUtils.AddParameter(cmd, "@email", userProfile.Email);
+                    DbUtils.AddParameter(cmd, "@Id", userProfile.Id);
+                    DbUtils.AddParameter(cmd, "@firebaseUserId", userProfile.FirebaseUserId);
+                    DbUtils.AddParameter(cmd, "@imageLocation", userProfile.ImageLocation);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {

@@ -12,7 +12,8 @@ export function UserProfileProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
   const [users, setusers] = useState([]);
   const [auser, setauser] = useState([]);
-  
+  const [currentUser,setCurrentUser] = useState([]);
+
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
   useEffect(() => {
@@ -59,6 +60,16 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
+  const getCurrentUser = (firebaseUserId) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${firebaseUserId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json().then(setCurrentUser)));
+  };
+
   const saveUser = (userProfile) => {
     return getToken().then((token) =>
       fetch(apiUrl, {
@@ -71,7 +82,7 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
-  const getAllUsers = () => 
+  const getAllUsers = () =>
     getToken().then((token) =>
       fetch(apiUrl, {
         method: "GET",
@@ -81,23 +92,35 @@ export function UserProfileProvider(props) {
       }).then((resp) => resp.json())
         .then(setusers)
     );
-      
-    const getUserById = (id) => {
-       return getToken().then((token) =>
-            fetch(`${apiUrl}/${id}/details`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((resp) => resp.json())
-            .then(setauser)
-            )};
+
+  const getUserById = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${id}/details`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((resp) => resp.json())
+        .then(setauser)
+    )
+  };
+
+  const updateUser = (user) =>
+  getToken().then((token) =>
+  fetch(`${apiUrl}/${user.id}`, {
+    method: "PUT",
+    headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+}));
 
   return (
-    <UserProfileContext.Provider 
-      value={{ isLoggedIn, users, auser, login, logout, register, getToken, getAllUsers, getUserById }}>
+    <UserProfileContext.Provider
+      value={{ isLoggedIn, users, auser, currentUser, login, logout, register, getToken, getAllUsers, getUserById, updateUser, getUserProfile, getCurrentUser }}>
       {isFirebaseReady
         ? props.children
-        : <Spinner className="app-spinner dark"/>}
+        : <Spinner className="app-spinner dark" />}
     </UserProfileContext.Provider>
   );
 }

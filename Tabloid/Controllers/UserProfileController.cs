@@ -4,6 +4,13 @@ using System;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+
 namespace Tabloid.Controllers
 {
     
@@ -16,7 +23,7 @@ namespace Tabloid.Controllers
         {
             _userProfileRepository = userProfileRepository;
         }
-        [Authorize]
+        
         [HttpGet]
         public IActionResult Get()
         {
@@ -51,5 +58,55 @@ namespace Tabloid.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
+       
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, UserProfile userProfile)
+        {
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
+            _userProfileRepository.Update(userProfile);
+            return Ok();
+        }
+
+
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Login(string firebaseUserId)
+        //{
+        //    var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+
+        //    if (userProfile == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    //Checks to see if the account has been deactivated
+        //    else if (userProfile.UserTypeId == 3)
+        //    {
+        //        return RedirectToAction("Deactivated", "Account");
+        //    }
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier, userProfile.Id.ToString()),
+        //        new Claim(ClaimTypes.Email, userProfile.Email),
+        //    };
+
+        //    //Adds Role to user credentials if the user is an Administrator. Admin role will show more menu options
+        //    if (userProfile.UserTypeId == 1)
+        //    {
+        //        claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+        //    }
+
+        //    var claimsIdentity = new ClaimsIdentity(
+        //        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        //    await HttpContext.SignInAsync(
+        //        CookieAuthenticationDefaults.AuthenticationScheme,
+        //        new ClaimsPrincipal(claimsIdentity));
+
+        //    return Ok(userProfile);
+        //}
     }
 }

@@ -1,17 +1,22 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistroy, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import UserProfile from './UserProfile';
-import { Row, Table } from 'reactstrap';
+import { Row, Table, Button, Spinner } from 'reactstrap';
 import { UserProfileContext } from '../../providers/UserProfileProvider';
 
 const UserProfileList = (props) => {
-    const { users, getAllUsers } = useContext(UserProfileContext);
+    const { users, getAllUsers, currentUser, getCurrentUser} = useContext(UserProfileContext);
+    const history = useHistory();
+    const clientUser = JSON.parse(sessionStorage.getItem('userProfile'));
+    
+    useEffect(() => {  
+        getCurrentUser(clientUser.firebaseUserId);
+    }, []);
 
     useEffect(() => {
         getAllUsers();
     }, []);
-    
-    
+    if (currentUser.userTypeId ===1) {
     return (
 
         <div className="container">
@@ -39,6 +44,12 @@ const UserProfileList = (props) => {
                                 </th>
                                 <td>{user.fullName}</td>
                                 <td>{user.userType.name}</td>
+                                <td>                    <Button type="button"
+                                className="editUserButton"
+                                onClick={e => {
+                                    history.push(`/user/${user.id}/edit`)
+                                }}>Edit
+                    </Button></td>
                             </tr>
                         </tbody>
                     ))}
@@ -47,6 +58,7 @@ const UserProfileList = (props) => {
         </div>
     )
 }
-
+else             return <Spinner className="app-spinner dark" />
+}
 export default UserProfileList;
 
