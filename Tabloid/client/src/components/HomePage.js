@@ -18,7 +18,6 @@ const HomePage = () => {
     const badImage = () => {
         setGoodImage(false)
     }
-    //
 
     const {
         userId,
@@ -38,33 +37,25 @@ const HomePage = () => {
 
     useEffect(() => {
         getUserSubscriptions().then((resposne) => {
-            console.log(resposne)
             setSubscriptions(resposne)
 
         })
     }, [])
 
-    console.log("subscribeepost", subscribeePosts)
 
     useEffect(() => {
         let q = []
         subscriptions && subscriptions.map((subscription) => {
             !q.includes(subscription.providerUserProfileId) && q.push(subscription.providerUserProfileId)
         })
-        console.log(q)
         let qstring = q.toString();
-        console.log(qstring)
         qstring != "" && getSubscribeePosts(qstring, JSON.parse(sessionStorage.getItem("userProfile")).id, 3)
         if (gotSubscriptions) {
             if (subscribeePosts.length === 0) {
-                console.log(subscribeePosts.length)
                 get3RandomPosts(3, userId)
-                console.log(gotSubscriptions)
             }
         }
         setGotSubscriptions(true);
-        console.log(subscriptions)
-        console.log(gotSubscriptions)
 
     }, [subscriptions])
 
