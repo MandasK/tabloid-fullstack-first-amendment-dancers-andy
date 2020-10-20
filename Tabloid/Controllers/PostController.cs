@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,15 +11,17 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
-        public PostController(IPostRepository postRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository)
         {
             _postRepository = postRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -69,6 +72,8 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Post post)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            post.UserProfileId = currentUserProfile.Id;
             _postRepository.Add(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
@@ -76,20 +81,51 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
-            if (id != post.Id)
+            var currentUserProfile = GetCurrentUserProfile();
+            var postFromDB = _postRepository.GetPostById(id);
+            if (postFromDB.UserProfileId == currentUserProfile.Id)
             {
-                return BadRequest();
-            }
+                if (id != post.Id)
+                {
+                    return BadRequest();
+                }
+                post.UserProfileId = postFromDB.UserProfileId;
+                post.CreateDateTime = postFromDB.CreateDateTime;
+                post.PublishDateTime = postFromDB.PublishDateTime;
+                post.IsApproved = postFromDB.IsApproved;
+                _postRepository.Update(post);
 
-            _postRepository.Update(post);
-            return Ok();
+                return Ok();
+            }
+            else
+            {
+                return Unauthorized();
+            }
+            
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _postRepository.DeletePost(id);
-            return NoContent();
+            var currentUserProfile = GetCurrentUserProfile();
+            var post = _postRepository.GetPostById(id);
+            
+            if (post.UserProfileId == currentUserProfile.Id || currentUserProfile.UserTypeId == 1)
+            {
+                _postRepository.DeletePost(id);
+                return NoContent();
+            }
+            
+             else
+            {
+                return Unauthorized();
+            }
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }

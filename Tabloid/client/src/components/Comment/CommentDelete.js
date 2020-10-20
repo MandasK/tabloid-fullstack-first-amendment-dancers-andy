@@ -33,7 +33,7 @@ const CommentDelete = () => {
 
 
     const publishDate = new Date(comment.createDateTime)
-        console.log(publishDate);
+
         const HumanPublishDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`
 
     return (
