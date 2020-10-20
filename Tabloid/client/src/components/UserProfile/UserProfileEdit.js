@@ -1,9 +1,10 @@
+
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { UserProfileContext, userProfileContext } from "../../providers/UserProfileProvider";
 import { Spinner, Card, CardImg, Button, CardBody, CardHeader } from 'reactstrap'
 
-const UserProfileDetails = () => {
+const UserProfileEdit = () => {
     const { getUserById, currentUser, auser, users, updateUser, getAllUsers, getCurrentUser} = useContext(UserProfileContext);
     const [ userTypeId, setUserTypeId] = useState();
     const [isloading, setIsLoading] = useState(false);
@@ -50,11 +51,12 @@ const UserProfileDetails = () => {
 
         }
 
-        if (adminCount === 1 && auser.id === currentUser.id && (updatedUser.userTypeId === 2 || updatedUser.userTypeId === 3)) {
+        if (adminCount === 1 && updatedUser.id === currentUser.id && (updatedUser.userTypeId === 2 || updatedUser.userTypeId === 3)) {
             canDemote = false;
         }
         if (canDemote) {   
         updateUser(updatedUser).then(() => history.push(`/user`))
+        console.log("Demoted")
         }
         else {
             
@@ -95,14 +97,14 @@ const UserProfileDetails = () => {
                         <div>
                             
                             <Button type="button"
-                                className="goBackuserButton"
+                                className="saveUserButton"
                                 onClick={saveUser}>Save
                             </Button>
 
                             <Button type="button"
                                 className="goBackuserButton"
                                 onClick={e => {
-                                    history.push("/user")
+                                    history.goBack()
                                 }}>Cancel
                     </Button>
                 </div>
@@ -118,4 +120,4 @@ const UserProfileDetails = () => {
     }
 }
 
-export default UserProfileDetails;
+export default UserProfileEdit;

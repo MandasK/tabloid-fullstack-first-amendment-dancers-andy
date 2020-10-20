@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Models;
 using Tabloid.Repositories;
+using System.Security.Claims;
 
 namespace Tabloid.Controllers
 {
@@ -16,9 +17,12 @@ namespace Tabloid.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepo;
-        public CategoryController(ICategoryRepository categoryRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+        public CategoryController(ICategoryRepository categoryRepository,
+            IUserProfileRepository userProfileRepository)
         {
             _categoryRepo = categoryRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -41,6 +45,11 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Category category)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            if(currentUserProfile.UserTypeId != 1)
+            {
+                return Unauthorized();
+            }
             _categoryRepo.AddCategory(category);
             return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
         }
@@ -48,6 +57,11 @@ namespace Tabloid.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            if (currentUserProfile.UserTypeId != 1)
+            {
+                return Unauthorized();
+            }
             var category = _categoryRepo.GetCategoryById(id);
             if (id == 10 || id != category.Id)
             {
@@ -60,6 +74,11 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Category category)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            if (currentUserProfile.UserTypeId != 1)
+            {
+                return Unauthorized();
+            }
             if (id == 10 || id != category.Id)
             {
                 return BadRequest();
@@ -67,6 +86,11 @@ namespace Tabloid.Controllers
             _categoryRepo.UpdateCategory(category);
             return NoContent();
         }
-           
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
+
     }
 }
