@@ -12,6 +12,7 @@ const HomePage = () => {
     //remove broken link on bad image
     const [goodImage, setGoodImage] = useState(true)
     const [subscriptions, setSubscriptions] = useState();
+    const [gotSubscriptions, setGotSubscriptions] = useState(false);
 
 
     const badImage = () => {
@@ -39,6 +40,7 @@ const HomePage = () => {
         getUserSubscriptions().then((resposne) => {
             console.log(resposne)
             setSubscriptions(resposne)
+
         })
     }, [])
 
@@ -53,10 +55,17 @@ const HomePage = () => {
         let qstring = q.toString();
         console.log(qstring)
         qstring != "" && getSubscribeePosts(qstring, JSON.parse(sessionStorage.getItem("userProfile")).id, 3)
-        if (!subscribeePosts) {
-            get3RandomPosts(3, userId)
+        if (gotSubscriptions) {
+            if (subscribeePosts.length === 0) {
+                console.log(subscribeePosts.length)
+                get3RandomPosts(3, userId)
+                console.log(gotSubscriptions)
+            }
         }
+        setGotSubscriptions(true);
         console.log(subscriptions)
+        console.log(gotSubscriptions)
+
     }, [subscriptions])
 
     //Add default image if the link comes back broken. 
