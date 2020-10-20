@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Tabloid.Models;
 using Tabloid.Repositories;
@@ -15,9 +16,11 @@ namespace Tabloid.Controllers
     public class SubscriptionController: ControllerBase
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
-        public SubscriptionController(ISubscriptionRepository subscriptionRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+        public SubscriptionController(ISubscriptionRepository subscriptionRepository, IUserProfileRepository userProfileRepository)
         {
             _subscriptionRepository = subscriptionRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet("{subscriber}/{provider}")]
@@ -57,6 +60,8 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Subscription subscription)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            subscription.SubscriberUserProfileId = currentUserProfile.Id;
             _subscriptionRepository.Add(subscription);
             return CreatedAtAction("Get", new { id = subscription.Id }, subscription);
         }
@@ -71,6 +76,12 @@ namespace Tabloid.Controllers
 
             _subscriptionRepository.Unsubscribe(id);
             return Ok();
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }
