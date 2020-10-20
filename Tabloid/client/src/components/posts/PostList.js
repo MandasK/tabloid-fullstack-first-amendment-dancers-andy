@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { useHistory, Link } from "react-router-dom";
+import RecommendedPosts from "./RecommendedPosts";
+
 import {
     Button, Table
 } from "reactstrap";
@@ -14,6 +16,11 @@ const PostList = () => {
     }, []);
 
     return (
+        <>
+        <div className="recommended_Posts_Div">
+            
+        <RecommendedPosts />
+        </div>
         <div className="container">
             <div className="row justify-content-left">
                 <Button color="danger"
@@ -48,6 +55,7 @@ const PostList = () => {
                 </Table>
             </div>
         </div>
+        </>
     );
 };
 

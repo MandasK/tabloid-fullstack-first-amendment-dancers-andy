@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
 export const TagContext = createContext();
@@ -8,7 +8,9 @@ export const TagProvider = (props) => {
   const [tags, setTags] = useState([]);
   const [tagToEdit, setTagToEdit] = useState();
   const [postTags,setPostTags] = useState([]);
+  const [tagSearchId, setTagSearchId] = useState()
   const [update, setUpdate] = useState(false)
+  const [tagsLoaded, setTagsLoaded] = useState(false)
 
   const GetAllTags = () => {
     getToken().then((token) =>
@@ -19,9 +21,13 @@ export const TagProvider = (props) => {
         },
       })
         .then((res) => res.json())
-        .then(setTags)        
+        .then(setTags)          
     );
   };
+
+  useEffect(() => {
+    setTagsLoaded(!tagsLoaded)
+  },[tags])
 
   const GetTagById = (id) => {
     getToken().then((token) =>
@@ -132,7 +138,7 @@ export const TagProvider = (props) => {
 
   return (
     <TagContext.Provider
-      value={{ tags, tagToEdit, postTags, update, setUpdate, setTagToEdit, GetAllTags, GetTagById, AddTag, UpdateTag, DeleteTag, AddPostTag, GetPostTags, DeletePostTag }}
+      value={{ tags, tagToEdit, setTagToEdit, postTags, tagSearchId, setTagSearchId, update, tagsLoaded, setTagsLoaded, setUpdate, GetAllTags, GetTagById, AddTag, UpdateTag, DeleteTag, AddPostTag, GetPostTags, DeletePostTag }}
     >
       {props.children}
     </TagContext.Provider>

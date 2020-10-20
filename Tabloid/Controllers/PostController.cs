@@ -44,6 +44,13 @@ namespace Tabloid.Controllers
             return Ok(_postRepository.GetRecommendedPosts(q, block, num));
         }
 
+        [HttpGet("bytag/{tagId}")]
+        public IActionResult SearchByTag(int tagId)
+        {
+            return Ok(_postRepository.SearchByTag(tagId));
+        }
+
+
         [HttpGet("GetAllUserPosts/{id}")]
         public IActionResult GetAllUserPosts(int id)
         {

@@ -6,6 +6,7 @@ export const PostContext = React.createContext();
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
     const [subscribeePosts, setSubscribeePosts] = useState([])
+    const [tagSearchResultPosts, setTagSearchResultPosts] = useState([])
     const { getToken } = useContext(UserProfileContext);
 
 
@@ -76,7 +77,8 @@ export const PostProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             }));
-
+    
+    // get 3 random posts from user ids that do not equal id{block}(presumably the current user)
     const get3RandomPosts = (num, block) => {
         getToken().then((token) =>
             fetch(`/api/post/${num}/${block}`, {
@@ -97,9 +99,20 @@ export const PostProvider = (props) => {
             }).then((res) => res.json())
                 .then(setSubscribeePosts));
     };
+    //Search for posts by a given tag id
+    const getPostsByTagId = (tagId) => {
+        getToken().then((token) => 
+            fetch(`/api/post/bytag/${tagId}`, {
+                methof: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => res.json())
+                .then(setTagSearchResultPosts));
+    } 
 
     return (
-        <PostContext.Provider value={{ posts, subscribeePosts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost, EditPost, get3RandomPosts, getSubscribeePosts }}>
+        <PostContext.Provider value={{ posts, subscribeePosts, tagSearchResultPosts, setTagSearchResultPosts, getAllPosts, getSinglePost, addPost, getAllUserPosts, DeletePost, EditPost, get3RandomPosts, getSubscribeePosts, getPostsByTagId }}>
             {props.children}
         </PostContext.Provider>
     );

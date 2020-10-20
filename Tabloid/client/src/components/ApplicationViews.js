@@ -15,6 +15,7 @@ import PostDetail from "./posts/PostDetaill";
 import PostForm from "./posts/PostForm";
 import TagList from "./Tag/TagList"
 import { TagProvider } from "../providers/TagProvider";
+import SearchByTag from "./SearchByTags/SearchByTag";
 import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryDelete from "./Category/CategoryDelete";
@@ -51,6 +52,14 @@ export default function ApplicationViews() {
           {isLoggedIn ?
             <TagProvider>
               <TagList />
+            </TagProvider>
+            : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/searchbytag">
+          {isLoggedIn ?
+            <TagProvider>
+              <SearchByTag />
             </TagProvider>
             : <Redirect to="/login" />}
         </Route>

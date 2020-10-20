@@ -33,7 +33,7 @@ namespace Tabloid.Repositories
                             id = DbUtils.GetInt(reader, "id"),
                             Postid = DbUtils.GetInt(reader, "postId"),
                             TagId = DbUtils.GetInt(reader, "tagId"),
-                            tagName = DbUtils.GetString(reader, "name")
+                            name = DbUtils.GetString(reader, "name")
                         };
                         postTags.Add(postTag);
                     }
@@ -70,7 +70,7 @@ namespace Tabloid.Repositories
                             id = DbUtils.GetInt(reader, "id"),
                             Postid = DbUtils.GetInt(reader, "postId"),
                             TagId = DbUtils.GetInt(reader, "tagId"),
-                            tagName = DbUtils.GetString(reader, "name")
+                            name = DbUtils.GetString(reader, "name")
                         };
                         
                     }
