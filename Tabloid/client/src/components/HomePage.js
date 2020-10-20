@@ -8,6 +8,8 @@ import PostCardForHomePage from "./posts/PostCardForHomePage";
 import { SubscriptionContext } from '../providers/SubscriptionProvider';
 
 const HomePage = () => {
+    const [subscriptions, setSubscriptions] = useState();
+    const [gotSubscriptions, setGotSubscriptions] = useState(false);
 
     const {
         userId,
