@@ -54,11 +54,11 @@ const EditPost = () => {
             id: post.id,
             title: title.current.value,
             content: content.current.value,
-            createDateTime: post.createDateTime,
-            publishDateTime: post.publishDateTime,
-            isApproved: post.isApproved,
+            //createDateTime: post.createDateTime,
+            //publishDateTime: post.publishDateTime,
+           // isApproved: post.isApproved,
             categoryId,
-            userProfileId: post.userProfileId
+            //userProfileId: post.userProfileId
         }
         updatedPost.categoryId = JSON.parse(updatedPost.categoryId)
         if (updatedPost.title === ""){
