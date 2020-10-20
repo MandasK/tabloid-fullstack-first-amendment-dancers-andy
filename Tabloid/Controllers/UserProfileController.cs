@@ -68,7 +68,7 @@ namespace Tabloid.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Put(int id, UserProfile userProfile)
         {
