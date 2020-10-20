@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {Helmet} from "react-helmet";
 import { useParams, useHistory } from 'react-router-dom';
 import { UserProfileContext, userProfileContext } from "../../providers/UserProfileProvider";
 import { Spinner, Card, CardImg, Button, CardBody, CardHeader } from 'reactstrap'
@@ -34,6 +35,10 @@ const UserProfileDetails = () => {
     if(isloading && currentUser.userTypeId === 1) {
         return(
             <div className="d-flex justify-content-center">
+                <Helmet>
+    <               title>Tabloid-User {auser.fullName}</title>
+                     <meta name="description" content="Tabloid user edit page" />
+                </Helmet>
                 <Card style={{ border: "none", width: "30%", height:"30%" }} className="smallContainer">
 
                     {

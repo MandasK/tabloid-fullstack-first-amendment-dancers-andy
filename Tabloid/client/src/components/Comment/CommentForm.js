@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import {Helmet} from "react-helmet";
 import { Button, Form, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
 import { useHistory, useParams, Link } from "react-router-dom"
 import { CommentContext } from "../../providers/CommentProvider";
@@ -38,6 +39,10 @@ const CommentForm = () => {
 
     return (
         <div className="container pt-4">
+            <Helmet>
+                <title>Tabloid-New Comment</title>
+                <meta name="description" content="Tabloid New Comment Form" />
+            </Helmet>
             <div className="row justify-content-center">
                 <Card className="col-sm-12 col-lg-6">
                     <CardBody>

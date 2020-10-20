@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import {Helmet} from "react-helmet";
 import { useHistory } from "react-router-dom";
 import { CategoryContext } from '../../providers/CategoryProvider';
 import Category from './Category';
@@ -15,7 +16,10 @@ const CategoryList = (props) => {
 
     return (
         <div className="container">
-            
+          <Helmet>
+            <title>Tabloid-Category List</title>
+            <meta name="description" content="List of available categories." />
+        </Helmet>  
                 <Row>
 
                     <p><Link to={`/category/add`}>Add New Category</Link></p>

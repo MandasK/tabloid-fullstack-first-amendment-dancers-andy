@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import {Helmet} from "react-helmet";
 import { Button, Form, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
-
 import { CommentContext } from "../../providers/CommentProvider";
 import { useParams, useHistory, Link } from 'react-router-dom';
 import "./Comment.css"
@@ -57,6 +57,10 @@ const CommentEditForm = () => {
 
     return (
         <div className="container pt-4">
+            <Helmet>
+    <title>Tabloid-Edit Comment {comment.subject}</title>
+                <meta name="description" content="Tabloid login page" />
+            </Helmet>
             <div className="row justify-content-center">
                 <Card className="col-sm-12 col-lg-6">
                     <CardBody>

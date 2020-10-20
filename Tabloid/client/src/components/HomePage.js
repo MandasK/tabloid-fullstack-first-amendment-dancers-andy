@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {Helmet} from "react-helmet";
 import { LocalUserContext } from "../providers/LocalUserProvider";
 import { PostContext } from "../providers/PostProvider";
 import { useHistory, Link } from "react-router-dom";
@@ -60,6 +61,10 @@ const HomePage = () => {
 
     return (
         <div className="homePage">
+            <Helmet>
+                <title>Tabloid Welcome, {userFirstName}</title>
+                <meta name="description" content="Tabloid user home page" />
+            </Helmet>
             <div className="logo_Side">
                 <img src={logo_transparent} alt="Tabloid logo" className="LogoImage" />
                 <img src={userImageLoc} alt="Tabloid logo" className="user_Image_Welcome" />

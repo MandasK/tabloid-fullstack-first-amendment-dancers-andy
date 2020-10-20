@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button, CardTitle, CardSubtitle, Container } from "reactstrap";
+import {Helmet} from "react-helmet";
 import { PostContext } from "../../providers/PostProvider";
 import { TagContext } from "../../providers/TagProvider";
 import PostTag from "./PostTag"
@@ -89,6 +90,10 @@ const PostDetail = () => {
 
     return (
         <div className="postDetailsCardContainer">
+        <Helmet>
+            <title>Tabloid-Post {post.title}</title>
+            <meta name="description" content="Nested component" />
+        </Helmet>
         <Card className="m-auto">
             <CardBody>
             <div className="post_Detail_Top_With_Tags">

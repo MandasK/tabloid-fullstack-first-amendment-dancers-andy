@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import {Helmet} from "react-helmet";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useHistory, Link } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
@@ -18,6 +19,11 @@ export default function Login() {
   };
 
   return (
+    <>
+    <Helmet>
+        <title>Tabloid-Login</title>
+        <meta name="description" content="Tabloid login page" />
+    </Helmet>
     <Form onSubmit={loginSubmit}>
       <fieldset>
         <FormGroup>
@@ -36,5 +42,6 @@ export default function Login() {
         </em>
       </fieldset>
     </Form>
+    </>
   );
 }

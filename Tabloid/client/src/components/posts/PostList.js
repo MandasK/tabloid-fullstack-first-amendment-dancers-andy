@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
+import {Helmet} from "react-helmet";
 import { PostContext } from "../../providers/PostProvider";
 import { useHistory, Link } from "react-router-dom";
 import {
@@ -15,6 +16,10 @@ const PostList = () => {
 
     return (
         <div className="container">
+            <Helmet>
+                <title>Tabloid-List of All Posts </title>
+                <meta name="description" content="Tabloid login page" />
+            </Helmet>
             <div className="row justify-content-left">
                 <Button color="danger"
                     onClick={() => { history.push(`/postForm/`) }}>

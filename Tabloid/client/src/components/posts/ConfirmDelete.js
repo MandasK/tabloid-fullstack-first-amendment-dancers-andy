@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import {Helmet} from "react-helmet";
 import { ListGroup, ListGroupItem, Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory, Link } from "react-router-dom";
@@ -23,6 +24,11 @@ const ConfirmDelete = () => {
 
 
         return (
+            <>
+            <Helmet>
+                <title>Tabloid-Delete {post.title}</title>
+                <meta name="description" content="Tabloid Delete Post Confirmation" />
+            </Helmet>
             <Card className="m-4">
                 
                 <h1>Careful now</h1>
@@ -46,6 +52,7 @@ const ConfirmDelete = () => {
                 </Button>
                 </CardBody>
             </Card>
+            </>
         );
     } else {
         return (

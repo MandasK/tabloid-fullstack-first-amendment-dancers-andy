@@ -1,4 +1,5 @@
 import React from 'react';
+import {Helmet} from "react-helmet";
 import { Card,CardBody, CardTitle, CardText } from 'reactstrap';
 import { Link } from "react-router-dom";
 import './UserProfile.css';
@@ -6,6 +7,10 @@ import './UserProfile.css';
 const UserProfile = ({user}) => {
     return (
         <>
+        <Helmet>
+    <title>Tabloid-User {user.fullName}</title>
+            <meta name="description" content="Tabloid login page" />
+        </Helmet>
         <Card className="userProfileCard">
             <CardBody>
                 <CardTitle> 

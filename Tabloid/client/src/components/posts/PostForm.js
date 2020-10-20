@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
+import {Helmet} from "react-helmet";
 import {
     Form,
     FormGroup,
@@ -112,6 +113,10 @@ const PostForm = () => {
 
     return (
         <div className="container pt-4">
+            <Helmet>
+                <title>Tabloid-New Post</title>
+                <meta name="description" content="Tabloid New Post Form" />
+            </Helmet>
             <div className="row justify-content-center">
                 <Card className="col-sm-12 col-lg-6">
                     <CardBody>

@@ -1,4 +1,5 @@
 import { Button, Card, CardBody } from "reactstrap";
+import {Helmet} from "react-helmet";
 import { CommentContext } from "../../providers/CommentProvider";
 import React, { useContext, useState } from "react";
 import { useHistory, Link, useParams } from "react-router-dom"
@@ -24,6 +25,11 @@ const Comment = ({ comment }) => {
 
 
     return (
+        <>
+        <Helmet>
+            <title>Tabloid-Comment {comment.userProfile.firstName}</title>
+            <meta name="description" content="Tabloid login page" />
+        </Helmet>
         <Card style={{ border: "none" }}>
             <div className="commentCard">
                 <CardBody>
@@ -47,6 +53,7 @@ const Comment = ({ comment }) => {
                 </CardBody>
             </div>
         </Card>
+        </>
     )
 };
 

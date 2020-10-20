@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import {Helmet} from "react-helmet";
 import { useHistory, Link } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import { Row, Table, Button, Spinner } from 'reactstrap';
@@ -20,6 +21,10 @@ const UserProfileList = (props) => {
     return (
 
         <div className="container">
+                <Helmet>
+                    <title>Tabloid-User List</title>
+                    <meta name="description" content="Tabloid user list" />
+                </Helmet>
             <div className="row justify-content-left">
                 <div className="row justify-content-center">    
                     <h3>Users</h3>

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import {Helmet} from "react-helmet";
 import { TagContext } from "../../providers/TagProvider";
 import { Button } from "reactstrap";
 import Tag from "./Tag";
@@ -99,6 +100,10 @@ const TagList = () => {
 
   return (
     <>
+    <Helmet>
+        <title>Tabloid-Tag List</title>
+        <meta name="description" content="Tabloid list of tags" />
+    </Helmet>
       <div className="tag_Headline">
         <h2 className="tag_Spacer">Available tags</h2>
         <Button color="primary" className="new_Tag_Button" onClick={(() => openNew())}>

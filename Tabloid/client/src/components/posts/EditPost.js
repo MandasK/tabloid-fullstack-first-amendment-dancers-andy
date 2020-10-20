@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
+import {Helmet} from "react-helmet";
 import {
     Form,
     FormGroup,
@@ -129,6 +130,10 @@ const EditPost = () => {
     if (post.userProfileId === JSON.parse(sessionStorage.getItem("userProfile")).id) {
         return (
             <div className="container pt-4">
+                <Helmet>
+        <title>Tabloid-Edit {post.title}</title>
+                    <meta name="description" content="Tabloid Post Edit Page" />
+                </Helmet>
                 <div className="row justify-content-center">
                     <Card className="col-sm-12 col-lg-6">
                         <CardBody>

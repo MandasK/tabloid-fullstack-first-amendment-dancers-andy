@@ -36,7 +36,7 @@ namespace Tabloid.Controllers
                 int originalHeight = image.Height;
                 
 
-                int maxWidth = 500;
+                int maxWidth = 950;
                 if(originalWidth > maxWidth)
                 {
                     int newHeight = maxWidth * originalHeight;

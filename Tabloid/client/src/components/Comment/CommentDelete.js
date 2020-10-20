@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import {Helmet} from "react-helmet";
 import {useHistory, useParams, Link} from 'react-router-dom';
 import { CommentContext } from "../../providers/CommentProvider";
 import { Button, Card, CardBody } from "reactstrap";
@@ -38,6 +39,10 @@ const CommentDelete = () => {
 
     return (
         <div className="container">
+            <Helmet>
+                <title>Tabloid-Delete Comment -{comment.subject}</title>
+                <meta name="description" content="Tabloid login page" />
+            </Helmet>
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-lg-6">
                     <h3>Are you sure you want to delete this comment?</h3>
