@@ -87,10 +87,9 @@ export const PostProvider = (props) => {
             }).then((res) => res.json())
                 .then(setSubscribeePosts));
     };
-
-    const getSubscribeePosts = (query) => {
+    const getSubscribeePosts = (q, block) => {
         getToken().then((token) =>
-            fetch(`/api/post/subscribe?q=${query}`, {
+            fetch(`/api/post/subscribe?q=${q}&block=${block}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`

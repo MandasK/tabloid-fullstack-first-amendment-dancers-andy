@@ -29,6 +29,18 @@ export const SubscriptionProvider = (props) => {
                 .then(setSubscriptions));
     };
 
+    ///api/subscription/GetAllUserSubscriptions
+
+    const getUserSubscriptions = () => {
+        return getToken().then((token) =>
+            fetch(`/api/subscription/GetAllUserSubscriptions`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => res.json())
+        );
+    };
 
 
     const addSubscription = (subscription) =>
@@ -64,7 +76,7 @@ export const SubscriptionProvider = (props) => {
 
 
     return (
-        <SubscriptionContext.Provider value={{ subscriptions, addSubscription, getReleventSubscriptions, Unsubscribe }}>
+        <SubscriptionContext.Provider value={{ subscriptions, addSubscription, getReleventSubscriptions, Unsubscribe, getUserSubscriptions }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

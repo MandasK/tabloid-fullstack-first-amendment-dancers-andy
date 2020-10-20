@@ -15,13 +15,13 @@ import {
 import { PostContext } from "../../providers/PostProvider";
 import { useHistory } from "react-router-dom";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import {ImageContext} from "../../providers/ImageProvider";
+import { ImageContext } from "../../providers/ImageProvider";
 
 const PostForm = () => {
     const { addPost } = useContext(PostContext);
     const { categories, getAllCategories } = useContext(CategoryContext);
     const { uploadImage } = useContext(ImageContext);
-    const [userProfileId, setUserProfileId] = useState("");
+    //const [userProfileId, setUserProfileId] = useState("");
     const [imageLocation, setImageLocation] = useState("");
     const [createDateTime, setCreateDateTime] = useState("");
     const [categoryId, setCategoryId] = useState(0);
@@ -52,7 +52,7 @@ const PostForm = () => {
             title: title.current.value,
             content: content.current.value,
             categoryId,
-            userProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id
+            //userProfileId: JSON.parse(sessionStorage.getItem("userProfile")).id
         };
         post.categoryId = JSON.parse(post.categoryId)
         if (post.title === "") {
@@ -67,8 +67,7 @@ const PostForm = () => {
         // Image Upload
         const file = document.querySelector('input[type="file"]').files[0];
 
-        if(file !== undefined)
-        {
+        if (file !== undefined) {
             const fileType = file.name.split('.').pop();
 
             const availFileTypes = [
@@ -84,7 +83,7 @@ const PostForm = () => {
                 'JPG'
             ];
 
-            if(!availFileTypes.includes(fileType)) {
+            if (!availFileTypes.includes(fileType)) {
                 alert('Accepted Image File Types: .png, .bmp, .jpeg, .jpg, and .gif');
                 return;
             }
@@ -138,24 +137,24 @@ const PostForm = () => {
                                 <InputGroup className="mt-2">
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>OR</InputGroupText>
-                                    </InputGroupAddon>    
-                                
-                                            <Input
-                                                type="text"
-                                                name="imageUrl"
-                                                id="imageUrl"
-                                                innerRef={imageUrl}
-                                                placeholder="Input an Image URL"
-                                                onChange={previewImageUrl}
-                                                
-                                            />
-                                </InputGroup>            
+                                    </InputGroupAddon>
+
+                                    <Input
+                                        type="text"
+                                        name="imageUrl"
+                                        id="imageUrl"
+                                        innerRef={imageUrl}
+                                        placeholder="Input an Image URL"
+                                        onChange={previewImageUrl}
+
+                                    />
+                                </InputGroup>
                             </FormGroup>
                             <FormGroup>
                                 {
                                     imagePreview === null ?
-                                    <Alert color="light">No image provided.</Alert>
-                                    : <img src={imagePreview} alt="preview" className="img-thumbnail" />
+                                        <Alert color="light">No image provided.</Alert>
+                                        : <img src={imagePreview} alt="preview" className="img-thumbnail" />
                                 }
                             </FormGroup>
                             <FormGroup>
