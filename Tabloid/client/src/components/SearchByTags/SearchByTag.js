@@ -25,9 +25,10 @@ const SearchByTag = () => {
         setTagSearchResultPosts
     } = useContext(PostContext);
 
-    
+    let message = ``
 
     const tagButtonClick = (tagId) => {
+        message = ``
         setTagSearchId(tagId)
         let selectedTag = tags.find((tag) => tag.id === tagId )
         setTagName(selectedTag.name)
@@ -54,8 +55,17 @@ const SearchByTag = () => {
             getPostsByTagId(tagSearchId)
         }
     }, [tagSearchId])
-
-
+    
+    const resultMessage = () => {
+        
+        if (tagSearchResultPosts.length === 0) {
+            message = `No posts were found with the tag ${tagName}`
+        }
+        else {
+            message =`Here are the results for ${tagName}`
+        }
+        return message
+    }
     let index = 1
     return (
         <div className="homePage">
@@ -73,7 +83,7 @@ const SearchByTag = () => {
             </div>
             <div className="post_Side">
                 {tagName !== undefined &&
-                <h3 className="recommended_Banner">Here are the results for {tagName}</h3>}
+                <h3 className="recommended_Banner">{resultMessage()}</h3>}
                 <div className="homepage_Post_Container" >
                     { tagSearchResultPosts.map((post) =>                    
                         <PostCardForHomePage 
