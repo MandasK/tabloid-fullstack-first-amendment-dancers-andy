@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ImageContext } from '../../providers/ImageProvider';
 import Newspaper from '../Images/Newspaper.png'
 const PostCardForHomePage = (props) => {
     //Set the image into state so it can be updated if it returns broken
     const [image, setImage] = useState(props.post.imageLocation)
+    const {getImageUrl} = useContext(ImageContext)
     
+    useEffect(()=> {
+        if (props.post.imageLocation !== "" && props.post.imageLocation !== undefined && props.post.imageLocation !== null){
+          if (props.post.imageLocation[0].toLowerCase() !== "h" ){
+               setImage(getImageUrl(props.post.imageLocation))
+           }
+        }
+    }, [])
+
     //Give each 'Post card' a unique targetable div
     let classid = `post_Card_Homepage${props.index}`
     if (props.index>2){
@@ -13,6 +23,7 @@ const PostCardForHomePage = (props) => {
 
     //update image state to default image if the link comes back broken.
     const addDefaultSrc = () => {
+        
         setImage(Newspaper)
     }
 
