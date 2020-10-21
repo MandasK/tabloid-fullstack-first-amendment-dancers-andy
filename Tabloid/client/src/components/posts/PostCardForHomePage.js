@@ -8,7 +8,7 @@ const PostCardForHomePage = (props) => {
     const {getImageUrl} = useContext(ImageContext)
     
     useEffect(()=> {
-        if (props.post.imageLocation !== "" && props.post.imageLocation !== undefined){
+        if (props.post.imageLocation !== "" && props.post.imageLocation !== undefined && props.post.imageLocation !== null){
           if (props.post.imageLocation[0].toLowerCase() !== "h" ){
                setImage(getImageUrl(props.post.imageLocation))
            }
